@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Log in{% endblock title %}
+
+{% block navbar %}
+	<!--h4 class="pull-left">Logged out</h4-->
+	<a class="btn btn-info pull-right" href="{% url login %}">Log in</a>
+	<a class="btn btn-info pull-right MR10" href="{% url usercreate %}">Register</a>
+{% endblock navbar %}
+{% block body %}
+	<div class="row-fluid cont_brdr">
+		<div class="span12 TC">You are logged out!</div>
+	</div>
+{% endblock body%}

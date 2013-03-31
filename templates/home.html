@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block title %}{{ view_type }} App{% endblock title %}
+
+{% block navbar %}
+	<!--h4 class="pull-left">Home</h4-->
+{% endblock navbar %}
+{% block body %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="row-fluid cont_brdr">
+				{% if developer %}
+					<div class="span12">
+						<a href="useredit" class="btn btn-info pull-right MR10">Edit Profile</a>
+					</div>
+					<div class="span12 profile_view">
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">First name:</span>
+							</div>
+							<div class="span10">
+								{{ developer.user.first_name }}
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Last name:</span>
+							</div>
+							<div class="span10">
+								{{ developer.user.last_name }}
+							</div>
+						</div>
+						<!--div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Username:</span>
+							</div>
+							<div class="span10">
+								{{ developer.user.username }}
+							</div>
+						</div-->
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Email:</span>
+							</div>
+							<div class="span10">
+								{{ developer.user.email }}
+							</div>
+						</div>
+						{% if developer.organization %}
+							<div class="row-fluid">
+								<div class="span2">
+									<span class="pull-right">Organization:</span>
+								</div>
+								<div class="span10">
+									{{ developer.organization }}
+								</div>
+							</div>
+						{% endif %}
+						{% if developer.website %}
+							<div class="row-fluid">
+								<div class="span2">
+									<span class="pull-right">Website:</span>
+								</div>
+								<div class="span10">
+									{{ developer.website }}
+								</div>
+							</div>
+						{% endif %}
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Developer key:</span>
+							</div>
+							<div class="span10">
+								{{ developer.developer_key }}
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Secret key :</span>
+							</div>
+							<div class="span10">
+								<span id="secret_key" class="MR10">{{ developer.secret_key }}</span>
+								<a href="#" data-url="{% url secretkeygenerate %}" id="generate_secretkey" class="btn btn-mini tool_tip" data-trigger='hover' data-placement="right" data-toggle="tooltip" title="Regenerate your secret key."><i class="icon-retweet"></i></a>
+							</div>
+						</div>
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Secret key URL:</span>
+							</div>
+							<div class="span10">
+								{% if developer.hosturl %}
+									{{ developer.hosturl }}
+								{% else %}
+									<span class="help-block pull-left MR10">Please enter secret key url in the "Edit Profile" page.</span>
+									<span class="label label-important">Important</span>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				{% else %}
+					<div class="row-fluid">
+						<div class="span12 TC">User is not a developer.</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock body%}

@@ -1,0 +1,57 @@
+body{
+	padding: 10px 0;
+}
+ul{ list-style-type: none;}
+
+.MA15{ margin: 15px;}
+.MR10{ margin-right: 10px; }
+.MT10{ margin-top: 10px;}
+.TC{ text-align: center;}
+
+.cont_brdr{
+	border: 1px solid #eee;
+	padding: 10px 0;
+	border-radius: 5px;
+}
+#wrapper{
+	overflow: hidden;
+}
+
+/*Splash page*/
+.splash_view {
+	font-family: "Andika";
+	font-size: 36px;
+	color: white;
+	background-size: cover;
+	background-repeat: no-repeat;
+	margin-top: -19px;
+	padding: 180px;
+	text-align: center;
+	text-shadow: 1px 1px 1px black;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	padding: 0;
+	height: 100%;
+}
+.splash_view .splash{
+	background: #000 url('/static/images/splash/collage1.jpg') no-repeat center center;
+	background-size: 100%;
+	position: absolute;
+	width: 100%;
+	left: 0;
+	padding: 0;
+	height: 100%;
+}
+.splash_view h1{ margin-top: 100px; position: relative;}
+.splash_view .enter_btn{
+	position: absolute;
+	bottom: 30px;
+}
+
+.footer {
+	margin-top: 30px;
+	padding-top: 10px;
+	color: #999;
+	border-top: solid 1px #DDD;
+}
