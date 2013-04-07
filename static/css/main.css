@@ -1,5 +1,5 @@
 body{
-	padding: 10px 0;
+	overflow: hidden;
 }
 ul{ list-style-type: none;}
 
@@ -16,7 +16,10 @@ ul{ list-style-type: none;}
 #wrapper{
 	overflow: hidden;
 }
-
+#wrapper .view{
+	margin-top: 40px;
+	padding: 10px 0;
+}
 /*Splash page*/
 .splash_view {
 	font-family: "Andika";

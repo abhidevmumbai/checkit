@@ -27,6 +27,7 @@
                                     <li class="divider-vertical"></li>
                                     <li><a href="{% url logout %}">Log out</a></li>
                                 {% else %}
+                                    <li><a class="pull-right" href="{% url login %}">Login</a></li>
                                     <li><a class="pull-right" href="#">Register</a></li>
                                 {% endif %}
                             </ul>

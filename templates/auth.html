@@ -4,11 +4,10 @@
 
 {% block navbar %}
 	<!--h4 class="pull-left">Login</h4-->
-	<a class="btn btn-info pull-right" href="{% url usercreate %}">Register</a>
 {% endblock navbar %}
 {% block body %}
 	<div class="row-fluid">
-		<div class="login_view">
+		<div class="login_view view">
 			<form class="form-horizontal" method="post">
 				{% csrf_token %}
 

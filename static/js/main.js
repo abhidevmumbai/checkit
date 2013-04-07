@@ -22,7 +22,7 @@ $(document).ready(function(){
                 $.ajax({
                     url: url,
                     type: "POST",
-                    headers: {"X-CSRFToken": csrf_token},                            
+                    headers: {"X-CSRFToken": csrf_token},                          
                     success: function(response){
                         console.log('Entry deleted.');
                         //$('#delete_confirm').modal('hide');
@@ -36,13 +36,17 @@ $(document).ready(function(){
 });
 
 function switchWallpapers(){
-    var splash = $('.splash_view .splash');
-
+    var splash = $('.splash_view .splash'),
+        len = 4,
+        wall_no = 2;
     setInterval(function(){
-        var wall_no = Math.floor((Math.random()*4)+1);
         splash.animate({opacity: 0}, 'slow', function() {
-            $(this).css({'background-image': 'url(../static/images/splash/collage'+ wall_no +'.jpg)'}, 1000)
-                .animate({opacity: 1});
+            $(this).css({'background-image': 'url(../static/images/splash/collage'+ wall_no +'.jpg)'}).animate({opacity: 1});
+            if(wall_no < len){
+                wall_no++;
+            }else{
+                wall_no = 1;
+            }
         });
-    }, 10000);
+    }, 5000);
 }
