@@ -23,12 +23,12 @@
                             {% endblock navbar %}
                             <ul class="nav pull-right">
                                 {% if user.is_authenticated %}
-                                    <li><a href="{% url useredit %}">Logged in as {{ user.username }}</a></li>
+                                    <li><a href="#">Logged in as {{ user.username }}</a></li>
                                     <li class="divider-vertical"></li>
                                     <li><a href="{% url logout %}">Log out</a></li>
                                 {% else %}
                                     <li><a class="pull-right" href="{% url login %}">Login</a></li>
-                                    <li><a class="pull-right" href="#">Register</a></li>
+                                    <li><a class="pull-right" href="{% url usercreate %}">Register</a></li>
                                 {% endif %}
                             </ul>
                         </div>

@@ -72,3 +72,13 @@ class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
             logger.warn('No developer for given user.')
         context['user'] = user
         return context
+
+class UserCreate(MessageMixin, FormView):
+    template_name = "usercreate.html"
+    form_class = UsersForm
+    success_url = reverse_lazy('login')
+    
+    def form_valid(self, form):
+        form.save()
+        messages.add_message(self.request, messages.SUCCESS, 'You have registered successfully! Please login.')
+        return super(UserCreate, self).form_valid(form)
