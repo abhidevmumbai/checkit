@@ -23,8 +23,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import DetailView, View, TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
-from models import Users
-from forms import UsersForm
+from models import Gamers
+from forms import GamersForm
 
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
@@ -67,7 +67,7 @@ class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
         user = self.request.user
         developer = None
         try:
-            developer = Users.objects.get(user=user)
+            developer = Gamers.objects.get(user=user)
         except:
             logger.warn('No developer for given user.')
         context['user'] = user
@@ -75,7 +75,7 @@ class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
 
 class UserCreate(MessageMixin, FormView):
     template_name = "usercreate.html"
-    form_class = UsersForm
+    form_class = GamersForm
     success_url = reverse_lazy('login')
     
     def form_valid(self, form):
