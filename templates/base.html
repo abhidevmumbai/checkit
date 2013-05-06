@@ -34,9 +34,10 @@
                         </div>
                     </div>
                 </div>
-
-                <!--{% if messages %}
-                    <div class="messages">
+                {% block body %}
+                {% endblock body %}
+                {% if messages %}
+                    <div class="messages MT10">
                         {% for message in messages %}
                             <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -44,9 +45,7 @@
                             </div>
                         {% endfor %}
                     </div>
-                {% endif %}-->
-                {% block body %}
-                {% endblock body %}
+                {% endif %}
             </div>
             <!-- Modal -->
             <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

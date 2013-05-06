@@ -23,8 +23,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import DetailView, View, TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
-from models import Gamers
-from forms import GamersForm
+from models import Users
+from forms import UsersForm, UsersEditForm
 
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
@@ -46,7 +46,6 @@ class LoginView(MessageMixin, FormView):
     
     def form_valid(self, form):
         login(self.request, form.get_user())
-        #messages.add_message(self.request, messages.SUCCESS, 'You are now logged in successfully')
         return super(LoginView, self).form_valid(form)
     
     def get_success_url(self):
@@ -65,20 +64,40 @@ class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         user = self.request.user
-        developer = None
-        try:
-            developer = Gamers.objects.get(user=user)
-        except:
-            logger.warn('No developer for given user.')
         context['user'] = user
         return context
 
+    def get(self, request, *args, **kwargs):
+        return super(HomeView, self).get(request, *args, **kwargs)
+
 class UserCreate(MessageMixin, FormView):
     template_name = "usercreate.html"
-    form_class = GamersForm
+    form_class = UsersForm
     success_url = reverse_lazy('login')
     
     def form_valid(self, form):
         form.save()
         messages.add_message(self.request, messages.SUCCESS, 'You have registered successfully! Please login.')
         return super(UserCreate, self).form_valid(form)
+
+class UserEdit(LoginRequiredMixin, MessageMixin, FormView):
+    form_class = UsersEditForm
+    success_url = reverse_lazy('home')
+    template_name = "useredit.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserEdit, self).get_context_data(**kwargs)
+        context['user'] = self.user
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super(UserEdit, self).get_form_kwargs()
+        user = self.request.user
+        self.user = user
+        kwargs['user'] = user
+        return kwargs
+    
+    def form_valid(self, form):
+        form.save()
+        messages.add_message(self.request, messages.SUCCESS, 'Profile updated successfully.')
+        return super(UserEdit, self).form_valid(form)
