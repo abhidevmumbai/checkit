@@ -23,7 +23,6 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import DetailView, View, TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 
-from models import Users
 from forms import UsersForm, UsersEditForm
 
 from captcha.models import CaptchaStore
