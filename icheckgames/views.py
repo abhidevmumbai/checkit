@@ -17,6 +17,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 
+from models import Game
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
@@ -100,3 +101,31 @@ class UserEdit(LoginRequiredMixin, MessageMixin, FormView):
         form.save()
         messages.add_message(self.request, messages.SUCCESS, 'Profile updated successfully.')
         return super(UserEdit, self).form_valid(form)
+
+class GameListView(MessageMixin, ListView):
+    paginate_by = 20
+    model = Game
+    context_object_name = 'games'
+    template_name = "gamelist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(GameListView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        games = Game.objects.all().order_by('title')
+        return games
+
+class GameDetailView(MessageMixin, DetailView):
+    model = Game
+    context_object_name = 'game'
+    template_name = "gamedetails.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(GameDetailView, self).get_context_data(**kwargs)
+        return context
+
+    def render_to_response(self, context):
+        game = self.object
+        return super(GameDetailView, self).render_to_response(context)
+    

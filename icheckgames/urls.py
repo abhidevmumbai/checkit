@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^logout/$', views.LogoutView.as_view(), name="logout"),
     url(r'^usercreate/$', views.UserCreate.as_view(), name="usercreate"),
     url(r'^useredit/$', views.UserEdit.as_view(), name="useredit"),
+    url(r'^games/$', views.GameListView.as_view(), name="gamelist"),
 )

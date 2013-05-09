@@ -1,13 +1,15 @@
 body{
-	overflow: hidden;
+	/*font-family: 'Marko One', serif;*/
+	/*font-family: 'Faster One', cursive;*/
+	/*font-family: 'Love Ya Like A Sister', cursive;*/
+	font-family: 'Ubuntu', sans-serif;
 }
 ul{ list-style-type: none;}
 
 .MA15{ margin: 15px;}
-.MR10{ margin-right: 10px; }
-.MT10{ margin-top: 10px;}
+.MT10{ margin-top: 10px;} .MR10{ margin-right: 10px; } .MB10{ margin-bottom: 10px;} .ML10{ margin-left: 10px;}
 .TC{ text-align: center;}
-
+.FL{ float: left;} .FR{ float: right;}
 .cont_brdr{
 	border: 1px solid #eee;
 	padding: 10px 0;
@@ -19,6 +21,12 @@ ul{ list-style-type: none;}
 #wrapper .view{
 	margin-top: 50px;
 	padding: 10px 0;
+}
+#wrapper .view > .title{
+	color: #868d94;
+	font-family: 'Love Ya Like A Sister', cursive;
+	font-size: 24px;
+	padding: 0 0 10px;
 }
 /*Splash page*/
 .splash_view {
@@ -54,6 +62,39 @@ ul{ list-style-type: none;}
 	margin-left: -70px;
 }
 
+
+/*Game list*/
+.gamelist{
+	padding: 15px;
+}
+.gamelist .game{
+	border-bottom: 1px dashed #ccc;
+	padding: 10px 0; 
+}
+.gamelist .game .thumbnail{
+	margin-right: 10px;
+}
+.gamelist .game .title{
+	font-size: 16px;
+	margin: 10px 0 0; 
+}
+.gamelist .game .extra_info{
+	margin: 10px 0 0;
+	float: left;
+}
+.gamelist .game .extra_info li{
+	color: #848484;
+	font-size: 13px;
+}
+.gamelist .game .rating span{
+	color: #fff;
+	display: block;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 10px 5px;
+	margin: 5px;
+	background: rgba(247, 22, 22, 0.8);
+}
 .footer {
 	margin-top: 30px;
 	padding-top: 10px;

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Game List{% endblock title %}
+
+{% block navbar %}
+	<!--h4 class="pull-left">Login</h4-->
+{% endblock navbar %}
+{% block body %}
+	<div class="row cont_brdr view">
+		<div class="title span11">Browse all your favorite Games</div>
+		<div class="gamelist">
+			{% for game in games %}
+				<div class="game row-fluid">
+					<div class="FL">
+						<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% if game.thumbnail_url %}{{ game.thumbnail_url }}{% else %}../static/images/default_game_icon2.png{% endif %}" alt="{{ game.title }}">
+					</div>
+					<div class="details FL">
+						<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
+						<ul class="extra_info">
+							<li>Platforms: 
+								{% for platform in game.platforms.all %}
+									{{platform}}
+								{% endfor %}
+							</li>
+							<li>Developer: {{ game.developer }}</li>
+							<li>Publisher: {{ game.publisher }}</li>
+						</ul>
+					</div>
+					<div class="rating FR"><span>{{ game.rating }}</span></div>
+				</div>
+			{% empty %}
+				<div>Sorry, no Games in this list!</div>
+			{% endfor %}
+		</div>
+		{% if is_paginated %}
+	        <div class="pagination ML10">
+	            <ul>
+	                {% if page_obj.has_previous %}
+	                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}">previous</a></li>
+	                {% endif %}
+	                	<li>
+	                		<span class="page-current">
+			                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+			                </span>
+			            </li>
+	                {% if page_obj.has_next %}
+	                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}">next</a></li>
+	                {% endif %}
+	            </ul>
+	        </div>
+		{% endif %}
+	</div>
+{% endblock body%}
