@@ -5,10 +5,13 @@ import urllib
 import logging
 logger = logging.getLogger(__name__)
 
+import jsonconvert
+
 try: import simplejson as json
 except ImportError: import json
 
 from xml.dom import minidom
+from datetime import *
 
 class PlatformCrawler(object):
     def crawl(self):
@@ -77,9 +80,13 @@ class GameCrawler(object):
         except:
             pass
         
+        if not (game_id and platform_id and title):
+            return
+        
         release_date = None
         try:
-            release_date = str(game.getElementsByTagName('ReleaseDate')[0].childNodes[0].nodeValue)
+            release_date_str = str(game.getElementsByTagName('ReleaseDate')[0].childNodes[0].nodeValue)
+            release_date = datetime.strptime(release_date_str, '%m/%d/%Y').date()
         except:
             pass
         
@@ -133,22 +140,46 @@ class GameCrawler(object):
         except:
             pass
         
-        #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating
+        images = ""
+        try:
+            baseurl = game.getElementsByTagName('baseImgUrl')[0].childNodes[0].nodeValue
+            imagedom = game.getElementsByTagName('Images')[0]
+            images = '{"baseurl":"' + baseurl + '", "images":'  + self.getimagejson(imagedom) + '}'
+        except:
+            pass
         
-        if game_id and platform_id and title:
-            platformobj = Platform.objects.get(platform_id=platform_id)
-            gameobj, created = Game.objects.get_or_create(title=title, defaults={'game_id': game_id, 'overview': overview, 'esrb': esrb, 'players': players, 'co_op': co_op, 'publisher': publisher, 'developer': developer, 'rating': rating})
-            
-            if not created:
-                gameobj.game_id = game_id
-                gameobj.overview = overview
-                gameobj.esrb = esrb
-                gameobj.co_op = co_op
-                gameobj.players = players
-                gameobj.developer = developer
-                gameobj.publisher = publisher
-                gameobj.rating = rating
-                gameobj.save()
-            
-            gameobj.platforms.add(platformobj)
+        genres = []
+        try:
+            genredom = game.getElementsByTagName('Genres')[0].getElementsByTagName('genre')
+            for genre_element in genredom:
+                genreobj, created = Genre.objects.get_or_create(name=str(genre_element.childNodes[0].nodeValue))
+                genres.append(genreobj)
+        except:
+            pass
+        
+        #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating, images
+        
+        platformobj = Platform.objects.get(platform_id=platform_id)
+        gameobj, created = Game.objects.get_or_create(title=title, platform=platformobj, defaults={'game_id': game_id, 'overview': overview, 'esrb': esrb, 'youtube_link': youtube_link, 'release_date': release_date, 'players': players, 'co_op': co_op, 'publisher': publisher, 'developer': developer, 'rating': rating, 'images': images})
+        
+        if not created:
+            gameobj.game_id = game_id
+            gameobj.overview = overview
+            gameobj.release_date = release_date
+            gameobj.esrb = esrb
+            gameobj.co_op = co_op
+            gameobj.players = players
+            gameobj.youtube_link = youtube_link
+            gameobj.developer = developer
+            gameobj.publisher = publisher
+            gameobj.rating = rating
+            gameobj.images = images
             gameobj.save()
+        
+        for genre in genres:
+            gameobj.genres.add(genre)
+            gameobj.save()
+
+    def getimagejson(self, imagedom):
+        jsonstr = jsonconvert.getjson(imagedom)
+        return jsonstr
