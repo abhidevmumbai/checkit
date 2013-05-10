@@ -126,5 +126,10 @@ class GameDetailView(MessageMixin, DetailView):
         game = self.object
         json_obj = json.loads(game.images)
         images = json_obj['images']['children']
-        #print images
+        try:
+            context['boxart_b'] = images[0]['boxart']
+            context['boxart_f'] = images[1]['boxart']
+            context['clearlogo'] = images[2]['clearlogo']
+        except:
+            pass
         return context

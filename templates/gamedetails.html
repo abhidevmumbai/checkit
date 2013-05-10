@@ -12,7 +12,9 @@
 				<img src="" />
 			</div>
 			<div class="game_container">
+				<img class="MR15 thumb" src="http://thegamesdb.net/banners/{{ boxart_f.value }}" />
 				<h4 class="title">{{ game.title }}</h4>
+				<div class="clearfix"></div>
 				<ul class="extra_info">
 					<li><span class="term">Platforms: </span>
 						<span>{% for platform in game.platforms.all %}
@@ -28,18 +30,20 @@
 				</ul>
 				<div class="overview">
 					<div class="head">Overview</div>
-					<div>{{ game.overview }}</div>
+					<div>{%if game.overview %} {{ game.overview }} {% else %}This information is currently unavailable{% endif %}</div>
 				</div>
 				<div class="screenshots">
 					<div class="head">Screenshots</div>
 				</div>
-				<div class="videos">
-					<div class="head">Videos</div>
-					<video width="320" height="240" controls>
-					<source src="">
-					Your browser does not support the video tag.
-					</video>
-				</div>
+				{% if game.youtube_link %}
+					<div class="videos">
+						<div class="head">Videos</div>
+						<video width="320" height="240" controls>
+						<source src="{{ game.youtube_link }}">
+						Your browser does not support the video tag.
+						</video>
+					</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
