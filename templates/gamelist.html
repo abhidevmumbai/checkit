@@ -17,13 +17,17 @@
 					<div class="details FL">
 						<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
 						<ul class="extra_info">
-							<li>Platforms: 
-								{% for platform in game.platforms.all %}
-									{{platform}}
-								{% endfor %}
+							<li><span class="term">Platforms: </span>
+								<span>
+									{% for platform in game.platforms.all %}
+										{{platform}}
+									{% endfor %}
+								</span>
 							</li>
-							<li>Developer: {{ game.developer }}</li>
-							<li>Publisher: {{ game.publisher }}</li>
+							<li><span class="term">Developer: </span>
+								<span>{{ game.developer }}</span></li>
+							<li><span class="term">Publisher: </span>
+								<span>{{ game.publisher }}</span></li>
 						</ul>
 					</div>
 					<div class="rating FR"><span>{{ game.rating }}</span></div>

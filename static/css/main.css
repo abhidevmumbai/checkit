@@ -3,6 +3,7 @@ body{
 	/*font-family: 'Faster One', cursive;*/
 	/*font-family: 'Love Ya Like A Sister', cursive;*/
 	font-family: 'Ubuntu', sans-serif;
+	color: #444;
 }
 ul{ list-style-type: none;}
 
@@ -64,6 +65,20 @@ ul{ list-style-type: none;}
 
 
 /*Game list*/
+.extra_info{
+	margin: 10px 0 0;
+	float: left;
+}
+.extra_info li{
+	color: #555;
+	font-size: 14px;
+}
+.extra_info li .term{
+	color: #848484;
+	font-weight: bold;
+	font-size: 12px;
+}
+
 .gamelist{
 	padding: 15px;
 }
@@ -78,15 +93,10 @@ ul{ list-style-type: none;}
 	font-size: 16px;
 	margin: 10px 0 0; 
 }
-.gamelist .game .extra_info{
-	margin: 10px 0 0;
-	float: left;
-}
-.gamelist .game .extra_info li{
-	color: #848484;
-	font-size: 13px;
-}
 .gamelist .game .rating span{
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 	color: #fff;
 	display: block;
 	font-size: 24px;
@@ -94,6 +104,37 @@ ul{ list-style-type: none;}
 	padding: 10px 5px;
 	margin: 5px;
 	background: rgba(247, 22, 22, 0.8);
+}
+
+/*Game Details*/
+.game_container{ 
+	margin: 0 auto;
+	width: 600px;
+}
+.game_container .title{
+	color: #d3222a;
+	font-weight: bold;
+	font-family: 'Marko One', cursive;
+	font-size: 30px;
+}
+.game_container .head{
+	border-bottom: 2px rgba(204, 5, 5, 0.7) solid;
+	color: rgba(53, 44, 44, 0.8);
+	font-family: 'Faster One', cursive;
+	font-size: 20px;
+	margin: 15px 0;
+	text-indent: 10px;
+}
+.game_container .extra_info li{
+	width: 46%;
+	padding: 5px;
+	float: left;
+}
+.game_container .overview{
+	padding: 15px 10px;
+	font-size: 18px;
+	line-height: 28px;
+	overflow: hidden;
 }
 .footer {
 	margin-top: 30px;

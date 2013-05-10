@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^usercreate/$', views.UserCreate.as_view(), name="usercreate"),
     url(r'^useredit/$', views.UserEdit.as_view(), name="useredit"),
     url(r'^games/$', views.GameListView.as_view(), name="gamelist"),
+    url(r'^games/(?P<pk>\d+)/$', views.GameDetailView.as_view(), name="gamedetails"),
 )

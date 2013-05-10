@@ -123,9 +123,8 @@ class GameDetailView(MessageMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(GameDetailView, self).get_context_data(**kwargs)
-        return context
-
-    def render_to_response(self, context):
         game = self.object
-        return super(GameDetailView, self).render_to_response(context)
-    
+        json_obj = json.loads(game.images)
+        images = json_obj['images']['children']
+        #print images
+        return context
