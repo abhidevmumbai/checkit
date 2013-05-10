@@ -1,6 +1,15 @@
 from django.contrib import admin
-from models import Game, Genre, Platform
+from models import Platform, Game, Genre
 
-admin.site.register(Game)
+class PlatformAdmin(admin.ModelAdmin):
+	list_display = ('platform_id', 'name', 'alias')
+	search_fields = ('alias',)
+
+class GameAdmin(admin.ModelAdmin):
+	list_display = ('game_id', 'title', 'platform', 'release_date', 'developer', 'publisher')
+	search_fields = ('title',)
+
+
+admin.site.register(Platform, PlatformAdmin)
+admin.site.register(Game, GameAdmin)
 admin.site.register(Genre)
-admin.site.register(Platform)
