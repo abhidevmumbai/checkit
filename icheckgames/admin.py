@@ -8,6 +8,7 @@ class PlatformAdmin(admin.ModelAdmin):
 class GameAdmin(admin.ModelAdmin):
 	list_display = ('game_id', 'title', 'platform', 'release_date', 'developer', 'publisher')
 	search_fields = ('title',)
+	list_filter = ('genres', 'platform',)
 
 
 admin.site.register(Platform, PlatformAdmin)
