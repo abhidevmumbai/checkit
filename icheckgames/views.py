@@ -112,22 +112,37 @@ class GameListView(MessageMixin, ListView):
         genres = Genre.objects.all()
         platforms = Platform.objects.all()
         selected_genre = self.request.GET.get('genre')
+        selected_platform = self.request.GET.get('platform')
 
         context = super(GameListView, self).get_context_data(**kwargs)
         if selected_genre:
             context['selected_genre'] = int(selected_genre)
-        
+
+        if selected_platform:
+            context['selected_platform'] = int(selected_platform)
+
         context['genres'] = genres
         context['platforms'] = platforms
-
         return context
 
     def get_queryset(self):
         selected_genre = self.request.GET.get('genre')
-        #Filter results according to genre
-        if selected_genre and int(selected_genre) != 0:
+        selected_platform = self.request.GET.get('platform')
+
+        #Filter results according to genre and/or platform
+
+        if ((selected_genre and int(selected_genre) != 0) and (not selected_platform or int(selected_platform)==0)):
+            print 'Only genre id'
             games = Game.objects.filter(genres__id=selected_genre).order_by('title')
+        elif ((selected_platform and int(selected_platform) != 0) and (not selected_genre or int(selected_genre)==0)):
+            print 'Only platform id'
+            games = Game.objects.filter(platform_id=selected_platform).order_by('title')
+        elif ((selected_genre and int(selected_genre) != 0) and (selected_platform and int(selected_platform) != 0)):
+            print 'Both genre and platform id'
+            games = Game.objects.filter(genres__id=selected_genre)
+            games = games.filter(platform_id=selected_platform).order_by('title')
         else:
+            print 'No id'
             games = Game.objects.all().order_by('title')
         return games
 
