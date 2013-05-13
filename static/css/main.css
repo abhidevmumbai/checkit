@@ -18,11 +18,14 @@ ul{ list-style-type: none;}
 	border-radius: 5px;
 }
 #wrapper{
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 #wrapper .view{
 	margin-top: 50px;
 	padding: 10px 0;
+	box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 }
 #wrapper .view > .title{
 	color: #868d94;
@@ -63,8 +66,19 @@ ul{ list-style-type: none;}
 	left: 50%;
 	margin-left: -70px;
 }
-
-
+.action_bar{
+	background: rgba(11, 79, 85, 0.7);
+	overflow: hidden;
+	width: 100%;
+	color: #fff;
+	padding: 10px 0;
+	box-shadow:0 0 20px rgba(0,0,0,0.5)
+	-webkit-box-shadow:0 0 20px rgba(0,0,0,0.5)
+	-moz-box-shadow:0 0 20px rgba(0,0,0,0.5)
+}
+.action_bar select{
+	margin: 0 10px;
+}
 /*Game list*/
 .thumb{
 	width: 150px;
