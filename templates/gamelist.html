@@ -9,7 +9,33 @@
 	<div class="row cont_brdr view">
 		<div class="title span11">Browse all your favorite Games</div>
 		<div class="gamelist">
-			<a href="{% url gamelist %}?platform=all">All</a>
+			<div class="span12">
+				<form>
+					<div class="span4">
+						<label>Sort By Genre: 
+							<select name="genre">
+								<option value="0">Select</option>
+								{% for genre in genres %}
+									<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{ genre }}</option>
+								{% endfor %}
+							</select>
+						</label>
+					</div>
+					<!--div class="span4">
+						<label class="inline">Sort By Platform: 
+							<select>
+								<option value="0">Select</option>
+								{% for platform in platforms %}
+									<option value="{{ platform.id }}">{{ platform }}</option>
+								{% endfor %}
+							</select>
+						</label>
+					</div-->
+					<div class="span1">
+						<input type="submit" id="filter_games" class="btn" value="Filter" />
+					</div>
+				</form>
+			</div>
 			{% for game in games %}
 				<div class="game row-fluid">
 					<div class="FL">
@@ -21,6 +47,13 @@
 							<li><span class="term">Platforms: </span>
 								<span>{{ game.platform }}</span>
 							</li>
+							<li><span class="term">Genre: </span>
+							<span>
+								{% for genre in game.genres.all %}
+									{{ genre }}{% if not forloop.last %}, {% endif %}
+								{% endfor %}
+							</span>
+						</li>
 							<li><span class="term">Developer: </span>
 								<span>{{ game.developer }}</span></li>
 							<li><span class="term">Publisher: </span>

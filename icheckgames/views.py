@@ -17,7 +17,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 
-from models import Game
+from models import Game, Genre, Platform
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
@@ -109,11 +109,26 @@ class GameListView(MessageMixin, ListView):
     template_name = "gamelist.html"
 
     def get_context_data(self, **kwargs):
+        genres = Genre.objects.all()
+        platforms = Platform.objects.all()
+        selected_genre = self.request.GET.get('genre')
+
         context = super(GameListView, self).get_context_data(**kwargs)
+        if selected_genre:
+            context['selected_genre'] = int(selected_genre)
+        
+        context['genres'] = genres
+        context['platforms'] = platforms
+
         return context
 
     def get_queryset(self):
-        games = Game.objects.all().order_by('title')
+        selected_genre = self.request.GET.get('genre')
+        #Filter results according to genre
+        if selected_genre and int(selected_genre) != 0:
+            games = Game.objects.filter(genres__id=selected_genre).order_by('title')
+        else:
+            games = Game.objects.all().order_by('title')
         return games
 
 class GameDetailView(MessageMixin, DetailView):
