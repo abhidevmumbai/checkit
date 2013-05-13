@@ -9,6 +9,7 @@
 	<div class="row cont_brdr view">
 		<div class="title span11">Browse all your favorite Games</div>
 		<div class="gamelist">
+			<a href="{% url gamelist %}?platform=all">All</a>
 			{% for game in games %}
 				<div class="game row-fluid">
 					<div class="FL">
@@ -18,11 +19,7 @@
 						<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
 						<ul class="extra_info">
 							<li><span class="term">Platforms: </span>
-								<span>
-									{% for platform in game.platforms.all %}
-										{{platform}}
-									{% endfor %}
-								</span>
+								<span>{{ game.platform }}</span>
 							</li>
 							<li><span class="term">Developer: </span>
 								<span>{{ game.developer }}</span></li>

@@ -15,19 +15,19 @@
 				<img class="MR15 thumb" src="http://thegamesdb.net/banners/{{ boxart_f.value }}" />
 				<h4 class="title">{{ game.title }}</h4>
 				<div class="clearfix"></div>
-				<ul class="extra_info">
-					<li><span class="term">Platforms: </span>
-						<span>{% for platform in game.platforms.all %}
-							{{platform}}
-						{% endfor %}</span>
-					</li>
-					<li><span class="term">Developer: </span><span>{{ game.developer }}</span></li>
-					<li><span class="term">Publisher: </span><span>{{ game.publisher }}</span></li>
-					<li><span class="term">Release Date: </span><span>{{ game.release_date }}</span></li>
-					<li><span class="term">ESRB: </span><span>{{ game.esrb }}</span></li>
-					<li><span class="term">Players: </span><span>{{ game.players }}</span></li>
-					<li><span class="term">Co-op: </span><span>{% if game.co_op %}Yes{% else %}No{% endif %}</span></li>
-				</ul>
+				<div class="clearfix">
+					<ul class="extra_info">
+						<li><span class="term">Platforms: </span>
+							<span>{{ game.platform }}</span>
+						</li>
+						<li><span class="term">Developer: </span><span>{{ game.developer }}</span></li>
+						<li><span class="term">Publisher: </span><span>{{ game.publisher }}</span></li>
+						<li><span class="term">Release Date: </span><span>{{ game.release_date }}</span></li>
+						<li><span class="term">ESRB: </span><span>{{ game.esrb }}</span></li>
+						<li><span class="term">Players: </span><span>{{ game.players }}</span></li>
+						<li><span class="term">Co-op: </span><span>{% if game.co_op %}Yes{% else %}No{% endif %}</span></li>
+					</ul>
+				</div>
 				<div class="overview">
 					<div class="head">Overview</div>
 					<div>{%if game.overview %} {{ game.overview }} {% else %}This information is currently unavailable{% endif %}</div>
