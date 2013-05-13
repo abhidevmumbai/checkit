@@ -1,5 +1,8 @@
 # Django settings for checkit project.
 import os
+import djcelery
+
+djcelery.setup_loader()
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -134,6 +137,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'django.shortcuts',
     'south',
+    'djcelery',
     'icheckgames',
     'captcha',
 )
@@ -181,3 +185,23 @@ LOGGING = {
         },
     }
 }
+
+# Celery
+BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_DEFAULT_RATE_LIMIT = '60/m'
+CELERYD_PREFETCH_MULTIPLIER = 1
+CELERY_IMPORTS = ("icheckgames.crawler", )
+
+CELERY_QUEUES = {
+    "default": {
+        "exchange": "default",
+        "binding_key": "default"
+    },
+    "game": {
+        "exchange": "game",
+        "binding_keys": "game",
+    },
+}
+
+CELERY_DEFAULT_QUEUE = "default"
+CELERY_ENABLE_UTC = False

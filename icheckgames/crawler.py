@@ -1,4 +1,5 @@
 from models import Platform, Game, Genre
+from celery import task
 import httplib2
 import urllib
 
@@ -14,6 +15,7 @@ from xml.dom import minidom
 from datetime import *
 
 class PlatformCrawler(object):
+    @task(ignore_result=True, name="platformList")
     def crawl(self):
         try:
             response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatformsList.php", "GET")
@@ -41,17 +43,25 @@ class PlatformCrawler(object):
                 platformobj.platform_id = platform_id
                 platformobj.alias = alias
                 platformobj.save()
+            
+        gamecrawler = GameCrawler(platform_id)
+        gamecrawler.crawl.apply_async([gamecrawler])
 
 class GameCrawler(object):
-    def crawl(self, platform_id):
+    def __init__(self, platform_id):
+        self.platform_id = platform_id
+    
+    @task(ignore_result=True, name="gameList")    
+    def crawl(self):
         try:
-            response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatformGames.php?platform="+str(platform_id), "GET")
+            response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatformGames.php?platform="+str(self.platform_id), "GET")
             dom = minidom.parseString(content)
             for game in dom.getElementsByTagName('Game'):
-                self.processGame(game)
+                self.processGame.apply_async([self, game], queue="game")
         except:
-            logger.warn("Error getting platforms list.")
+            logger.warn("Error getting games list.")
     
+    @task(ignore_result=True, name="gameDetails")
     def processGame(self, game):
         try:
             game_id = int(game.getElementsByTagName('id')[0].childNodes[0].nodeValue)
@@ -144,7 +154,7 @@ class GameCrawler(object):
         try:
             baseurl = game.getElementsByTagName('baseImgUrl')[0].childNodes[0].nodeValue
             imagedom = game.getElementsByTagName('Images')[0]
-            images = '{"baseurl":"' + baseurl + '", "images":'  + self.getimagejson(imagedom) + '}'
+            images = '{"baseurl":"' + baseurl + '", "images":'  + jsonconvert.getjson(imagedom) + '}'
         except:
             pass
         
@@ -160,6 +170,8 @@ class GameCrawler(object):
         #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating, images
         
         platformobj = Platform.objects.get(platform_id=platform_id)
+        logger.warn("Processing game %s on %s platform"%(title, platformobj.name))
+        
         gameobj, created = Game.objects.get_or_create(title=title, platform=platformobj, defaults={'game_id': game_id, 'overview': overview, 'esrb': esrb, 'youtube_link': youtube_link, 'release_date': release_date, 'players': players, 'co_op': co_op, 'publisher': publisher, 'developer': developer, 'rating': rating, 'images': images})
         
         if not created:
@@ -179,7 +191,3 @@ class GameCrawler(object):
         for genre in genres:
             gameobj.genres.add(genre)
             gameobj.save()
-
-    def getimagejson(self, imagedom):
-        jsonstr = jsonconvert.getjson(imagedom)
-        return jsonstr
