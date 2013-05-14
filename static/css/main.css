@@ -51,7 +51,7 @@ ul{ list-style-type: none;}
 	height: 100%;
 }
 .splash_view .splash{
-	background: #000 url('/static/images/splash/collage1.jpg') no-repeat center center;
+	background: #000 url('/static/img/splash/collage1.jpg') no-repeat center center;
 	background-size: 100%;
 	position: absolute;
 	width: 100%;
@@ -125,7 +125,13 @@ ul{ list-style-type: none;}
 	margin: 5px;
 	background: rgba(247, 22, 22, 0.8);
 }
-
+.gamelist .game input[type="checkbox"]{
+	-ms-transform: scale(2.5); /* IE */
+	-moz-transform: scale(2.5); /* FF */
+	-webkit-transform: scale(2.5); /* Safari and Chrome */
+	-o-transform: scale(2.5); /* Opera */
+	margin: 20px 15px;
+}
 /*Game Details*/
 .game_container{ 
 	margin: 0 auto;

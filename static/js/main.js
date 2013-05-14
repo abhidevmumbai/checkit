@@ -41,7 +41,7 @@ function switchWallpapers(){
         wall_no = 2;
     setInterval(function(){
         splash.animate({opacity: 0}, 'slow', function() {
-            $(this).css({'background-image': 'url(../static/images/splash/collage'+ wall_no +'.jpg)'}).animate({opacity: 1});
+            $(this).css({'background-image': 'url(../static/img/splash/collage'+ wall_no +'.jpg)'}).animate({opacity: 1});
             if(wall_no < len){
                 wall_no++;
             }else{
