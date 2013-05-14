@@ -57,14 +57,15 @@ class GameCrawler(object):
             response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatformGames.php?platform="+str(self.platform_id), "GET")
             dom = minidom.parseString(content)
             for game in dom.getElementsByTagName('Game'):
-                self.processGame.apply_async([self, game], queue="game")
+                self.processGame.apply_async([self, game.toxml()], queue="game")
         except:
             logger.warn("Error getting games list.")
     
     @task(ignore_result=True, name="gameDetails")
     def processGame(self, game):
+        gamedom = minidom.parseString(game)
         try:
-            game_id = int(game.getElementsByTagName('id')[0].childNodes[0].nodeValue)
+            game_id = int(gamedom.getElementsByTagName('id')[0].childNodes[0].nodeValue)
             response, content = httplib2.Http().request("http://thegamesdb.net/api/GetGame.php?id="+str(game_id), "GET")
             dom = minidom.parseString(content)
             self.processGameDetails(dom)
