@@ -21,8 +21,8 @@
                     <div class="navbar-inner">
                         <div class="container">
                             <ul class="nav">
-                                <li class=""><a href="{% url home %}">Home</a></li>
-                                <li class=""><a href="{% url gamelist %}">Games</a></li>
+                                <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
+                                <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
                             </ul>
                             {% block navbar %}
                             {% endblock navbar %}
@@ -32,8 +32,8 @@
                                     <li class="divider-vertical"></li>
                                     <li><a href="{% url logout %}">Log out</a></li>
                                 {% else %}
-                                    <li><a class="pull-right" href="{% url login %}">Login</a></li>
-                                    <li><a class="pull-right" href="{% url usercreate %}">Register</a></li>
+                                    <li><a class="pull-right {% navactive request 'login' %}" href="{% url login %}">Login</a></li>
+                                    <li><a class="pull-right {% navactive request 'usercreate' %}" href="{% url usercreate %}">Register</a></li>
                                 {% endif %}
                             </ul>
                         </div>

@@ -1,3 +1,20 @@
+/*Colors:
+pink: #ff8598
+blue: #89d4fd
+green: #c7fe8a
+yellow: #fff18b*/
+@font-face{
+	font-family: BirthOfHero;
+	src: url('/static/fonts/BIRTH_OF_A_HERO.ttf');
+}
+@font-face{
+	font-family: VAL;
+	src: url('/static/fonts/VAL.otf');
+}
+@font-face{
+	font-family: RipeSemibold;
+	src: url('/static/fonts/ripesemibold.otf');
+}
 body{
 	/*font-family: 'Marko One', serif;*/
 	/*font-family: 'Faster One', cursive;*/
@@ -32,6 +49,15 @@ ul{ list-style-type: none;}
 	font-family: 'Love Ya Like A Sister', cursive;
 	font-size: 24px;
 	padding: 0 0 10px;
+}
+
+.navbar-inverse .brand, .navbar-inverse .nav > li > a{
+	color: rgb(155, 250, 51);
+	font-size: 22px;
+	font-family: 'BirthOfHero';
+}
+.navbar-inverse .brand, .navbar-inverse .nav > li > a.active{
+	color: #fff;
 }
 /*Splash page*/
 .splash_view {
