@@ -151,11 +151,93 @@ class GameCrawler(object):
         except:
             pass
         
-        images = ""
+        baseurl = ""
         try:
             baseurl = game.getElementsByTagName('baseImgUrl')[0].childNodes[0].nodeValue
-            imagedom = game.getElementsByTagName('Images')[0]
-            images = '{"baseurl":"' + baseurl + '", "images":'  + jsonconvert.getjson(imagedom) + '}'
+            #imagedom = game.getElementsByTagName('Images')[0]
+            #images = '{"baseurl":"' + baseurl + '", "images":'  + jsonconvert.getjson(imagedom) + '}'
+        except:
+            pass
+        
+        ''' For Fan Arts '''
+        fanarts_json = ""
+        try:
+            o_fanarts = []
+            t_fanarts = []
+            fanartdom = game.getElementsByTagName('fanart')
+            for element in fanartdom:
+                img_orig = baseurl + element.getElementsByTagName('original')[0].childNodes[0].nodeValue
+                img_thumb = baseurl + element.getElementsByTagName('thumb')[0].childNodes[0].nodeValue
+                o_fanarts.append(img_orig)
+                t_fanarts.append(img_thumb)
+                
+            o_fanarts_str = '[' + ','.join(['"'+str(item)+'"' for item in o_fanarts]) + ']'
+            t_fanarts_str = '[' + ','.join(['"'+str(item)+'"' for item in t_fanarts]) + ']'
+            
+            fanarts_json = '{"original": ' + o_fanarts_str + ', "thumbnail": ' + t_fanarts_str + '}'
+        except:
+            pass
+        
+        ''' For Screen Shots '''
+        screenshots_json = ""
+        try:
+            o_screenshots = []
+            t_screenshots = []
+            screenshotdom = game.getElementsByTagName('screenshot')
+            for element in screenshotdom:
+                img_orig = baseurl + element.getElementsByTagName('original')[0].childNodes[0].nodeValue
+                img_thumb = baseurl + element.getElementsByTagName('thumb')[0].childNodes[0].nodeValue
+                o_screenshots.append(img_orig)
+                t_screenshots.append(img_thumb)
+                
+            o_screenshots_str = '[' + ','.join(['"'+str(item)+'"' for item in o_screenshots]) + ']'
+            t_screenshots_str = '[' + ','.join(['"'+str(item)+'"' for item in t_screenshots]) + ']'
+            
+            screenshots_json = '{"original": ' + o_screenshots_str + ', "thumbnail": ' + t_screenshots_str + '}'
+        except:
+            pass
+        
+        ''' For Box Arts '''
+        boxarts_json = ""
+        try:
+            o_boxarts = []
+            t_boxarts = []
+            type_boxarts = []
+            boxartdom = game.getElementsByTagName('boxart')
+            for element in boxartdom:
+                img_orig = baseurl + element.childNodes[0].nodeValue
+                img_thumb = baseurl + element.getAttribute('thumb')
+                img_type = element.getAttribute('side')
+                o_boxarts.append(img_orig)
+                t_boxarts.append(img_thumb)
+                type_boxarts.append(img_type)
+                
+            o_boxarts_str = '[' + ','.join(['"'+str(item)+'"' for item in o_boxarts]) + ']'
+            t_boxarts_str = '[' + ','.join(['"'+str(item)+'"' for item in t_boxarts]) + ']'
+            type_boxarts_str = '[' + ','.join(['"'+str(item)+'"' for item in type_boxarts]) + ']'
+            
+            boxarts_json = '{"original": ' + o_boxarts_str + ', "thumbnail": ' + t_boxarts_str + ', "type": ' + type_boxarts_str + '}'
+        except:
+            pass
+        
+        ''' For Banners '''
+        banners_json = ""
+        try:
+            o_banners = []
+            bannerdom = game.getElementsByTagName('banner')
+            for element in bannerdom:
+                img_orig = baseurl + element.childNodes[0].nodeValue
+                o_banners.append(img_orig)
+                
+            o_banners_str = '[' + ','.join(['"'+str(item)+'"' for item in o_banners]) + ']'
+            banners_json = '{"original": ' + o_banners_str + '}'
+        except:
+            pass
+        
+        ''' For ClearLogo '''
+        clearlogo = ""
+        try:
+            clearlogo = baseurl + game.getElementsByTagName('clearlogo')[0].childNodes[0].nodeValue
         except:
             pass
         
@@ -168,12 +250,12 @@ class GameCrawler(object):
         except:
             pass
         
-        #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating, images
+        #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating, fanarts_json, boxarts_json, screenshots_json, banners_json, clearlogo
         
         platformobj = Platform.objects.get(platform_id=platform_id)
         logger.warn("Processing game %s on %s platform"%(title, platformobj.name))
         
-        gameobj, created = Game.objects.get_or_create(title=title, platform=platformobj, defaults={'game_id': game_id, 'overview': overview, 'esrb': esrb, 'youtube_link': youtube_link, 'release_date': release_date, 'players': players, 'co_op': co_op, 'publisher': publisher, 'developer': developer, 'rating': rating, 'images': images})
+        gameobj, created = Game.objects.get_or_create(title=title, platform=platformobj, defaults={'game_id': game_id, 'overview': overview, 'esrb': esrb, 'youtube_link': youtube_link, 'release_date': release_date, 'players': players, 'co_op': co_op, 'publisher': publisher, 'developer': developer, 'rating': rating, 'fanarts': fanarts_json, 'screenshots': screenshots_json, 'boxarts': boxarts_json, 'banners': banners_json, 'clearlogo': clearlogo})
         
         if not created:
             gameobj.game_id = game_id
@@ -186,7 +268,11 @@ class GameCrawler(object):
             gameobj.developer = developer
             gameobj.publisher = publisher
             gameobj.rating = rating
-            gameobj.images = images
+            gameobj.fanarts = fanarts_json
+            gameobj.screenshots = screenshots_json
+            gameobj.boxarts = boxarts_json
+            gameobj.banners = banners_json
+            gameobj.clearlogo = clearlogo
             gameobj.save()
         
         for genre in genres:

@@ -30,7 +30,12 @@ class Game(models.Model):
 	developer = models.CharField(max_length=255, blank=True)
 	rating = models.FloatField(default=0)
 	youtube_link = models.URLField(blank=True)
-	images = models.TextField(blank=True)
+	#images = models.TextField(blank=True)
+	boxarts = models.TextField(blank=True)
+	fanarts = models.TextField(blank=True)
+	banners = models.TextField(blank=True)
+	screenshots = models.TextField(blank=True)
+	clearlogo = models.TextField(blank=True)
 	
 	def __unicode__(self):
 		return u'%s'%self.title
