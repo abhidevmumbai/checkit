@@ -31,8 +31,8 @@ class PlatformCrawler(object):
         alias = ""
         try:
             platform_id = int(platform.getElementsByTagName('id')[0].childNodes[0].nodeValue)
-            name = str(platform.getElementsByTagName('name')[0].childNodes[0].nodeValue)
-            alias = str(platform.getElementsByTagName('alias')[0].childNodes[0].nodeValue)
+            name = unicode(platform.getElementsByTagName('name')[0].childNodes[0].nodeValue)
+            alias = unicode(platform.getElementsByTagName('alias')[0].childNodes[0].nodeValue)
         except:
             logger.warn("Some error parsing platform.")
         
@@ -81,7 +81,7 @@ class GameCrawler(object):
         
         title = None
         try:
-            title = str(game.getElementsByTagName('GameTitle')[0].childNodes[0].nodeValue)
+            title = unicode(game.getElementsByTagName('GameTitle')[0].childNodes[0].nodeValue)
         except:
             pass
         
@@ -96,38 +96,38 @@ class GameCrawler(object):
         
         release_date = None
         try:
-            release_date_str = str(game.getElementsByTagName('ReleaseDate')[0].childNodes[0].nodeValue)
+            release_date_str = unicode(game.getElementsByTagName('ReleaseDate')[0].childNodes[0].nodeValue)
             release_date = datetime.strptime(release_date_str, '%m/%d/%Y').date()
         except:
             pass
         
         overview = ""
         try:
-            overview = str(game.getElementsByTagName('Overview')[0].childNodes[0].nodeValue)
+            overview = unicode(game.getElementsByTagName('Overview')[0].childNodes[0].nodeValue)
         except:
             pass
         
         youtube_link = ""
         try:
-            youtube_link = str(game.getElementsByTagName('Youtube')[0].childNodes[0].nodeValue)
+            youtube_link = unicode(game.getElementsByTagName('Youtube')[0].childNodes[0].nodeValue)
         except:
             pass
         
         publisher = ""
         try:
-            publisher = str(game.getElementsByTagName('Publisher')[0].childNodes[0].nodeValue)
+            publisher = unicode(game.getElementsByTagName('Publisher')[0].childNodes[0].nodeValue)
         except:
             pass
         
         developer = ""
         try:
-            developer = str(game.getElementsByTagName('Developer')[0].childNodes[0].nodeValue)
+            developer = unicode(game.getElementsByTagName('Developer')[0].childNodes[0].nodeValue)
         except:
             pass
         
         esrb = ""
         try:
-            esrb = str(game.getElementsByTagName('ESRB')[0].childNodes[0].nodeValue)
+            esrb = unicode(game.getElementsByTagName('ESRB')[0].childNodes[0].nodeValue)
         except:
             pass
             
@@ -139,7 +139,7 @@ class GameCrawler(object):
         
         co_op = False
         try:
-            str_co_op = str(game.getElementsByTagName('Co-op')[0].childNodes[0].nodeValue)
+            str_co_op = unicode(game.getElementsByTagName('Co-op')[0].childNodes[0].nodeValue)
             if str_co_op == "Yes":
                 co_op = True
         except:
@@ -154,8 +154,6 @@ class GameCrawler(object):
         baseurl = ""
         try:
             baseurl = game.getElementsByTagName('baseImgUrl')[0].childNodes[0].nodeValue
-            #imagedom = game.getElementsByTagName('Images')[0]
-            #images = '{"baseurl":"' + baseurl + '", "images":'  + jsonconvert.getjson(imagedom) + '}'
         except:
             pass
         
@@ -171,8 +169,8 @@ class GameCrawler(object):
                 o_fanarts.append(img_orig)
                 t_fanarts.append(img_thumb)
                 
-            o_fanarts_str = '[' + ','.join(['"'+str(item)+'"' for item in o_fanarts]) + ']'
-            t_fanarts_str = '[' + ','.join(['"'+str(item)+'"' for item in t_fanarts]) + ']'
+            o_fanarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in o_fanarts]) + ']'
+            t_fanarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in t_fanarts]) + ']'
             
             fanarts_json = '{"original": ' + o_fanarts_str + ', "thumbnail": ' + t_fanarts_str + '}'
         except:
@@ -190,8 +188,8 @@ class GameCrawler(object):
                 o_screenshots.append(img_orig)
                 t_screenshots.append(img_thumb)
                 
-            o_screenshots_str = '[' + ','.join(['"'+str(item)+'"' for item in o_screenshots]) + ']'
-            t_screenshots_str = '[' + ','.join(['"'+str(item)+'"' for item in t_screenshots]) + ']'
+            o_screenshots_str = '[' + ','.join(['"'+unicode(item)+'"' for item in o_screenshots]) + ']'
+            t_screenshots_str = '[' + ','.join(['"'+unicode(item)+'"' for item in t_screenshots]) + ']'
             
             screenshots_json = '{"original": ' + o_screenshots_str + ', "thumbnail": ' + t_screenshots_str + '}'
         except:
@@ -212,9 +210,9 @@ class GameCrawler(object):
                 t_boxarts.append(img_thumb)
                 type_boxarts.append(img_type)
                 
-            o_boxarts_str = '[' + ','.join(['"'+str(item)+'"' for item in o_boxarts]) + ']'
-            t_boxarts_str = '[' + ','.join(['"'+str(item)+'"' for item in t_boxarts]) + ']'
-            type_boxarts_str = '[' + ','.join(['"'+str(item)+'"' for item in type_boxarts]) + ']'
+            o_boxarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in o_boxarts]) + ']'
+            t_boxarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in t_boxarts]) + ']'
+            type_boxarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in type_boxarts]) + ']'
             
             boxarts_json = '{"original": ' + o_boxarts_str + ', "thumbnail": ' + t_boxarts_str + ', "type": ' + type_boxarts_str + '}'
         except:
@@ -243,7 +241,7 @@ class GameCrawler(object):
         except:
             pass
         
-        #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating, fanarts_json, boxarts_json, screenshots_json, banners_json, clearlogo
+        #print game_id, title, platform_id, release_date, overview, youtube_link, publisher, developer, esrb, players, co_op, rating, fanarts_json, boxarts_json, screenshots_json, banner, clearlogo
         
         platformobj = Platform.objects.get(platform_id=platform_id)
         logger.warn("Processing game %s on %s platform"%(title, platformobj.name))
