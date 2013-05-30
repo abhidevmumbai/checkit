@@ -6,7 +6,8 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid cont_brdr view">
+	<div class="container">
+		<div class="row-fluid cont_brdr view">
 			<div class="span12">
 				<form class="form-horizontal" method="post">
 					{% csrf_token %}
@@ -59,4 +60,5 @@
 				</form>
 			</div>
 		</div>
+	</div>
 {% endblock body%}

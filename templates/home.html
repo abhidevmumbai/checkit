@@ -6,35 +6,37 @@
 	<!--h4 class="pull-left">Home</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid">
-		<div class="span12">
-			<div class="row-fluid cont_brdr view">
-				<div class="span12">
-					<a href="{% url useredit %}" class="btn btn-info pull-right MR10">Edit Profile</a>
-				</div>
-				<div class="span12 profile_view">
-					<div class="row-fluid">
-						<div class="span2">
-							<span class="pull-right">First name:</span>
-						</div>
-						<div class="span10">
-							{{ user.first_name }}
-						</div>
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="row-fluid cont_brdr view">
+					<div class="span12">
+						<a href="{% url useredit %}" class="btn btn-info pull-right MR10">Edit Profile</a>
 					</div>
-					<div class="row-fluid">
-						<div class="span2">
-							<span class="pull-right">Last name:</span>
+					<div class="span12 profile_view">
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">First name:</span>
+							</div>
+							<div class="span10">
+								{{ user.first_name }}
+							</div>
 						</div>
-						<div class="span10">
-							{{ user.last_name }}
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Last name:</span>
+							</div>
+							<div class="span10">
+								{{ user.last_name }}
+							</div>
 						</div>
-					</div>
-					<div class="row-fluid">
-						<div class="span2">
-							<span class="pull-right">Email:</span>
-						</div>
-						<div class="span10">
-							{{ user.email }}
+						<div class="row-fluid">
+							<div class="span2">
+								<span class="pull-right">Email:</span>
+							</div>
+							<div class="span10">
+								{{ user.email }}
+							</div>
 						</div>
 					</div>
 				</div>

@@ -6,35 +6,37 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid">
-		<div class="login_view view">
-			<form class="form-horizontal" method="post">
-				{% csrf_token %}
+	<div class="container">
+		<div class="row-fluid">
+			<div class="login_view view">
+				<form class="form-horizontal" method="post">
+					{% csrf_token %}
 
-				<div class="control-group">
-					<label class="control-label" for="username">Email</label>
-					<div class="controls">
-						<input type="text" id="username" name="username" placeholder="Email" required />
+					<div class="control-group">
+						<label class="control-label" for="username">Email</label>
+						<div class="controls">
+							<input type="text" id="username" name="username" placeholder="Email" required />
+						</div>
 					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="password">Password</label>
-					<div class="controls">
-					<input type="password" id="password" name="password" placeholder="Password" required />
+					<div class="control-group">
+						<label class="control-label" for="password">Password</label>
+						<div class="controls">
+						<input type="password" id="password" name="password" placeholder="Password" required />
+						</div>
 					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-					<label></label>
-					<button type="submit" class="btn btn-primary">Login</button>
+					<div class="control-group">
+						<div class="controls">
+						<label></label>
+						<button type="submit" class="btn btn-primary">Login</button>
+						</div>
 					</div>
-				</div>
-				{% if form.non_field_errors %}
-					<div class="alert alert-error">
-						{{ form.non_field_errors }}
-					</div>
-				{% endif %}
-			</form>
+					{% if form.non_field_errors %}
+						<div class="alert alert-error">
+							{{ form.non_field_errors }}
+						</div>
+					{% endif %}
+				</form>
+			</div>
 		</div>
 	</div>
 {% endblock body%}
