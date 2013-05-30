@@ -32,8 +32,8 @@ class Game(models.Model):
 	youtube_link = models.URLField(blank=True)
 	boxarts = models.TextField(blank=True)
 	fanarts = models.TextField(blank=True)
-	banners = models.TextField(blank=True)
 	screenshots = models.TextField(blank=True)
+	banner = models.TextField(blank=True)
 	clearlogo = models.TextField(blank=True)
 	
 	def __unicode__(self):
