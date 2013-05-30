@@ -205,9 +205,12 @@ class GameDetailView(MessageMixin, DetailView):
         context = super(GameDetailView, self).get_context_data(**kwargs)
         game = self.object
         screenshots = json.loads(game.screenshots)
-        youtube_vcode = game.youtube_link.split('=')[1]
+        fanarts = json.loads(game.fanarts)
         try:
             context['screenshots'] = screenshots
+            context['fanarts'] = fanarts
+            
+            youtube_vcode = game.youtube_link.split('=')[1]
             context['youtube_vcode'] = youtube_vcode
         except:
             pass

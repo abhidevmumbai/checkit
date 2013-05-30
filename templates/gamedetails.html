@@ -8,16 +8,16 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid view">
+	<div class="row-fluid game_details_view">
 		<div class="span12">
-			<div class="fan_art">
-				<img src="" />
+			<div class="banner">
+				<img src="{{ game.banner }}" />
 			</div>
 			<div class="game_container">
 				<img class="MR15 thumb" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" />
 				<h4 class="title">{{ game.title }}</h4>
-				<div class="clearfix"></div>
-				<div>
+				
+				<div class="clearfix">
 					<ul class="extra_info">
 						<li><span class="term">Platforms: </span>
 							<span>{{ game.platform }}</span>
@@ -41,8 +41,14 @@
 					<div class="head">Overview</div>
 					<div>{%if game.overview %} {{ game.overview }} {% else %}This information is currently unavailable{% endif %}</div>
 				</div>
+				{% if youtube_vcode %}
+					<div class="videos">
+						<div class="head">Videos</div>
+						<iframe width="560" height="315" src="http://www.youtube.com/embed/{{ youtube_vcode }}" frameborder="0" allowfullscreen></iframe>
+					</div>
+				{% endif %}
 				{% if screenshots.thumbnail %}
-					<div class="desc_row screenshots">
+					<div class="desc_row screens">
 						<div class="head">Screenshots</div>
 						<div class="thumbs">
 							{% for thumb in screenshots.thumbnail %}
@@ -50,11 +56,16 @@
 							{% endfor %}
 						</div>
 					</div>
-				{% endif %}
-				{% if youtube_vcode %}
-					<div class="videos">
-						<div class="head">Videos</div>
-						<iframe width="560" height="315" src="http://www.youtube.com/embed/{{ youtube_vcode }}" frameborder="0" allowfullscreen></iframe>
+				{% endif %}				
+
+				{% if fanarts.thumbnail %}
+					<div class="desc_row screens">
+						<div class="head">Fan art</div>
+						<div class="thumbs">
+							{% for thumb in fanarts.thumbnail %}
+								<img class="MR15 thumb" src="{{ thumb }}" />
+							{% endfor %}
+						</div>
 					</div>
 				{% endif %}
 			</div>

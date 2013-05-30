@@ -161,9 +161,19 @@ ul{ list-style-type: none;}
 	margin: 20px 15px;
 }
 /*Game Details*/
+.game_details_view{
+	padding: 40px 0 0 0;
+}
+.game_details_view .banner{
+	margin: 0 0 35px 0;
+}
+.game_details_view .banner img{
+	width: 100%;
+	height: auto;
+}
 .game_container{ 
-	margin: 0 auto;
-	width: 800px;
+	margin: 0 50px;
+	width: 60%;
 }
 .game_container .title{
 	color: #d3222a;
@@ -191,9 +201,11 @@ ul{ list-style-type: none;}
 	line-height: 28px;
 	overflow: hidden;
 }
-.game_container .screenshots .thumbs img{
-	width: 300px;
+.game_container .screens .thumbs img{
+	border: 4px solid #aaa;
 	height: 168px;
+	margin: 5px;
+	width: 298px;
 }
 .footer {
 	margin-top: 30px;
