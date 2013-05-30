@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load parseImagejson %}
+
 {% block title %}Game Details{% endblock title %}
 
 {% block navbar %}
@@ -12,10 +14,10 @@
 				<img src="" />
 			</div>
 			<div class="game_container">
-				<img class="MR15 thumb" src="http://thegamesdb.net/banners/{{ boxart_f.value }}" />
+				<img class="MR15 thumb" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" />
 				<h4 class="title">{{ game.title }}</h4>
 				<div class="clearfix"></div>
-				<div class="clearfix">
+				<div>
 					<ul class="extra_info">
 						<li><span class="term">Platforms: </span>
 							<span>{{ game.platform }}</span>
@@ -35,20 +37,24 @@
 						<li><span class="term">Co-op: </span><span>{% if game.co_op %}Yes{% else %}No{% endif %}</span></li>
 					</ul>
 				</div>
-				<div class="overview">
+				<div class="desc_row">
 					<div class="head">Overview</div>
 					<div>{%if game.overview %} {{ game.overview }} {% else %}This information is currently unavailable{% endif %}</div>
 				</div>
-				<div class="screenshots">
-					<div class="head">Screenshots</div>
-				</div>
-				{% if game.youtube_link %}
+				{% if screenshots.thumbnail %}
+					<div class="desc_row screenshots">
+						<div class="head">Screenshots</div>
+						<div class="thumbs">
+							{% for thumb in screenshots.thumbnail %}
+								<img class="MR15 thumb" src="{{ thumb }}" />
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+				{% if youtube_vcode %}
 					<div class="videos">
 						<div class="head">Videos</div>
-						<video width="320" height="240" controls>
-						<source src="{{ game.youtube_link }}">
-						Your browser does not support the video tag.
-						</video>
+						<iframe width="560" height="315" src="http://www.youtube.com/embed/{{ youtube_vcode }}" frameborder="0" allowfullscreen></iframe>
 					</div>
 				{% endif %}
 			</div>

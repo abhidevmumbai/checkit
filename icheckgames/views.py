@@ -142,7 +142,7 @@ class GameListView(MessageMixin, ListView):
             games = Game.objects.filter(genres__id=selected_genre)
             games = games.filter(platform_id=selected_platform).order_by('title')
         else:
-            print 'No id'
+            print 'Get all games'
             games = Game.objects.all().order_by('title')
         return games
 
@@ -154,12 +154,11 @@ class GameDetailView(MessageMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super(GameDetailView, self).get_context_data(**kwargs)
         game = self.object
-        json_obj = json.loads(game.images)
-        images = json_obj['images']['children']
+        screenshots = json.loads(game.screenshots)
+        youtube_vcode = game.youtube_link.split('=')[1]
         try:
-            context['boxart_b'] = images[0]['boxart']
-            context['boxart_f'] = images[1]['boxart']
-            context['clearlogo'] = images[2]['clearlogo']
+            context['screenshots'] = screenshots
+            context['youtube_vcode'] = youtube_vcode
         except:
             pass
         return context

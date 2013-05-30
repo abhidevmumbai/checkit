@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load parseImagejson %}
+
 {% block title %}Game List{% endblock title %}
 
 {% block navbar %}
@@ -39,9 +41,10 @@
 		</div>
 		<div class="gamelist">
 			{% for game in games %}
+
 				<div class="game row-fluid">
 					<div class="FL">
-						<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% if game.thumbnail_url %}{{ game.thumbnail_url }}{% else %}../static/img/default_game_icon2.png{% endif %}" alt="{{ game.title }}">
+						<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" alt="{{ game.title }}">
 					</div>
 					<div class="details FL">
 						<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>

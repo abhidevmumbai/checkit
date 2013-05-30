@@ -134,6 +134,8 @@ ul{ list-style-type: none;}
 }
 .gamelist .game .thumbnail{
 	margin-right: 10px;
+	width: 120px;
+	height: 160px;
 }
 .gamelist .game .title{
 	font-size: 16px;
@@ -161,7 +163,7 @@ ul{ list-style-type: none;}
 /*Game Details*/
 .game_container{ 
 	margin: 0 auto;
-	width: 600px;
+	width: 800px;
 }
 .game_container .title{
 	color: #d3222a;
@@ -183,11 +185,15 @@ ul{ list-style-type: none;}
 	padding: 5px;
 	float: left;
 }
-.game_container .overview{
+.game_container .desc_row{
 	padding: 15px 10px;
 	font-size: 18px;
 	line-height: 28px;
 	overflow: hidden;
+}
+.game_container .screenshots .thumbs img{
+	width: 300px;
+	height: 168px;
 }
 .footer {
 	margin-top: 30px;
