@@ -2,6 +2,8 @@
 import logging
 logger = logging.getLogger(__name__)
 
+import re
+
 try: import simplejson as json
 except ImportError: import json
 
@@ -28,6 +30,8 @@ from forms import UsersForm, UsersEditForm
 
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
+
+from gamesearch.models import GameKeyword
 
 class LoginRequiredMixin(object):
     @method_decorator(login_required(login_url=reverse_lazy('login')))
@@ -128,7 +132,52 @@ class GameListView(MessageMixin, ListView):
     def get_queryset(self):
         selected_genre = self.request.GET.get('genre')
         selected_platform = self.request.GET.get('platform')
-
+        search_string = self.request.GET.get('search')
+        
+        try:
+            genreobj = Genre.objects.get(id=selected_genre)
+        except:
+            genreobj = None
+        
+        try:
+            platformobj = Platform.objects.get(id=selected_platform)
+        except:
+            platformobj = None
+        
+        if not search_string:
+            if genreobj and platformobj:
+                games = genreobj.game_set.filter(platform=platformobj)
+            elif genreobj:
+                games = genreobj.game_set.all()
+            elif platformobj:
+                games = platformobj.game_set.all()
+            else:
+                games = Game.objects.all()
+        else:    
+            games = []
+            words_list = re.compile('[\w]+').findall(search_string)
+            words = [element.lower() for element in words_list]
+            for word in words:
+                try:
+                    keywordobj = GameKeyword.objects.get(word=word)
+                    
+                    if genreobj and platformobj:
+                        selected_games = keywordobj.games.filter(platform=platformobj).filter(genres__id=selected_genre)
+                    elif genreobj:
+                        selected_games = keywordobj.games.filter(genres__id=selected_genre)
+                    elif platformobj:
+                        selected_games = keywordobj.games.filter(platform=platformobj)
+                    else:
+                        selected_games = keywordobj.games.all()
+                        
+                    if games:
+                        games = list(set(games) & set(selected_games))
+                    else:
+                        games = selected_games
+                except:
+                    pass
+        
+        '''
         #Filter results according to genre and/or platform
 
         if ((selected_genre and int(selected_genre) != 0) and (not selected_platform or int(selected_platform)==0)):
@@ -144,6 +193,7 @@ class GameListView(MessageMixin, ListView):
         else:
             print 'Get all games'
             games = Game.objects.all().order_by('title')
+        '''
         return games
 
 class GameDetailView(MessageMixin, DetailView):

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Platform(models.Model):
-	name = models.CharField(max_length=255, unique=True)
+	name = models.CharField(max_length=255, unique=True, db_index=True)
 	platform_id = models.IntegerField()
 	alias = models.CharField(max_length=255, blank=True)
 	
@@ -11,13 +11,13 @@ class Platform(models.Model):
 		return u'%s'%self.name
 
 class Genre(models.Model):
-	name = models.CharField(max_length=255, unique=True)
+	name = models.CharField(max_length=255, unique=True, db_index=True)
 	
 	def __unicode__(self):
 		return u'%s'%self.name
 	
 class Game(models.Model):
-	title = models.CharField(max_length=255)
+	title = models.CharField(max_length=255, db_index=True)
 	game_id = models.IntegerField()
 	platform = models.ForeignKey(Platform)
 	release_date = models.DateField(null=True, blank=True)
@@ -30,7 +30,6 @@ class Game(models.Model):
 	developer = models.CharField(max_length=255, blank=True)
 	rating = models.FloatField(default=0)
 	youtube_link = models.URLField(blank=True)
-	#images = models.TextField(blank=True)
 	boxarts = models.TextField(blank=True)
 	fanarts = models.TextField(blank=True)
 	banners = models.TextField(blank=True)

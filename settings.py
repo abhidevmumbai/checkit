@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'south',
     'djcelery',
     'icheckgames',
+    'gamesearch',
     'captcha',
 )
 
@@ -183,6 +184,10 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'DEBUG',
         },
+        'gamesearch': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
     }
 }
 
@@ -190,7 +195,7 @@ LOGGING = {
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_DEFAULT_RATE_LIMIT = '60/m'
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_IMPORTS = ("icheckgames.crawler", )
+CELERY_IMPORTS = ("icheckgames.crawler", "gamesearch.indexbuilder", )
 
 CELERY_QUEUES = {
     "default": {
@@ -201,6 +206,10 @@ CELERY_QUEUES = {
         "exchange": "game",
         "binding_keys": "game",
     },
+    "word": {
+        "exchange": "word",
+        "binding_keys": "word",
+    }
 }
 
 CELERY_DEFAULT_QUEUE = "default"
