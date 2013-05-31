@@ -178,19 +178,26 @@ class GameListView(MessageMixin, ListView):
                     
                     if selected_title_games:
                         if title_games:
-                            title_games = list(set(title_games) & set(selected_title_games))
+                            set_selected_title_games = set(selected_title_games)
+                            common_title_games = [x for x in title_games if x in set_selected_title_games]
+                            set_common_title_games = set(common_title_games)
+                            other_uncommon_in_title_games = [x for x in title_games if x not in set_common_title_games]
+                            other_uncommon_in_selected_title_games = [x for x in selected_title_games if x not in set_common_title_games]
+                            title_games = common_title_games
+                            title_games.extend(other_uncommon_in_title_games)
+                            title_games.extend(other_uncommon_in_selected_title_games)
                         else:
                             title_games = selected_title_games
                             
                     if selected_other_games:
                         if other_games:
-                            other_games = list(set(other_games) & set(selected_other_games))
+                            other_games = list(set(other_games) & set(selected_other_games)) + list(set(other_games) ^ set(selected_other_games))
                         else:
                             other_games = selected_other_games
                 except:
                     pass
             
-            games = list(title_games) + list(other_games)
+            games = title_games# + list(other_games)
         
         '''
         #Filter results according to genre and/or platform
