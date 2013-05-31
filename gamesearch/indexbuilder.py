@@ -21,18 +21,26 @@ class IndexBuilder(object):
     @task(ignore_result=True, name="processWords")
     def processForWords(self, game):
         logger.warn("Processing game %s for indexing"%(game.title))
-        keywords_list = self.getWords(game)
+        title_keywords_list, other_keywords_list = self.getWords(game)
         
-        for word in keywords_list:
+        for word in title_keywords_list:
             try:
                 keywordobj, created = GameKeyword.objects.get_or_create(word=word)
-                keywordobj.games.add(game)
+                keywordobj.title_games.add(game)
             except:
-                logger.warn("Error in creating a keyword entry.")
+                logger.warn("Error in creating a keyword entry for title words.")
+        
+        for word in other_keywords_list:
+            try:
+                keywordobj, created = GameKeyword.objects.get_or_create(word=word)
+                keywordobj.other_games.add(game)
+            except:
+                logger.warn("Error in creating a keyword entry for other words.")
+        
         
     def getWords(self, game):
-        words_list = re.compile('[\w]+').findall(game.title)
-        words = [element.lower() for element in words_list]
+        title_words_list = re.compile('[\w]+').findall(game.title)
+        title_words = [element.lower() for element in title_words_list]
         overview_words_list = re.compile('[\w]+').findall(game.overview)
         overview_words = [element.lower() for element in overview_words_list]
-        return list(set(words) | set(overview_words))
+        return title_words, list(set(overview_words).difference(set(title_words)))

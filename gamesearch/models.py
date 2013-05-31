@@ -4,7 +4,7 @@ from icheckgames.models import Game
 # Create your models here.
 class GameKeyword(models.Model):
 	word = models.CharField(max_length=255, unique=True, db_index=True)
-	games = models.ManyToManyField(Game)
-	
+	title_games = models.ManyToManyField(Game, related_name='title_list')
+	other_games = models.ManyToManyField(Game, related_name='other_list')
 	def __unicode__(self):
 		return u'%s'%self.word

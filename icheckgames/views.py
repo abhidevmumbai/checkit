@@ -153,8 +153,10 @@ class GameListView(MessageMixin, ListView):
                 games = platformobj.game_set.all()
             else:
                 games = Game.objects.all()
-        else:    
+        else:
             games = []
+            title_games = []
+            other_games = []
             words_list = re.compile('[\w]+').findall(search_string)
             words = [element.lower() for element in words_list]
             for word in words:
@@ -162,20 +164,33 @@ class GameListView(MessageMixin, ListView):
                     keywordobj = GameKeyword.objects.get(word=word)
                     
                     if genreobj and platformobj:
-                        selected_games = keywordobj.games.filter(platform=platformobj).filter(genres__id=selected_genre)
+                        selected_title_games = keywordobj.title_games.filter(platform=platformobj).filter(genres__id=selected_genre)
+                        selected_other_games = keywordobj.other_games.filter(platform=platformobj).filter(genres__id=selected_genre)
                     elif genreobj:
-                        selected_games = keywordobj.games.filter(genres__id=selected_genre)
+                        selected_title_games = keywordobj.title_games.filter(genres__id=selected_genre)
+                        selected_other_games = keywordobj.other_games.filter(genres__id=selected_genre)
                     elif platformobj:
-                        selected_games = keywordobj.games.filter(platform=platformobj)
+                        selected_title_games = keywordobj.title_games.filter(platform=platformobj)
+                        selected_other_games = keywordobj.other_games.filter(platform=platformobj)
                     else:
-                        selected_games = keywordobj.games.all()
-                        
-                    if games:
-                        games = list(set(games) & set(selected_games))
-                    else:
-                        games = selected_games
+                        selected_title_games = keywordobj.title_games.all()
+                        selected_other_games = keywordobj.other_games.all()
+                    
+                    if selected_title_games:
+                        if title_games:
+                            title_games = list(set(title_games) & set(selected_title_games))
+                        else:
+                            title_games = selected_title_games
+                            
+                    if selected_other_games:
+                        if other_games:
+                            other_games = list(set(other_games) & set(selected_other_games))
+                        else:
+                            other_games = selected_other_games
                 except:
                     pass
+            
+            games = list(title_games) + list(other_games)
         
         '''
         #Filter results according to genre and/or platform
