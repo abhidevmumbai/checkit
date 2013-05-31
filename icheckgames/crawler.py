@@ -14,11 +14,14 @@ except ImportError: import json
 from xml.dom import minidom
 from datetime import *
 
+from django.utils.encoding import smart_str
+
 class PlatformCrawler(object):
     @task(ignore_result=True, name="platformList")
     def crawl(self):
         try:
             response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatformsList.php", "GET")
+            content = smart_str(content)
             dom = minidom.parseString(content)
             for platform in dom.getElementsByTagName('Platform'):
                 self.processPlatform(platform)
@@ -55,6 +58,7 @@ class GameCrawler(object):
     def crawl(self):
         try:
             response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatformGames.php?platform="+str(self.platform_id), "GET")
+            content = smart_str(content)
             dom = minidom.parseString(content)
             for game in dom.getElementsByTagName('Game'):
                 self.processGame.apply_async([self, game.toxml()], queue="game")
@@ -63,6 +67,7 @@ class GameCrawler(object):
     
     @task(ignore_result=True, name="gameDetails")
     def processGame(self, game):
+        game = smart_str(game)
         gamedom = minidom.parseString(game)
         try:
             game_id = int(gamedom.getElementsByTagName('id')[0].childNodes[0].nodeValue)
