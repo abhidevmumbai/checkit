@@ -117,7 +117,8 @@ class GameListView(MessageMixin, ListView):
         platforms = Platform.objects.all()
         selected_genre = self.request.GET.get('genre')
         selected_platform = self.request.GET.get('platform')
-
+        search_string = self.request.GET.get('search')
+        
         context = super(GameListView, self).get_context_data(**kwargs)
         if selected_genre:
             context['selected_genre'] = int(selected_genre)
@@ -127,6 +128,7 @@ class GameListView(MessageMixin, ListView):
 
         context['genres'] = genres
         context['platforms'] = platforms
+        context['search_string'] = search_string
         return context
 
     def get_queryset(self):

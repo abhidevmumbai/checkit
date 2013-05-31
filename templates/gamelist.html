@@ -15,7 +15,7 @@
 				<form>
 					<div class="span3">
 						<div class="">
-							<input type="text" name="search" class="input-medium search-query"/> 
+							<input type="text" name="search" class="input-medium search-query" value="{{ search_string }}"/> 
 							<input type="submit" class="btn" value="Search" />
 						</div>
 					</div>
@@ -94,7 +94,7 @@
 		        <div class="pagination ML10">
 		            <ul>
 		                {% if page_obj.has_previous %}
-		                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+		                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
 		                {% endif %}
 		                	<li>
 		                		<span class="page-current">
@@ -102,7 +102,7 @@
 				                </span>
 				            </li>
 		                {% if page_obj.has_next %}
-		                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+		                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
 		                {% endif %}
 		            </ul>
 		        </div>
