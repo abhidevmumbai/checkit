@@ -110,8 +110,8 @@ ul{ list-style-type: none;}
 	height: 200px;
 	float: left;
 	box-shadow: -5px 5px 10px;
-	-webkit-box-shadow: -5px 5px 10px;
-	-moz-box-shadow: -5px 5px 10px;
+	-webkit-box-shadow: -5px 5px 10px rgba(0,0,0,0.7);
+	-moz-box-shadow: -5px 5px 10px rgba(0,0,0,0.7);
 }
 .extra_info{
 	margin: 10px 0 0;
@@ -212,7 +212,7 @@ ul{ list-style-type: none;}
 	overflow: hidden;
 	text-align: justify;
 }
-.game_container .screens .thumbs img{
+.game_container .screens .thumbs .thumb{
 	border: 4px solid #aaa;
 	height: 168px;
 	margin: 5px;
