@@ -19,7 +19,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 
-from models import Game, Genre, Platform
+from models import Game, Genre, Platform, GameMap
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
@@ -33,6 +33,11 @@ from captcha.helpers import captcha_image_url
 
 from gamesearch.models import GameKeyword
 
+class CSRFExemptMixin(object):
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super(CSRFExemptMixin, self).dispatch(request, *args, **kwargs)
+    
 class LoginRequiredMixin(object):
     @method_decorator(login_required(login_url=reverse_lazy('login')))
     def dispatch(self, request, *args, **kwargs):
@@ -209,24 +214,6 @@ class GameListView(MessageMixin, ListView):
                     pass
             
             games = list(title_games) + list(other_games)
-        
-        '''
-        #Filter results according to genre and/or platform
-
-        if ((selected_genre and int(selected_genre) != 0) and (not selected_platform or int(selected_platform)==0)):
-            print 'Only genre id'
-            games = Game.objects.filter(genres__id=selected_genre).order_by('title')
-        elif ((selected_platform and int(selected_platform) != 0) and (not selected_genre or int(selected_genre)==0)):
-            print 'Only platform id'
-            games = Game.objects.filter(platform_id=selected_platform).order_by('title')
-        elif ((selected_genre and int(selected_genre) != 0) and (selected_platform and int(selected_platform) != 0)):
-            print 'Both genre and platform id'
-            games = Game.objects.filter(genres__id=selected_genre)
-            games = games.filter(platform_id=selected_platform).order_by('title')
-        else:
-            print 'Get all games'
-            games = Game.objects.all().order_by('title')
-        '''
         return games
 
 class GameDetailView(MessageMixin, DetailView):
@@ -248,3 +235,48 @@ class GameDetailView(MessageMixin, DetailView):
         except:
             pass
         return context
+
+class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
+    def post(self, request, *args, **kwargs):
+        success = False
+        message = "Insufficient details for processing."
+        
+        user = request.user
+        game_id = request.POST.get("game_id")
+        game_task = request.POST.get("game_task")
+        
+        if not (game_id and game_task):
+            content = json.dumps({"success": success, "message": message})
+            return HttpResponse(content, content_type='application/json')
+        
+        game_id = int(game_id)
+        game_task = int(game_task)
+        if game_task == 1:
+            #Add mapping
+            try:
+                game = Game.objects.get(id=game_id)
+                gamemap, created = GameMap.objects.get_or_create(user=user, game=game)
+                if created:
+                    message = "Game added to your list."
+                else:
+                    message = "Game already in your list."
+                success = True
+            except:
+                message = "Error creating game in list."
+        elif game_task == 2:
+            #Delete mapping
+            try:
+                game = Game.objects.get(id=game_id)
+                gamemap = GameMap.objects.get(user=user,game=game)
+                gamemap.delete()
+                message = "Game removed from your list."
+                success = True
+            except:
+                message = "Error while deleting game in list."
+        else:
+            message = "Invalid task."
+        content = json.dumps({"success": success, "message": message})
+        return HttpResponse(content, content_type='application/json')
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("No data available.")

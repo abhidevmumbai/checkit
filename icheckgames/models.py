@@ -41,3 +41,16 @@ class Game(models.Model):
 	
 	class Meta:
 		unique_together = (("title", "platform"),)
+
+class GameMap(models.Model):
+	user = models.ForeignKey(User)
+	game = models.ForeignKey(Game)
+	favorite = models.BooleanField(default=False)
+	played = models.BooleanField(default=False)
+	wish = models.BooleanField(default=False)
+	
+	def __unicode__(self):
+		return u'%s'%self.game
+	
+	class Meta:
+		unique_together = (("user", "game"),)

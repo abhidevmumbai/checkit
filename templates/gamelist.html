@@ -117,12 +117,19 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.gamelist').on('click', '.check_game', function(){
-				var is_checked = $(this).is(':checked'),
-					game_id = $(this).parent().data('gameid');
-
+				var is_checked = $(this).is(':checked');
+				var game_id = $(this).parent().data('gameid');
+				
+				if(is_checked)
+				{
+					game_task = 1;
+				} else {
+					game_task = 2;
+				}
 				$.ajax({
-					url: "",
+					url: "{% url managelist %}",
 					type: "POST",
+					data: {"game_id": game_id, "game_task": game_task},
 					success: function(data){
 						console.log(data);
 					}
