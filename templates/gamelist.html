@@ -15,7 +15,7 @@
 				<form>
 					<div class="span3">
 						<div class="">
-							<input type="text" name="search" class="input-medium search-query" value="{{ search_string }}"/> 
+							<input type="text" name="search" class="input-medium search-query" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
 							<input type="submit" class="btn" value="Search" />
 						</div>
 					</div>
@@ -80,6 +80,7 @@
 										<a class="btn btn-small" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
 										<a class="btn btn-small" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
 										<a class="btn btn-small" href="#" title="Mark as Played"><i class="icon-play"></i></a>
+										<a class="btn btn-small" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
 									</div>
 								</div>
 							</div>
@@ -119,6 +120,13 @@
 				var is_checked = $(this).is(':checked'),
 					game_id = $(this).parent().data('gameid');
 
+				$.ajax({
+					url: "",
+					type: "POST",
+					success: function(data){
+						console.log(data);
+					}
+				});
 			});
 		});
 	</script>
