@@ -24,7 +24,10 @@ body{
 ul{ list-style-type: none;}
 
 .MA15{ margin: 15px;}
-.MT10{ margin-top: 10px;} .MR10{ margin-right: 10px; } .MB10{ margin-bottom: 10px;} .ML10{ margin-left: 10px;}
+.MT10{ margin-top: 10px;} .MT50{ margin-top: 50px !important;}
+.MR10{ margin-right: 10px; }
+.MB10{ margin-bottom: 10px;}
+.ML10{ margin-left: 10px;}
 .MR15{ margin-right: 15px;}
 .TC{ text-align: center;}
 .FL{ float: left;} .FR{ float: right;}
@@ -43,17 +46,21 @@ ul{ list-style-type: none;}
 	-webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 }
-#wrapper .view > .title{
-	color: #868d94;
+#wrapper .view > .title, #wrapper .plain_view > .title{
+	color: #fff18b;
 	font-family: 'Love Ya Like A Sister', cursive;
 	font-size: 24px;
-	padding: 0 0 10px;
+	padding: 10px;
 }
 
 .navbar-inverse .brand, .navbar-inverse .nav > li > a{
 	color: rgb(155, 250, 51);
-	font-size: 22px;
+	font-size: 20px;
 	font-family: 'BirthOfHero';
+	letter-spacing: 1px;
+}
+.navbar-inverse .nav > li.username > a{
+	color: #89d4fd;
 }
 .navbar-inverse .brand, .navbar-inverse .nav > li > a.active{
 	color: #fff;
@@ -92,14 +99,17 @@ ul{ list-style-type: none;}
 	margin-left: -70px;
 }
 .action_bar{
-	background: rgba(11, 79, 85, 0.7);
+	background: rgb(100, 100, 100);
 	overflow: hidden;
 	width: 100%;
-	/*color: #fff;*/
-	padding: 10px 0;
-	box-shadow:0 0 20px rgba(0,0,0,0.5)
-	-webkit-box-shadow:0 0 20px rgba(0,0,0,0.5)
-	-moz-box-shadow:0 0 20px rgba(0,0,0,0.5)
+	z-index: 99;
+	position: fixed;
+	padding: 8px 0 5px 0;
+}
+.action_bar .add-on{
+	background: #000;
+	color: #fff;
+	text-shadow:none;
 }
 /*.action_bar select{
 	margin: 0 10px;
@@ -131,11 +141,11 @@ ul{ list-style-type: none;}
 	padding: 15px;
 }
 .gamelist .game{
-	border-bottom: 2px solid #ddd;
-	/*background: #ddd;
-	box-shadow: 0 5px 10px rgba(0,0,0,0.7);*/
-	margin: 10px 0;
+	margin: 20px 0;
 	padding: 10px 0;
+	box-shadow: 2px 2px 10px;
+	-webkit-box-shadow: 2px 2px 10px;
+	box-shadow: 2px 2px 10px;
 }
 .gamelist .game .thumbnail{
 	border: 4px solid #aaa;
@@ -143,9 +153,12 @@ ul{ list-style-type: none;}
 	margin-right: 10px;
 	width: 120px;
 }
-.gamelist .game .title{
-	font-size: 16px;
-	margin: 10px 0 0; 
+.gamelist .game .title a{
+	color: #d3222a;
+	font-family: 'Marko One', cursive;
+	font-size: 18px;
+	margin: 10px 0 0;
+
 }
 .gamelist .game .rating span{
 	border-radius: 10px;
@@ -167,21 +180,21 @@ ul{ list-style-type: none;}
 	margin: 20px 15px;
 }
 /*Game Details*/
-.game_details_view{
+.plain_view{
 	padding: 40px 0 0 0;
 }
-.game_details_view .banner{
+.plain_view .banner{
 	margin: 0 0 35px 0;
 	box-shadow: 0 10px 20px;
 	-webkit-box-shadow: 0 10px 20px;
 	-moz-box-shadow: 0 10px 20px;
 }
-.game_details_view .banner img{
+.plain_view .banner img{
 	width: 100%;
 	height: auto;
 }
-.game_container{ 
-	margin: 0 50px;
+.left_cont{ 
+	margin: 0 30px;
 	width: 60%;
 }
 .game_container .title{

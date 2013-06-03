@@ -27,7 +27,7 @@
                             {% endblock navbar %}
                             <ul class="nav pull-right">
                                 {% if user.is_authenticated %}
-                                    <li><a href="#">Logged in as {{ user.username }}</a></li>
+                                    <li class="username"><a href="#">{{ user.username }}</a></li>
                                     <li class="divider-vertical"></li>
                                     <li><a href="{% url logout %}">Log out</a></li>
                                 {% else %}

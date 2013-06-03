@@ -15,68 +15,70 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid game_details_view">
+	<div class="row-fluid plain_view">
 		<div class="span12">
 			{% if game.banner %}
 				<div class="banner">
 					<img src="{{ game.banner }}" />
 				</div>
 			{% endif %}
-			<div class="game_container">
-				<img class="MR15 thumb" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" />
-				<h4 class="title">{{ game.title }}</h4>
-				
-				<div class="clearfix">
-					<ul class="extra_info">
-						<li><span class="term">Platforms: </span>
-							<span>{{ game.platform }}</span>
-						</li>
-						<li><span class="term">Developer: </span><span>{{ game.developer }}</span></li>
-						<li><span class="term">Publisher: </span><span>{{ game.publisher }}</span></li>
-						<li><span class="term">Genre: </span>
-							<span>
-								{% for genre in game.genres.all %}
-									{{ genre }}{% if not forloop.last %}, {% endif %}
+			<div class="left_cont">
+				<div class="game_container">
+					<img class="MR15 thumb" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" />
+					<h4 class="title">{{ game.title }}</h4>
+					
+					<div class="clearfix">
+						<ul class="extra_info">
+							<li><span class="term">Platforms: </span>
+								<span>{{ game.platform }}</span>
+							</li>
+							<li><span class="term">Developer: </span><span>{{ game.developer }}</span></li>
+							<li><span class="term">Publisher: </span><span>{{ game.publisher }}</span></li>
+							<li><span class="term">Genre: </span>
+								<span>
+									{% for genre in game.genres.all %}
+										{{ genre }}{% if not forloop.last %}, {% endif %}
+									{% endfor %}
+								</span>
+							</li>
+							<li><span class="term">Release Date: </span><span>{{ game.release_date }}</span></li>
+							<li><span class="term">ESRB: </span><span>{{ game.esrb }}</span></li>
+							<li><span class="term">Players: </span><span>{{ game.players }}</span></li>
+							<li><span class="term">Co-op: </span><span>{% if game.co_op %}Yes{% else %}No{% endif %}</span></li>
+						</ul>
+					</div>
+					<div class="desc_row">
+						<div class="head">Overview</div>
+						<div>{%if game.overview %} {{ game.overview }} {% else %}This information is currently unavailable{% endif %}</div>
+					</div>
+					{% if youtube_vcode %}
+						<div class="videos">
+							<div class="head">Videos</div>
+							<iframe width="560" height="315" src="http://www.youtube.com/embed/{{ youtube_vcode }}" frameborder="0" allowfullscreen></iframe>
+						</div>
+					{% endif %}
+					{% if screenshots.thumbnail %}
+						<div class="desc_row screens">
+							<div class="head">Screenshots</div>
+							<div class="thumbs">
+								{% for thumb in screenshots.thumbnail %}
+									<img class="MR15 thumb" src="{{ thumb }}" />
 								{% endfor %}
-							</span>
-						</li>
-						<li><span class="term">Release Date: </span><span>{{ game.release_date }}</span></li>
-						<li><span class="term">ESRB: </span><span>{{ game.esrb }}</span></li>
-						<li><span class="term">Players: </span><span>{{ game.players }}</span></li>
-						<li><span class="term">Co-op: </span><span>{% if game.co_op %}Yes{% else %}No{% endif %}</span></li>
-					</ul>
-				</div>
-				<div class="desc_row">
-					<div class="head">Overview</div>
-					<div>{%if game.overview %} {{ game.overview }} {% else %}This information is currently unavailable{% endif %}</div>
-				</div>
-				{% if youtube_vcode %}
-					<div class="videos">
-						<div class="head">Videos</div>
-						<iframe width="560" height="315" src="http://www.youtube.com/embed/{{ youtube_vcode }}" frameborder="0" allowfullscreen></iframe>
-					</div>
-				{% endif %}
-				{% if screenshots.thumbnail %}
-					<div class="desc_row screens">
-						<div class="head">Screenshots</div>
-						<div class="thumbs">
-							{% for thumb in screenshots.thumbnail %}
-								<img class="MR15 thumb" src="{{ thumb }}" />
-							{% endfor %}
+							</div>
 						</div>
-					</div>
-				{% endif %}				
+					{% endif %}				
 
-				{% if fanarts.thumbnail %}
-					<div class="desc_row screens">
-						<div class="head">Fan art</div>
-						<div class="thumbs">
-							{% for thumb, original in fanarts.thumbnail|zip:fanarts.original %}
-								<a href="{{ original }}" rel="{% if fanarts.thumbnail|length > 1 %}prettyPhoto[fanarts]{% else %}prettyPhoto{% endif %}" class="thumb"><img class="MR15" src="{{ thumb }}" /></a>
-							{% endfor %}
+					{% if fanarts.thumbnail %}
+						<div class="desc_row screens">
+							<div class="head">Fan art</div>
+							<div class="thumbs">
+								{% for thumb, original in fanarts.thumbnail|zip:fanarts.original %}
+									<a href="{{ original }}" rel="{% if fanarts.thumbnail|length > 1 %}prettyPhoto[fanarts]{% else %}prettyPhoto{% endif %}" class="thumb"><img class="MR15" src="{{ thumb }}" /></a>
+								{% endfor %}
+							</div>
 						</div>
-					</div>
-				{% endif %}
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
