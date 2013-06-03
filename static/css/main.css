@@ -65,8 +65,8 @@ ul{ list-style-type: none;}
 	color: white;
 	background-size: cover;
 	background-repeat: no-repeat;
-	margin-top: -19px;
-	padding: 180px;
+	/*margin-top: -19px;
+	padding: 180px;*/
 	text-align: center;
 	text-shadow: 1px 1px 1px black;
 	position: absolute;
