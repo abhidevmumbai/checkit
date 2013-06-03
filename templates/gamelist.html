@@ -11,12 +11,12 @@
 	<div class="row-fluid plain_view">
 		<div class="title span11">Browse all your favorite Games</div>
 		<div class="action_bar">
-			<form>
+			<form id="game_search_form">
 				<div class="span3 offset1">
 					<div class="input-prepend">
 						<span class="add-on">Genre</span>
 						<select name="genre">
-							<option value="0">Select</option>
+							<option value="0">All</option>
 							{% for genre in genres %}
 								<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
 							{% endfor %}
@@ -27,15 +27,12 @@
 					<div class="input-prepend">
 						<span class="add-on">Platform</span>
 						<select name="platform">
-							<option value="0">Select</option>
+							<option value="0">All</option>
 							{% for platform in platforms %}
 								<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
 							{% endfor %}
 						</select>
 					</div>
-				</div>
-				<div class="span1">
-					<input type="submit" id="filter_games" class="btn" value="Filter" />
 				</div>
 				<div class="span3">
 					<div class="input-append">
@@ -134,6 +131,10 @@
 						console.log(data);
 					}
 				});
+			});
+
+			$('#game_search_form').on('change', 'select', function(){
+				$('#game_search_form').submit();
 			});
 		});
 	</script>
