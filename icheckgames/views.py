@@ -280,3 +280,18 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
 
     def get(self, request, *args, **kwargs):
         return HttpResponse("No data available.")
+
+class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
+    paginate_by = 20
+    model = GameMap
+    context_object_name = 'gamelinks'
+    template_name = "mygamelist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(MyGameListView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        user = self.request.user
+        gamelinks = user.gamemap_set.all()
+        return gamelinks

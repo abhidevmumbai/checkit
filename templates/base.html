@@ -22,6 +22,9 @@
                             <ul class="nav">
                                 <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
                                 <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
+                                {% if user.is_authenticated %}
+                                    <li class=""><a href="{% url mygamelist %}" class="{% navactive request 'mygamelist' %}">My Games</a></li>
+                                {% endif %}
                             </ul>
                             {% block navbar %}
                             {% endblock navbar %}

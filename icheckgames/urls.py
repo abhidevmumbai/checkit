@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^games/$', views.GameListView.as_view(), name="gamelist"),
     url(r'^games/(?P<pk>\d+)/$', views.GameDetailView.as_view(), name="gamedetails"),
     url(r'^manage/$', views.ApiGame.as_view(), name="managelist"),
+    url(r'^mygames/$', views.MyGameListView.as_view(), name="mygamelist"),
 )
