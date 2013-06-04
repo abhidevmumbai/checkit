@@ -10,9 +10,19 @@
 {% block body %}
 	<div class="row-fluid plain_view">
 		<div class="left_cont">
+			<div class="tabs_cont">
+				<ul class="nav nav-tabs">
+					<li class="all"><a href="{% url mygamelist %}">All</a></li>
+					<li class="owned"><a href="{% url mygamelist %}?tag=owned">Owned</a></li>
+					<li class="completed"><a href="{% url mygamelist %}?tag=completed">Completed</a></li>
+					<li class="current"><a href="{% url mygamelist %}?tag=current">Currently playing</a></li>
+					<li class="onhold"><a href="{% url mygamelist %}?tag=onhold">On hold</a></li>
+					<li class="favorite"><a href="{% url mygamelist %}?tag=favorite">Favorite</a></li>
+					<li class="wish"><a href="{% url mygamelist %}?tag=wish">Wishlist</a></li>
+				</ul>
+			</div>
 			<div class="gamelist">
 				{% for link in gamelinks %}
-
 					<div class="game row-fluid">
 						<div class="FL">
 							<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}" alt="{{ link.game.title }}">
@@ -43,10 +53,10 @@
 								<div class="btn-group" data-gameid="{{ link.game.id }}">
 									<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-small {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
 									<a data-gametask="4" data-toggle="{% if link.completed %}false{% else %}true{% endif %}" class="btn btn-small {% if link.completed %}active{% endif %}" href="#" title="Completed"><i class="icon-stop"></i></a>
-									<a data-gametask="5" data-toggle="{% if link.onhold %}false{% else %}true{% endif %}" class="btn btn-small {% if link.onhold %}active{% endif %}" href="#" title="On Hold"><i class="icon-pause"></i></a>
-									<a data-gametask="6" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-small {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
-									<a data-gametask="7" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-small {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
-									<a data-gametask="8" data-toggle="{% if link.current %}false{% else %}true{% endif %}" class="btn btn-small {% if link.current %}active{% endif %}" href="#" title="Currently Playing"><i class="icon-play"></i></a>
+									<a data-gametask="5" data-toggle="{% if link.current %}false{% else %}true{% endif %}" class="btn btn-small {% if link.current %}active{% endif %}" href="#" title="Currently Playing"><i class="icon-play"></i></a>
+									<a data-gametask="6" data-toggle="{% if link.onhold %}false{% else %}true{% endif %}" class="btn btn-small {% if link.onhold %}active{% endif %}" href="#" title="On Hold"><i class="icon-pause"></i></a>
+									<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-small {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
+									<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-small {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
 								</div>
 							</div>
 						</div>
@@ -114,11 +124,28 @@
 								_this.data('toggle', false).addClass('active');
 							}else{
 								_this.data('toggle', true).removeClass('active');
+
+								//Don't remove the game item from dom when in 'All' tab
+								if(utils.getUrlVar('tag')){
+									_this.parentsUntil('.game').parent().remove();
+								}
 							}
 						}
 					}
 				});
 			});
+
 		});
+	
+		/*Display the active tab based on the url parameters*/
+		function tab_active(){
+			var tag = utils.getUrlVar('tag')
+			if(tag){
+				$(".tabs_cont ." + tag).addClass('active');
+			}else{
+				$(".tabs_cont .all").addClass('active');
+			}
+		}
+		tab_active();
 	</script>
 {% endblock bottom_javascript%}

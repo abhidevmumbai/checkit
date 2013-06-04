@@ -327,30 +327,6 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             message = "Game marked as completed."
             success = True
         elif game_task == 5:
-            #Mark as On hold
-            game = Game.objects.get(id=game_id)
-            gamemap = GameMap.objects.get(user=user, game=game)
-            gamemap.onhold = game_flag
-            gamemap.save()
-            message = "Game on hold."
-            success = True
-        elif game_task == 6:
-            #Mark Favorite
-            game = Game.objects.get(id=game_id)
-            gamemap = GameMap.objects.get(user=user, game=game)
-            gamemap.favorite = game_flag
-            gamemap.save()
-            message = "Game marked as favorite."
-            success = True
-        elif game_task == 7:
-            #Mark Wish
-            game = Game.objects.get(id=game_id)
-            gamemap = GameMap.objects.get(user=user, game=game)
-            gamemap.wish = game_flag
-            gamemap.save()
-            message = "Game added in wishlist."
-            success = True            
-        elif game_task == 8:
             #Mark as currently playing
             game = Game.objects.get(id=game_id)
             gamemap = GameMap.objects.get(user=user, game=game)
@@ -358,6 +334,31 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             gamemap.save()
             message = "Game added in current list."
             success = True
+        elif game_task == 6:
+            #Mark as On hold
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.onhold = game_flag
+            gamemap.save()
+            message = "Game on hold."
+            success = True
+        elif game_task == 7:
+            #Mark Favorite
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.favorite = game_flag
+            gamemap.save()
+            message = "Game marked as favorite."
+            success = True
+        elif game_task == 8:
+            #Mark Wish
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.wish = game_flag
+            gamemap.save()
+            message = "Game added in wishlist."
+            success = True            
+        
         else:
             message = "Invalid task."
         content = json.dumps({"success": success, "message": message})
@@ -381,5 +382,9 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        gamelinks = user.gamemap_set.all()
+        tag = self.request.GET.get('tag')
+        try:
+            gamelinks = user.gamemap_set.filter(**{tag:True})
+        except:
+            gamelinks = user.gamemap_set.all()
         return gamelinks
