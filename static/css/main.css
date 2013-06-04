@@ -55,7 +55,10 @@ ul{ list-style-type: none;}
 	padding: 10px;
 	text-shadow:-2px 1px 3px red;
 }
-
+.navbar-inverse .container{
+	width: 90%;
+	margin: 0 5%;
+}
 .navbar-inverse .brand, .navbar-inverse .nav > li > a{
 	color: rgb(155, 250, 51);
 	font-size: 20px;
@@ -110,6 +113,9 @@ ul{ list-style-type: none;}
 	padding: 8px 0 5px 0;
 	top:41px;
 }
+.action_bar select, .action_bar input[type='text']{
+	width: 80%;
+}
 .action_bar .add-on{
 	background: #000;
 	color: #fff;
@@ -153,6 +159,7 @@ ul{ list-style-type: none;}
 }
 .gamelist .game .details{
 	padding: 5px 0;
+	width: 45%;
 }
 .gamelist .game .thumbnail{
 	border: 4px solid #aaa;
@@ -203,6 +210,12 @@ ul{ list-style-type: none;}
 .left_cont{ 
 	margin: 0 30px;
 	width: 60%;
+}
+.left_cont .tabs_cont{
+	margin: 10px 15px;
+}
+.left_cont .tabs_cont .nav-tabs{
+	margin: 0;
 }
 .game_container .title{
 	color: #d3222a;
