@@ -32,6 +32,7 @@ from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 
 from gamesearch.models import GameKeyword
+from gamesearch.stemmers import CustomStemmer
 
 class CSRFExemptMixin(object):
     @method_decorator(csrf_exempt)
@@ -166,6 +167,14 @@ class GameListView(MessageMixin, ListView):
             other_games = []
             words_list = re.compile('[\w]+').findall(search_string)
             words = [element.lower() for element in words_list]
+            
+            ''' Stem the word '''
+            stemmer = CustomStemmer()
+            for element in words_list:
+                word = stemmer.stem(element)
+                if word:
+                    words.append(word)
+                    
             for word in words:
                 try:
                     keywordobj = GameKeyword.objects.get(word=word)
