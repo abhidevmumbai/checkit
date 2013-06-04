@@ -82,5 +82,25 @@ var utils = {
             return;
         }
         
+    },
+
+    /*
+        Function to get all the query string params
+    */
+    getUrlVars: function(){
+        var vars = [], map;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++){
+            map = hashes[i].split('=');
+            vars[map[0]] = map[1];       
+        }
+        return vars;
+    },
+
+    /*
+        Function to get query string params by name
+    */
+    getUrlVar: function(name){
+        return this.getUrlVars()[name];
     }
 };
