@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+{% load parseImagejson %}
+
+{% block title %}Game List{% endblock title %}
+
+{% block navbar %}
+	<!--h4 class="pull-left">Login</h4-->
+{% endblock navbar %}
+{% block body %}
+	<div class="row-fluid plain_view">
+		<div class="left_cont">
+			<div class="gamelist">
+				{% for link in gamelinks %}
+
+					<div class="game row-fluid">
+						<div class="FL">
+							<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}" alt="{{ link.game.title }}">
+						</div>
+						<div class="details FL">
+							<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
+							<ul class="extra_info">
+								<li><span class="term">Platforms: </span>
+									<span>{{ link.game.platform }}</span>
+								</li>
+								<li><span class="term">Genre: </span>
+								<span>
+									{% for genre in link.game.genres.all %}
+										{{ genre }}{% if not forloop.last %}, {% endif %}
+									{% endfor %}
+								</span>
+							</li>
+								<li><span class="term">Developer: </span>
+									<span>{{ link.game.developer }}</span></li>
+								<li><span class="term">Publisher: </span>
+									<span>{{ link.game.publisher }}</span></li>
+							</ul>
+						</div>
+						<div class="FR" data-gameid="{{ link.game.id }}"><input class="check_game" type="checkbox" checked="checked"/></div>
+						<div class="actions FR">
+							<div class="btn-toolbar">
+								{{link.game.owned}}
+								<div class="btn-group" data-gameid="{{ link.game.id }}">
+									<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-small {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
+									<a data-gametask="4" data-toggle="{% if link.completed %}false{% else %}true{% endif %}" class="btn btn-small {% if link.completed %}active{% endif %}" href="#" title="Completed"><i class="icon-stop"></i></a>
+									<a data-gametask="5" data-toggle="{% if link.onhold %}false{% else %}true{% endif %}" class="btn btn-small {% if link.onhold %}active{% endif %}" href="#" title="On Hold"><i class="icon-pause"></i></a>
+									<a data-gametask="6" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-small {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
+									<a data-gametask="7" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-small {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
+									<a data-gametask="8" data-toggle="{% if link.current %}false{% else %}true{% endif %}" class="btn btn-small {% if link.current %}active{% endif %}" href="#" title="Currently Playing"><i class="icon-play"></i></a>
+								</div>
+							</div>
+						</div>
+						<div class="rating FR"><span>{{ link.game.rating }}</span></div>
+					</div>
+				{% empty %}
+					<div>Sorry, no Games in this list!</div>
+				{% endfor %}
+			</div>
+			{% if is_paginated %}
+		        <div class="pagination ML10">
+		            <ul>
+		                {% if page_obj.has_previous %}
+		                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+		                {% endif %}
+		                	<li>
+		                		<span class="page-current">
+				                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+				                </span>
+				            </li>
+		                {% if page_obj.has_next %}
+		                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+		                {% endif %}
+		            </ul>
+		        </div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock body%}
+
+{% block bottom_javascript%}
+	{{ block.super }}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.gamelist').on('click', '.check_game', function(){
+				var game_id = $(this).parent().data('gameid');
+				var _this = $(this);
+				$.ajax({
+					url: "{% url managelist %}",
+					type: "POST",
+					data: {"game_id": game_id, "game_task": 2},
+					success: function(data){
+						if(data.success){
+							_this.parent().parent().remove();
+						}
+					}
+				});
+			});
+
+			/*Action btns*/
+			$('.game .actions .btn-group').on('click', 'a', function(){
+				var _this = $(this),
+					game_id = _this.parent().data('gameid'),
+					game_task = _this.data('gametask'),
+					game_flag = _this.data('toggle');
+
+				//console.log({"game_id": game_id, "game_task": game_task, "game_flag": game_flag});
+				$.ajax({
+					url: "{% url managelist %}",
+					type: "POST",
+					data: {"game_id": game_id, "game_task": game_task, "game_flag": game_flag},
+					success: function(data){
+						if(data.success){
+							if(game_flag){
+								_this.data('toggle', false).addClass('active');
+							}else{
+								_this.data('toggle', true).removeClass('active');
+							}
+						}
+					}
+				});
+			});
+		});
+	</script>
+{% endblock bottom_javascript%}
