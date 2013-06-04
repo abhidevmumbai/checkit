@@ -48,7 +48,9 @@
 
 					<div class="game row-fluid">
 						<div class="FL">
-							<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" alt="{{ game.title }}">
+							<a href="{% url gamedetails game.id %}">
+								<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" alt="{{ game.title }}">
+							</a>
 						</div>
 						<div class="details FL">
 							<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>

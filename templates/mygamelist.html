@@ -21,11 +21,13 @@
 					<li class="wish"><a href="{% url mygamelist %}?tag=wish">Wishlist</a></li>
 				</ul>
 			</div>
-			<div class="gamelist">
+			<div class="gamelist mygamelist">
 				{% for link in gamelinks %}
 					<div class="game row-fluid">
 						<div class="FL">
-							<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}" alt="{{ link.game.title }}">
+							<a href="{% url gamedetails link.game.id %}">
+								<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}" alt="{{ link.game.title }}">
+							</a>
 						</div>
 						<div class="details FL">
 							<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
@@ -70,7 +72,7 @@
 		        <div class="pagination ML10">
 		            <ul>
 		                {% if page_obj.has_previous %}
-		                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+		                    <li><a href="{% url mygamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
 		                {% endif %}
 		                	<li>
 		                		<span class="page-current">
@@ -78,7 +80,7 @@
 				                </span>
 				            </li>
 		                {% if page_obj.has_next %}
-		                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+		                    <li><a href="{% url mygamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
 		                {% endif %}
 		            </ul>
 		        </div>
@@ -107,7 +109,8 @@
 			});
 
 			/*Action btns*/
-			$('.game .actions .btn-group').on('click', 'a', function(){
+			$('.game .actions .btn-group').on('click', 'a', function(e){
+				e.preventDefault();
 				var _this = $(this),
 					game_id = _this.parent().data('gameid'),
 					game_task = _this.data('gametask'),

@@ -47,13 +47,13 @@ ul{ list-style-type: none;}
 	-moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 }
 #wrapper .view > .title, #wrapper .plain_view > .title{
-	color: #fff18b;
+	color: #fff;
 	font-family: 'Love Ya Like A Sister', cursive;
 	font-size: 24px;
 	font-weight: bold;
 	margin: 0 40px;
 	padding: 10px;
-	text-shadow:-2px 1px 3px red;
+	text-shadow:-2px 1px 3px #000;
 }
 .navbar-inverse .container{
 	width: 90%;
@@ -149,6 +149,7 @@ ul{ list-style-type: none;}
 
 .gamelist{
 	padding: 15px;
+	margin-bottom: 15px;
 }
 .gamelist .game{
 	margin: 20px 0;
@@ -193,6 +194,18 @@ ul{ list-style-type: none;}
 	-o-transform: scale(2.5); /* Opera */
 	margin: 20px 15px;
 }
+
+.mygamelist{
+	box-shadow: -1px 3px 10px;
+	-webkit-box-shadow: -1px 3px 10px;
+	-moz-box-shadow: -1px 3px 10px;
+}
+.mygamelist .game{
+	border-bottom: 2px solid #eee;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
 /*Game Details*/
 .plain_view{
 	padding: 40px 0 0 0;
@@ -212,10 +225,12 @@ ul{ list-style-type: none;}
 	width: 60%;
 }
 .left_cont .tabs_cont{
-	margin: 10px 15px;
+	border-bottom: 1px solid #eee;
+	margin: 10px 0 0;
 }
 .left_cont .tabs_cont .nav-tabs{
 	margin: 0;
+	border-bottom: none;
 }
 .game_container .title{
 	color: #d3222a;
