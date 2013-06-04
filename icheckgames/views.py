@@ -181,8 +181,8 @@ class GameListView(MessageMixin, ListView):
             games = []
             title_games = []
             other_games = []
+            words = []
             words_list = re.compile('[\w]+').findall(search_string)
-            words = [element.lower() for element in words_list]
             
             ''' Stem the word '''
             stemmer = CustomStemmer()
@@ -210,15 +210,13 @@ class GameListView(MessageMixin, ListView):
                     
                     if selected_title_games:
                         if title_games:
-                            '''
                             set_selected_title_games = set(selected_title_games)
                             common_title_games = [x for x in title_games if x in set_selected_title_games]
                             set_common_title_games = set(common_title_games)
                             other_uncommon_in_title_games = [x for x in title_games if x not in set_common_title_games]
                             other_uncommon_in_selected_title_games = [x for x in selected_title_games if x not in set_common_title_games]
                             title_games = common_title_games + other_uncommon_in_title_games + other_uncommon_in_selected_title_games
-                            '''
-                            title_games = title_games & set(selected_title_games)
+                            #title_games = title_games & set(selected_title_games)
                         else:
                             title_games = set(selected_title_games)
                             
