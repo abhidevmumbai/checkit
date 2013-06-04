@@ -11,7 +11,7 @@ class GameAdmin(admin.ModelAdmin):
 	list_filter = ('genres', 'platform',)
 
 class GameMapAdmin(admin.ModelAdmin):
-        list_display = ('user', 'game', 'favorite', 'played', 'wish')
+        list_display = ('user', 'game', 'owned', 'completed', 'onhold', 'favorite', 'wish', 'current')
         search_fields = ('game',)
 
 admin.site.register(Platform, PlatformAdmin)

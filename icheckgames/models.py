@@ -45,9 +45,12 @@ class Game(models.Model):
 class GameMap(models.Model):
 	user = models.ForeignKey(User)
 	game = models.ForeignKey(Game)
+	owned = models.BooleanField(default=False)
+	completed = models.BooleanField(default=False)
+	onhold = models.BooleanField(default=False)
 	favorite = models.BooleanField(default=False)
-	played = models.BooleanField(default=False)
 	wish = models.BooleanField(default=False)
+	current = models.BooleanField(default=False)
 	
 	def __unicode__(self):
 		return u'%s'%self.game

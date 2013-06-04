@@ -50,6 +50,9 @@ class MessageMixin(object):
         context['messages'] = messages.get_messages(self.request)
         return context
 
+'''
+    User login view
+'''
 class LoginView(MessageMixin, FormView):
     template_name = "auth.html"
     form_class = AuthenticationForm
@@ -68,6 +71,9 @@ class LogoutView(TemplateView):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
+'''
+   User's home view
+'''
 class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
     template_name = "home.html"
      
@@ -80,6 +86,9 @@ class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         return super(HomeView, self).get(request, *args, **kwargs)
 
+'''
+    User registration view
+'''
 class UserCreate(MessageMixin, FormView):
     template_name = "usercreate.html"
     form_class = UsersForm
@@ -90,6 +99,9 @@ class UserCreate(MessageMixin, FormView):
         messages.add_message(self.request, messages.SUCCESS, 'You have registered successfully! Please login.')
         return super(UserCreate, self).form_valid(form)
 
+'''
+    User profile edit view
+'''
 class UserEdit(LoginRequiredMixin, MessageMixin, FormView):
     form_class = UsersEditForm
     success_url = reverse_lazy('home')
@@ -112,6 +124,10 @@ class UserEdit(LoginRequiredMixin, MessageMixin, FormView):
         messages.add_message(self.request, messages.SUCCESS, 'Profile updated successfully.')
         return super(UserEdit, self).form_valid(form)
 
+
+'''
+    Game list view
+'''
 class GameListView(MessageMixin, ListView):
     paginate_by = 20
     model = Game
@@ -225,6 +241,9 @@ class GameListView(MessageMixin, ListView):
             games = list(title_games) + list(other_games)
         return games
 
+'''
+    Game details view
+'''
 class GameDetailView(MessageMixin, DetailView):
     model = Game
     context_object_name = 'game'
@@ -245,6 +264,9 @@ class GameDetailView(MessageMixin, DetailView):
             pass
         return context
 
+'''
+    Api endpoint to add/remove games in the list
+'''
 class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         success = False
@@ -253,7 +275,13 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
         user = request.user
         game_id = request.POST.get("game_id")
         game_task = request.POST.get("game_task")
-        
+        game_flag = request.POST.get("game_flag")
+
+        if game_flag == "true":
+            game_flag = True
+        else:
+            game_flag = False
+
         if not (game_id and game_task):
             content = json.dumps({"success": success, "message": message})
             return HttpResponse(content, content_type='application/json')
@@ -276,12 +304,60 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             #Delete mapping
             try:
                 game = Game.objects.get(id=game_id)
-                gamemap = GameMap.objects.get(user=user,game=game)
+                gamemap = GameMap.objects.get(user=user, game=game)
                 gamemap.delete()
                 message = "Game removed from your list."
                 success = True
             except:
                 message = "Error while deleting game in list."
+        elif game_task == 3:
+            #Mark Owned
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.owned = game_flag
+            gamemap.save()
+            message = "Game marked as owned."
+            success = True
+        elif game_task == 4:
+            #Mark Completed
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.completed = game_flag
+            gamemap.save()
+            message = "Game marked as completed."
+            success = True
+        elif game_task == 5:
+            #Mark as On hold
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.onhold = game_flag
+            gamemap.save()
+            message = "Game on hold."
+            success = True
+        elif game_task == 6:
+            #Mark Favorite
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.favorite = game_flag
+            gamemap.save()
+            message = "Game marked as favorite."
+            success = True
+        elif game_task == 7:
+            #Mark Wish
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.wish = game_flag
+            gamemap.save()
+            message = "Game added in wishlist."
+            success = True            
+        elif game_task == 8:
+            #Mark as currently playing
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.current = game_flag
+            gamemap.save()
+            message = "Game added in current list."
+            success = True
         else:
             message = "Invalid task."
         content = json.dumps({"success": success, "message": message})
@@ -290,6 +366,9 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
     def get(self, request, *args, **kwargs):
         return HttpResponse("No data available.")
 
+'''
+    Logged in User's games list
+'''
 class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
     paginate_by = 20
     model = GameMap
