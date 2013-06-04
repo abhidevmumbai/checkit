@@ -346,11 +346,11 @@ class PorterStemmer:
 class CustomStemmer(object):
     
     def __init__(self):
-        self.stopset = set(['i', 's', 'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'how', 'is', 'it', 'its', 'of', 'the', 'on', 'so', 'in', 'or', 'that', 'to', 'was', 'what', 'when', 'where', 'who', 'will', 'with', 'you', 'your', 'yours'])
+        self.stopset = set(['i', 'd', 's', 't', 'a', 'an', 'and', 'are', 'as', 'at', 'be', 'by', 'for', 'from', 'how', 'is', 'it', 'its', 'of', 'the', 'on', 'so', 'in', 'or', 'that', 'to', 'was', 'what', 'when', 'where', 'who', 'will', 'with', 'you', 'your', 'yours'])
         
     def stem(self, word):
         stemmer = PorterStemmer()
-        if word in self.stopset:
+        if word.lower() in self.stopset:
             return None
         retword = stemmer.stem(word.lower(), 0, len(word)-1)
         return retword
