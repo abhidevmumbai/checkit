@@ -16,43 +16,46 @@
     </head>
     <body>
         <div id="wrapper">
-                <div class="navbar navbar-inverse">
-                    <div class="navbar-inner">
-                        <div class="container">
-                            <ul class="nav">
-                                <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
-                                <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
-                                {% if user.is_authenticated %}
-                                    <li class=""><a href="{% url mygamelist %}" class="{% navactive request 'mygamelist' %}">My Games</a></li>
-                                {% endif %}
-                            </ul>
-                            {% block navbar %}
-                            {% endblock navbar %}
-                            <ul class="nav pull-right">
-                                {% if user.is_authenticated %}
-                                    <li class="username"><a href="#">{{ user.username }}</a></li>
-                                    <li class="divider-vertical"></li>
-                                    <li><a href="{% url logout %}">Log out</a></li>
-                                {% else %}
-                                    <li><a class="pull-right {% navactive request 'login' %}" href="{% url login %}">Login</a></li>
-                                    <li><a class="pull-right {% navactive request 'usercreate' %}" href="{% url usercreate %}">Register</a></li>
-                                {% endif %}
-                            </ul>
-                        </div>
+            <div class="logo_bar">
+                <div class="logo"><img src="/static/img/cooltext_logo.png" /><!-- <span class="logo_i">i</span><span class="logo_check">&#10004;Check</span><span class="logo_games">games</span> --></div>
+            </div>
+            <div class="navbar navbar-inverse">
+                <div class="navbar-inner">
+                    <div class="container">
+                        <ul class="nav">
+                            <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
+                            <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
+                            {% if user.is_authenticated %}
+                                <li class=""><a href="{% url mygamelist %}" class="{% navactive request 'mygamelist' %}">My Games</a></li>
+                            {% endif %}
+                        </ul>
+                        {% block navbar %}
+                        {% endblock navbar %}
+                        <ul class="nav pull-right">
+                            {% if user.is_authenticated %}
+                                <li class="username"><a href="#">{{ user.username }}</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="{% url logout %}">Log out</a></li>
+                            {% else %}
+                                <li><a class="pull-right {% navactive request 'login' %}" href="{% url login %}">Login</a></li>
+                                <li><a class="pull-right {% navactive request 'usercreate' %}" href="{% url usercreate %}">Register</a></li>
+                            {% endif %}
+                        </ul>
                     </div>
                 </div>
-                {% block body %}
-                {% endblock body %}
-                {% if messages %}
-                    <div class="messages MT10">
-                        {% for message in messages %}
-                            <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+            </div>
+            {% block body %}
+            {% endblock body %}
+            {% if messages %}
+                <div class="messages MT10">
+                    {% for message in messages %}
+                        <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             
             <!-- Modal -->
             <div id="Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
