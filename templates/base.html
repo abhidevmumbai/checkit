@@ -17,8 +17,27 @@
     <body>
         <div id="wrapper">
             <div class="logo_bar">
-                <div class="logo"><img src="/static/img/cooltext_logo.png" /><!-- <span class="logo_i">i</span><span class="logo_check">&#10004;Check</span><span class="logo_games">games</span> --></div>
+                <div class="navbar navbar-inverse">
+                    <div class="navbar-inner">
+                        <div class="container">
+                            <div class="logo"><img src="/static/img/cooltext_logo.png" width="150" /></div>
+                            <ul class="nav pull-right">
+                                {% if user.is_authenticated %}
+                                    <li class="username"><a href="#">{{ user.username }}</a></li>
+                                    <li class="divider-vertical"></li>
+                                    <li><a href="{% url logout %}">Log out</a></li>
+                                {% else %}
+                                    <li><a class="pull-right {% navactive request 'login' %}" href="{% url login %}">Login</a></li>
+                                    <li><a class="pull-right {% navactive request 'usercreate' %}" href="{% url usercreate %}">Register</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- <div class="logo_bar">
+                <div class="logo"><img src="/static/img/cooltext_logo.png" /><span class="logo_i">i</span><span class="logo_check">&#10004;Check</span><span class="logo_games">games</span></div>
+            </div> -->
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">
@@ -31,16 +50,6 @@
                         </ul>
                         {% block navbar %}
                         {% endblock navbar %}
-                        <ul class="nav pull-right">
-                            {% if user.is_authenticated %}
-                                <li class="username"><a href="#">{{ user.username }}</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="{% url logout %}">Log out</a></li>
-                            {% else %}
-                                <li><a class="pull-right {% navactive request 'login' %}" href="{% url login %}">Login</a></li>
-                                <li><a class="pull-right {% navactive request 'usercreate' %}" href="{% url usercreate %}">Register</a></li>
-                            {% endif %}
-                        </ul>
                     </div>
                 </div>
             </div>

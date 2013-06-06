@@ -63,7 +63,7 @@ ul{ list-style-type: none;}
 #wrapper .logo_bar{
 	background: rgba(0,0,0,0.8);
 	overflow: hidden;
-	padding: 15px 30px;
+	padding: 10px 15px;
 }
 #wrapper .logo_bar .logo{
 	color: rgb(146, 20, 20);
@@ -73,26 +73,32 @@ ul{ list-style-type: none;}
 	float: left;
 }
 #wrapper .logo_bar .logo img{
-	width: 320px;
+	width: 250px;
 }
 #wrapper .logo_bar .logo > span{
 	padding: 15px 0;
 	display: inline-block;
 }
+
+#wrapper .logo_bar .navbar-inner{
+	background: none;
+	border: none;
+	box-shadow: none;
+}
 /*Nav bar*/
 #wrapper .navbar{
 	margin:0;
 }
-#wrapper .navbar-inverse .container{
-	width: 90%;
-	margin: 0 5%;
+#wrapper > .navbar-inverse .container{
+	width: 97%;
+	margin: 0 1.5%;
 }
 #wrapper .navbar-inner{
 	border-radius: 0;
 	-webkit-border-radius: 0;
 	-moz-border-radius: 0;
 }
-#wrapper .navbar-inverse .brand, #wrapper .navbar-inverse .nav > li > a{
+#wrapper > .navbar-inverse .brand, #wrapper > .navbar-inverse .nav > li > a{
 	color: rgb(155, 250, 51);
 	font-size: 20px;
 	font-family: 'BirthOfHero';
@@ -101,7 +107,7 @@ ul{ list-style-type: none;}
 #wrapper .navbar-inverse .nav > li.username > a{
 	color: #89d4fd;
 }
-#wrapper .navbar-inverse .brand, #wrapper .navbar-inverse .nav > li > a.active{
+#wrapper .navbar-inverse .brand, #wrapper > .navbar-inverse .nav > li > a.active{
 	color: #fff;
 }
 /*Splash page*/
