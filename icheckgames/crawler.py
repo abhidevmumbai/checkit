@@ -125,7 +125,7 @@ class PlatformCrawler(object):
 
             rating = float(0)
             try:
-                rating = int(platform.getElementsByTagName('rating')[0].childNodes[0].nodeValue)
+                rating = int(platform.getElementsByTagName('Rating')[0].childNodes[0].nodeValue)
             except:
                 pass
 
