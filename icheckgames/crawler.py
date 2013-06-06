@@ -41,14 +41,176 @@ class PlatformCrawler(object):
         
         if platform_id and name:
             platformobj, created = Platform.objects.get_or_create(name=name, defaults={'platform_id': platform_id, 'alias': alias})
-            
             if not created:
                 platformobj.platform_id = platform_id
                 platformobj.alias = alias
                 platformobj.save()
-            
+            self.processPlatformDetails.apply_async([self, platform_id, name, alias])
+
         gamecrawler = GameCrawler(platform_id)
         gamecrawler.crawl.apply_async([gamecrawler])
+
+    @task(ignore_result=True, name="platformDetails")
+    def processPlatformDetails(self, platform_id, name, alias):
+        try:
+            response, content = httplib2.Http().request("http://thegamesdb.net/api/GetPlatform.php?id="+str(platform_id), "GET")
+            content = smart_str(content)
+            dom = minidom.parseString(content)
+            platform = dom.getElementsByTagName('Platform')[0]
+            overview = ""
+            try:
+                overview = unicode(platform.getElementsByTagName('overview')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            developer = ""
+            try:
+                developer = unicode(platform.getElementsByTagName('developer')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            manufacturer = ""
+            try:
+                manufacturer = unicode(platform.getElementsByTagName('manufacturer')[0].childNodes[0].nodeValue)
+            except:
+                pass
+            
+            cpu = ""
+            try:
+                cpu = unicode(platform.getElementsByTagName('cpu')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            memory = ""
+            try:
+                memory = unicode(platform.getElementsByTagName('memory')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            graphics = ""
+            try:
+                graphics = unicode(platform.getElementsByTagName('graphics')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            sound = ""
+            try:
+                sound = unicode(platform.getElementsByTagName('sound')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            display = ""
+            try:
+                display = unicode(platform.getElementsByTagName('display')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            media = ""
+            try:
+                media = unicode(platform.getElementsByTagName('media')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            maxcontrollers = 1
+            try:
+                maxcontrollers = int(platform.getElementsByTagName('maxcontrollers')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            youtube_link = ""
+            try:
+                youtube_link = unicode(platform.getElementsByTagName('Youtube')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            rating = float(0)
+            try:
+                rating = int(platform.getElementsByTagName('rating')[0].childNodes[0].nodeValue)
+            except:
+                pass
+
+            baseurl = ""
+            try:
+                baseurl = dom.getElementsByTagName('baseImgUrl')[0].childNodes[0].nodeValue
+            except:
+                pass
+
+            ''' For Fan Arts '''
+            fanarts_json = ""
+            try:
+                o_fanarts = []
+                t_fanarts = []
+                fanartdom = platform.getElementsByTagName('fanart')
+                for element in fanartdom:
+                    img_orig = baseurl + element.getElementsByTagName('original')[0].childNodes[0].nodeValue
+                    img_thumb = baseurl + element.getElementsByTagName('thumb')[0].childNodes[0].nodeValue
+                    o_fanarts.append(img_orig)
+                    t_fanarts.append(img_thumb)
+                    
+                o_fanarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in o_fanarts]) + ']'
+                t_fanarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in t_fanarts]) + ']'
+                
+                fanarts_json = '{"original": ' + o_fanarts_str + ', "thumbnail": ' + t_fanarts_str + '}'
+            except:
+                pass
+
+            ''' For Box Arts '''
+            boxarts_json = ""
+            try:
+                o_boxarts = []
+                t_boxarts = []
+                type_boxarts = []
+                boxartdom = platform.getElementsByTagName('boxart')
+                for element in boxartdom:
+                    img_orig = baseurl + element.childNodes[0].nodeValue
+                    #img_thumb = baseurl + element.getAttribute('thumb')
+                    img_type = element.getAttribute('side')
+                    o_boxarts.append(img_orig)
+                    #t_boxarts.append(img_thumb)
+                    type_boxarts.append(img_type)
+                    
+                o_boxarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in o_boxarts]) + ']'
+                #t_boxarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in t_boxarts]) + ']'
+                type_boxarts_str = '[' + ','.join(['"'+unicode(item)+'"' for item in type_boxarts]) + ']'
+                
+                boxarts_json = '{"original": ' + o_boxarts_str + ', "type": ' + type_boxarts_str + '}'
+            except:
+                pass
+            
+            ''' For Banners '''
+            banner = ""
+            try:
+                banner = baseurl + platform.getElementsByTagName('banner')[0].childNodes[0].nodeValue                    
+            except:
+                pass
+
+            #print platform_id, name, alias, overview, developer, manufacturer, cpu, memory, graphics, sound, display, media, maxcontrollers, youtube_link, rating, baseImgUrl, fanarts_json, boxarts_json, banner
+
+            platformobj, created = Platform.objects.get_or_create(name=name, defaults={'platform_id': platform_id, 'alias': alias, 'maxcontrollers': maxcontrollers, 'rating': rating, 'overview': overview, 'developer': developer, 'manufacturer': manufacturer, 'cpu': cpu, 'memory': memory, 'graphics': graphics, 'sound': sound, 'display': display, 'media': media, 'youtube_link': youtube_link, 'fanarts': fanarts_json, 'boxarts': boxarts_json, 'banner': banner})
+
+            if not created:
+                platformobj.platform_id = platform_id
+                platformobj.alias = alias
+                platformobj.overview = overview
+                platformobj.developer = developer
+                platformobj.manufacturer = manufacturer
+                platformobj.cpu = cpu
+                platformobj.memory = memory
+                platformobj.graphics = graphics
+                platformobj.sound = sound
+                platformobj.display = display
+                platformobj.media = media
+                platformobj.maxcontrollers = maxcontrollers
+                platformobj.youtube_link = youtube_link
+                platformobj.rating = rating
+                platformobj.fanarts = fanarts_json
+                platformobj.boxarts = boxarts_json
+                platformobj.banner = banner
+                platformobj.save()
+        except:
+            logger.warn("Error getting platforms details.")
+            print name
+
 
 class GameCrawler(object):
     def __init__(self, platform_id):
