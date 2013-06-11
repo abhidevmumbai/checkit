@@ -392,3 +392,20 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
         except:
             gamelinks = user.gamemap_set.all()
         return gamelinks
+
+'''
+    Platform list
+'''
+class PlatformListView(MessageMixin, ListView):
+    paginate_by = 12
+    model = Platform
+    context_object_name = 'platforms'
+    template_name = "platformlist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(PlatformListView, self).get_context_data(**kwargs)
+        return context
+
+    def get_queryset(self):
+        platformlist = Platform.objects.all()
+        return platformlist

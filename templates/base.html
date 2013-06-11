@@ -23,7 +23,7 @@
                             <div class="logo"><img src="/static/img/cooltext_logo.png" width="150" /></div>
                             <ul class="nav pull-right">
                                 {% if user.is_authenticated %}
-                                    <li class="username"><a href="#">{{ user.username }}</a></li>
+                                    <li class="username"><a href="{% url home %}">{{ user.username }}</a></li>
                                     <li class="divider-vertical"></li>
                                     <li><a href="{% url logout %}">Log out</a></li>
                                 {% else %}
@@ -43,6 +43,7 @@
                     <div class="container">
                         <ul class="nav">
                             <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
+                            <li class=""><a href="{% url platformlist %}" class="{% navactive request 'platformlist' %}">Platforms</a></li>
                             <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
                             {% if user.is_authenticated %}
                                 <li class=""><a href="{% url mygamelist %}" class="{% navactive request 'mygamelist' %}">My Games</a></li>

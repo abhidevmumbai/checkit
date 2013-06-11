@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% load parseImagejson %}
+
+{% block title %}Platform List{% endblock title %}
+
+{% block navbar %}
+	<!--h4 class="pull-left">Login</h4-->
+{% endblock navbar %}
+{% block body %}
+	<div class="row-fluid plain_view">
+		<div class="left_cont">
+			<div class="scroll_container">
+				<ul class="anchor_list">
+					{% for platform in platforms %}
+						<li><a data-id={{ platform.id }} href="#{{ platform.id }}">{{ platform.name }}</a></li>
+					{% endfor %}
+				</ul>
+
+				<div class="content">
+					{% for platform in platforms %}
+						<div class="cont_panel" id="{{ platform.id }}">
+							<!-- <div class="FL">
+								<a href="#" name="{{ platform.id }}">
+									<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% if platform.boxarts %}{% parseImagejson platform.boxarts 'original' %}{% endif %}" alt="{{ platform.name }}">
+								</a>
+							</div> -->
+							<div class="details FL">
+								<div class="title"><a href="#">{{ platform.name }}</a></div>
+								<ul class="extra_info">
+									<li><span class="term">Developer: </span>
+										<span>{{ platform.developer }}</span></li>
+									<li><span class="term">Manufacturer: </span>
+										<span>{{ platform.manufacturer }}</span></li>
+									<li><span class="term">CPU: </span>
+										<span>{{ platform.cpu }}</span></li>
+									<li><span class="term">Memory: </span>
+										<span>{{ platform.memory }}</span></li>
+									<li><span class="term">Graphics: </span>
+										<span>{{ platform.graphics }}</span></li>
+									<li><span class="term">Sound: </span>
+										<span>{{ platform.sound }}</span></li>
+									<li><span class="term">Display: </span>
+										<span>{{ platform.display }}</span></li>
+									<li><span class="term">Media: </span>
+										<span>{{ platform.media }}</span></li>
+									<li><span class="term">Max-controllers: </span>
+										<span>{{ platform.maxcontrollers }}</span></li>
+								</ul>
+							</div>
+							<div class="overview"><strong>Overview:</strong> {{ platform.overview }}</div>
+							<div class="rating FR"><span>{{ platform.rating }}</span></div>
+						</div>
+					{% empty %}
+						<div>Sorry, no Platforms in this list!</div>
+					{% endfor %}
+				</div>
+			</div>
+			
+			{% if is_paginated %}
+		        <div class="pagination ML10">
+		            <ul>
+		                {% if page_obj.has_previous %}
+		                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+		                {% endif %}
+		                	<li>
+		                		<span class="page-current">
+				                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+				                </span>
+				            </li>
+		                {% if page_obj.has_next %}
+		                    <li><a href="{% url platformlist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+		                {% endif %}
+		            </ul>
+		        </div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock body%}
+
+{% block bottom_javascript%}
+	{{ block.super }}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			//Keeps the platform anchorslist fixed to the top on scroll
+			$(window).scroll(function(){
+				var anchor_list = $('.scroll_container .anchor_list');
+				if($(this).scrollTop() > 100){
+					anchor_list.addClass('fixed');
+				}else{
+					anchor_list.removeClass('fixed');
+				}
+			})
+
+			//Scrolls the content
+			$('.anchor_list').on('click', 'a', function(event){
+				event.preventDefault();
+				var id = $(this).data('id'),
+					cont = $('#'+id),
+					position = cont.position();
+				console.log($('#'+id));
+				$('html, body').animate({
+					scrollTop: position.top - 80
+				}, 700);
+			});
+		});
+	</script>
+{% endblock bottom_javascript%}

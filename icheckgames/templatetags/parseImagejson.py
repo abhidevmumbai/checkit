@@ -22,5 +22,7 @@ def parseImagejson(obj, filter):
 		elif filter == 'thumbnailBack':
 			index = json_obj['type'].index('back')
 			return json_obj['thumbnail'][index]
+		else:
+			return json_obj['thumbnail'][0]
 	except:
 		return '../static/img/default_game_icon2.png'
