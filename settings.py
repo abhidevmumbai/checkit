@@ -195,7 +195,7 @@ LOGGING = {
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_DEFAULT_RATE_LIMIT = '60/m'
 CELERYD_PREFETCH_MULTIPLIER = 1
-CELERY_IMPORTS = ("icheckgames.crawler", "gamesearch.indexbuilder", )
+CELERY_IMPORTS = ("icheckgames.crawler", "gamesearch.indexbuilder", "gamesearch.recommender")
 
 CELERY_QUEUES = {
     "default": {
@@ -209,8 +209,19 @@ CELERY_QUEUES = {
     "word": {
         "exchange": "word",
         "binding_keys": "word",
+    },
+    "recommender": {
+        "exchange": "recommender",
+        "binding_keys": "recommender",
     }
 }
 
 CELERY_DEFAULT_QUEUE = "default"
 CELERY_ENABLE_UTC = False
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}

@@ -34,6 +34,8 @@ from captcha.helpers import captcha_image_url
 from gamesearch.models import GameKeyword
 from gamesearch.stemmers import CustomStemmer
 
+from gamesearch.recommender import *
+
 class CSRFExemptMixin(object):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -296,6 +298,8 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
                 else:
                     message = "Game already in your list."
                 success = True
+                recommender = Recommender()
+                recommender.build.apply_async([recommender, user], queue="recommender");
             except:
                 message = "Error creating game in list."
         elif game_task == 2:
@@ -306,6 +310,8 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
                 gamemap.delete()
                 message = "Game removed from your list."
                 success = True
+                recommender = Recommender()
+                recommender.build.apply_async([recommender, user], queue="recommender");
             except:
                 message = "Error while deleting game in list."
         elif game_task == 3:
