@@ -10,3 +10,4 @@ requests==0.9.1
 simplejson==2.2.1
 django-simple-captcha
 django-celery
+python-memcached
