@@ -317,7 +317,8 @@ ul{ list-style-type: none;}
 
 /*Scroll container*/
 .scroll_container{
-	
+	margin: 18px 0 0 0;
+	overflow: hidden;
 }
 .scroll_container .anchor_list{
 	background: rgba(0, 0, 0, 0.9);
@@ -329,17 +330,16 @@ ul{ list-style-type: none;}
 	position: absolute;
 	left: 0;
 	margin: 0;
-	padding: 0 1%;
-	top: 103px;
-	width: 98%;
+	top: 120px;
+	width: 18%;
 }
 .scroll_container .anchor_list.fixed{
 	position: fixed;
 	left: 0;
-	top: 0;
+	top: 10px;
 }
 .scroll_container .anchor_list li{
-	display: inline-block;
+	/*display: inline-block;*/
 }
 .scroll_container .anchor_list li a{
 	border-radius: 5px;
@@ -348,7 +348,9 @@ ul{ list-style-type: none;}
 	text-decoration: none;
 }
 .scroll_container .content{
-	margin: 70px 0 0 0;
+	/*margin: 70px 0 0 0;*/
+	width: 75%;
+	float: right;
 }
 .scroll_container .anchor_list li:hover, .scroll_container .anchor_list li.active{
 	background: rgb(18, 139, 206);

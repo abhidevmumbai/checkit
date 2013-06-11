@@ -13,7 +13,7 @@
 			<div class="scroll_container">
 				<ul class="anchor_list">
 					{% for platform in platforms %}
-						<li><a data-id={{ platform.id }} href="#{{ platform.id }}">{{ platform.name }}</a></li>
+						<li data-id={{ platform.id }}><a href="#{{ platform.id }}">{{ platform.name }}</a></li>
 					{% endfor %}
 				</ul>
 
@@ -58,7 +58,7 @@
 			</div>
 			
 			{% if is_paginated %}
-		        <div class="pagination ML10">
+		        <div class="pagination ML10 FR">
 		            <ul>
 		                {% if page_obj.has_previous %}
 		                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
@@ -93,14 +93,16 @@
 			})
 
 			//Scrolls the content
-			$('.anchor_list').on('click', 'a', function(event){
+			$('.anchor_list').on('click', 'li', function(event){
 				event.preventDefault();
+				$('.anchor_list li').removeClass('active');
+				$(this).addClass('active');
 				var id = $(this).data('id'),
 					cont = $('#'+id),
 					position = cont.position();
 				console.log($('#'+id));
 				$('html, body').animate({
-					scrollTop: position.top - 80
+					scrollTop: position.top - 10
 				}, 700);
 			});
 		});

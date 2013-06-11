@@ -397,7 +397,7 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
     Platform list
 '''
 class PlatformListView(MessageMixin, ListView):
-    paginate_by = 12
+    paginate_by = 15
     model = Platform
     context_object_name = 'platforms'
     template_name = "platformlist.html"
