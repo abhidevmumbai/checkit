@@ -22,7 +22,7 @@ body{
 	/*font-family: 'Love Ya Like A Sister', cursive;*/
 	font-family: 'Ubuntu', sans-serif;
 }
-ul{ list-style-type: none;}
+ul{ list-style-type: none; margin: 0}
 
 .MA15{ margin: 15px;}
 .MT10{ margin-top: 10px;} .MT50{ margin-top: 50px !important;}
@@ -261,7 +261,10 @@ ul{ list-style-type: none;}
 	width: 100%;
 	height: auto;
 }
+
+/*Left container*/
 .left_cont{ 
+	float: left;
 	margin: 0 50px;
 	width: 60%;
 }
@@ -278,6 +281,27 @@ ul{ list-style-type: none;}
 	box-shadow: -1px -2px 4px;
 	-webkit-box-shadow: -1px -2px 4px;
 	-moz-box-shadow: -1px -2px 4px;
+}
+
+/*Right container*/
+.right_cont{
+	float: left;
+	overflow: hidden;
+	padding: 10px;
+}
+.right_cont .box{
+	margin: 10px 0;
+}
+.right_cont .box .title{
+	font-size: 18px;
+	border-bottom: 2px solid #444;
+	padding: 5px 10px;
+}
+.right_cont .box .cont{
+	padding: 10px 15px;
+}
+.right_cont .box li{
+	padding: 3px 0;
 }
 .game_container .title{
 	color: #d3222a;

@@ -31,7 +31,7 @@ from forms import UsersForm, UsersEditForm
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
 
-from gamesearch.models import GameKeyword
+from gamesearch.models import GameKeyword, Recommendation
 from gamesearch.stemmers import CustomStemmer
 
 from gamesearch.recommender import *
@@ -51,6 +51,15 @@ class MessageMixin(object):
         context = super(MessageMixin, self).get_context_data(**kwargs)
         context['messages'] = messages.get_messages(self.request)
         return context
+
+'''
+    Method to get Recommended Games for a particular user
+'''
+def getRecommendedGames(user):
+    if user:
+        recommendedGames = Recommendation.objects.get(user=user).gameslist.all()
+        return recommendedGames
+    return None
 
 '''
     User login view
@@ -142,7 +151,6 @@ class GameListView(MessageMixin, ListView):
         selected_genre = self.request.GET.get('genre')
         selected_platform = self.request.GET.get('platform')
         search_string = self.request.GET.get('search')
-        
         context = super(GameListView, self).get_context_data(**kwargs)
         if selected_genre:
             context['selected_genre'] = int(selected_genre)
@@ -381,7 +389,9 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
     template_name = "mygamelist.html"
 
     def get_context_data(self, **kwargs):
+        user = self.request.user
         context = super(MyGameListView, self).get_context_data(**kwargs)
+        context['recommendedGames'] = getRecommendedGames(user)
         return context
 
     def get_queryset(self):
