@@ -31,6 +31,10 @@ ul{ list-style-type: none; margin: 0}
 .MR15{ margin-right: 15px;}
 .TC{ text-align: center;}
 .FL{ float: left;} .FR{ float: right;}
+
+.bg_white{
+	background: #fff;
+}
 .cont_brdr{
 	border: 1px solid #eee;
 	padding: 10px 0;
@@ -44,7 +48,7 @@ ul{ list-style-type: none; margin: 0}
 }
 #wrapper .view{
 	margin: 20px 0 10px 0;
-	padding: 10px 0;
+	padding: 30px 0 10px 0;
 	box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 	-moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
@@ -381,7 +385,7 @@ ul{ list-style-type: none; margin: 0}
 }
 .scroll_container .content{
 	/*margin: 70px 0 0 0;*/
-	width: 75%;
+	width: 74%;
 	float: right;
 }
 .scroll_container .anchor_list li:hover, .scroll_container .anchor_list li.active{
@@ -409,7 +413,7 @@ ul{ list-style-type: none; margin: 0}
 	margin-right: 10px;
 	width: 120px;
 }
-.scroll_container .cont_panel .title a{
+.scroll_container .cont_panel .title a, .scroll_container .cont_panel .title span{
 	color: #d3222a;
 	font-family: 'Marko One', cursive;
 	font-size: 18px;
@@ -432,6 +436,10 @@ ul{ list-style-type: none; margin: 0}
 	float: left;
 	padding: 5px;
 	width: 45%;
+}
+
+.messages{
+	width: 93%;
 }
 .footer {
 	margin-top: 30px;
