@@ -51,7 +51,6 @@
 						<div class="FR" data-gameid="{{ link.game.id }}"><input class="check_game" type="checkbox" checked="checked"/></div>
 						<div class="actions FR">
 							<div class="btn-toolbar">
-								{{link.game.owned}}
 								<div class="btn-group" data-gameid="{{ link.game.id }}">
 									<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-small {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
 									<a data-gametask="4" data-toggle="{% if link.completed %}false{% else %}true{% endif %}" class="btn btn-small {% if link.completed %}active{% endif %}" href="#" title="Completed"><i class="icon-stop"></i></a>

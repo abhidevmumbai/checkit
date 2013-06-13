@@ -8,6 +8,7 @@ class UsersForm(UserCreationForm):
     first_name = forms.CharField(max_length=255,required=True)
     last_name = forms.CharField(max_length=255,required=True)
     username = forms.EmailField(required=True)
+    captcha = CaptchaField()
     
     class Meta:
         model = User

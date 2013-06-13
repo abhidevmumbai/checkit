@@ -61,6 +61,13 @@ def getRecommendedGames(user):
         return recommendedGames
     return None
 
+class CaptchaGenerate(TemplateView):
+    def get(self, request, *args, **kwargs):
+        json_response = dict()
+        json_response['key'] = CaptchaStore.generate_key()
+        json_response['image'] = captcha_image_url(json_response['key'])
+        return HttpResponse(json.dumps(json_response), content_type='application/json')
+
 '''
     User login view
 '''

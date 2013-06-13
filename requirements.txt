@@ -8,6 +8,6 @@ httplib2==0.7.4
 wsgiref==0.1.2
 requests==0.9.1
 simplejson==2.2.1
-django-simple-captcha
+django-simple-captcha #http://www.borfast.com/blog/jpeg-zlib-and-freetype-not-available-pil-virtualenv-ubuntu
 django-celery
 python-memcached

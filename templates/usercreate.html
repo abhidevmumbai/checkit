@@ -46,6 +46,15 @@
 						</div>
 					</div>
 					<div class="control-group">
+						<label class="control-label" for="captcha_1"><img src="" alt="captcha" id="img_captcha" class="captcha"></label>
+						<div class="controls">
+							<input type="hidden" name="captcha_0" value="" id="id_captcha_0">
+							<input type="text" name="captcha_1" id="id_captcha_1" class="pull-left MR10" required />
+							<a href="#" class='btn pull-left' id='captcha-refresh' data-url='{% url captcha %}'><i class="icon-refresh"></i></a>
+							<div class="text-error">{{ form.captcha.errors }}</div>
+						</div>
+					</div>
+					<div class="control-group">
 						<div class="controls">
 						<label></label>
 						<button type="submit" class="btn btn-primary">Submit</button>
@@ -62,3 +71,37 @@
 		</div>
 	</div>
 {% endblock body%}
+
+{% block bottom_javascript%}
+	{{ block.super }}
+	<script type="text/javascript">
+		//Function to validate if both the passwords match
+		function confirm_pwd(input) {
+			if (input.value != document.getElementById('password1').value) {
+				input.setCustomValidity('The two passwords must match.');
+			} else {
+				// input is valid -- reset the error message
+				input.setCustomValidity('');
+			}
+		}
+
+		//Fuction to refresh captcha
+		function refresh_captcha(){
+			var url = $('#captcha-refresh').data('url');
+			
+			$.getJSON(url, {}, function(json) {
+				$('#img_captcha').attr('src',json.image);
+				$('#id_captcha_0').val(json.key);
+			});
+		}
+
+		$(document).ready(function(){
+			$('#captcha-refresh').click(function(){
+				refresh_captcha();
+				return false;
+			});
+			refresh_captcha();
+		});
+	</script>
+
+{% endblock bottom_javascript%}
