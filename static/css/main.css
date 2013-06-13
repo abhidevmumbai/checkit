@@ -19,7 +19,6 @@ body{
 	background: #ececec url('/static/img/bg.jpg') repeat;
 	/*font-family: 'Marko One', serif;*/
 	/*font-family: 'Faster One', cursive;*/
-	/*font-family: 'Love Ya Like A Sister', cursive;*/
 	font-family: 'Ubuntu', sans-serif;
 }
 ul{ list-style-type: none; margin: 0}
@@ -39,6 +38,9 @@ ul{ list-style-type: none; margin: 0}
 }
 #wrapper{
 	/*overflow: hidden;*/
+}
+#wrapper .view, #wrapper .plain_view{
+	min-width: 1024px;
 }
 #wrapper .view{
 	margin: 20px 0 10px 0;
@@ -265,8 +267,8 @@ ul{ list-style-type: none; margin: 0}
 /*Left container*/
 .left_cont{ 
 	float: left;
-	margin: 0 50px;
-	width: 60%;
+	margin: 0 2%;
+	width: 62%;
 }
 .left_cont .tabs_cont{
 	border-bottom: 1px solid #eee;
@@ -286,15 +288,21 @@ ul{ list-style-type: none; margin: 0}
 /*Right container*/
 .right_cont{
 	float: left;
+	margin: 0 3%;
 	overflow: hidden;
-	padding: 10px;
+	padding: 0 1%;
+	width: 26%;
 }
 .right_cont .box{
+	background: rgba(0,0,0,0.8);		
+	border-radius: 10px;
 	margin: 10px 0;
+	padding: 10px;
 }
 .right_cont .box .title{
+	border-bottom: 2px solid #cc0000;
+	color: #fff;
 	font-size: 18px;
-	border-bottom: 2px solid #444;
 	padding: 5px 10px;
 }
 .right_cont .box .cont{
