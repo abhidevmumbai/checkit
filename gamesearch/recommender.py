@@ -65,7 +65,7 @@ class Recommender(object):
                 game_rank = self.calculateRank(game, platform_dict, genre_dict, all_words)
                 reco_games.append([game_rank, game])
                 reco_games.sort(key=lambda x: x[0], reverse=True)
-                if len(reco_games) > 10:
+                if len(reco_games) > 15:
                     reco_games.pop()
         
         gamerecom, created = Recommendation.objects.get_or_create(user=user)
