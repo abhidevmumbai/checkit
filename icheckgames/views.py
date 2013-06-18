@@ -56,7 +56,8 @@ class MessageMixin(object):
     Method to get Recommended Games for a particular user
 '''
 def getRecommendedGames(user):
-    if user:
+    #Check if the user is present in the Recommendations table
+    if Recommendation.objects.filter(user=user):
         recommendedGames = Recommendation.objects.get(user=user).gameslist.all()
         return recommendedGames
     return None
@@ -397,7 +398,7 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
 
     def get_context_data(self, **kwargs):
         user = self.request.user
-        context = super(MyGameListView, self).get_context_data(**kwargs)
+        context = super(MyGameListView, self).get_context_data(**kwargs)        
         context['recommendedGames'] = getRecommendedGames(user)
         return context
 

@@ -319,6 +319,7 @@ ul{ list-style-type: none; margin: 0}
 .right_cont .box{
 	background: rgba(0,0,0,0.8);		
 	border-radius: 10px;
+	color: #bbb;
 	margin: 10px 0;
 	padding: 10px;
 }
