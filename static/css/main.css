@@ -201,7 +201,7 @@ ul{ list-style-type: none; margin: 0}
 	box-shadow: 2px 2px 10px;
 	-webkit-box-shadow: 2px 2px 10px;
 	-moz-box-shadow: 2px 2px 10px;
-	padding: 20px 0 0 0;
+	padding: 20px 0;
 	position: relative;
 	overflow: hidden;
 }
@@ -268,6 +268,7 @@ ul{ list-style-type: none; margin: 0}
 	box-shadow: none;
 	-webkit-box-shadow: none;
 	box-shadow: none;
+	padding: 20px 0 0 0;
 }
 /*Game Details*/
 /*.plain_view{
@@ -382,6 +383,7 @@ ul{ list-style-type: none; margin: 0}
 	position: absolute;
 	left: 0;
 	margin: 0;
+	min-width: 120px;
 	top: 120px;
 	width: 18%;
 }
@@ -391,6 +393,7 @@ ul{ list-style-type: none; margin: 0}
 	top: 10px;
 }
 .scroll_container .anchor_list li{
+	border-bottom: 1px solid #444;
 	/*display: inline-block;*/
 }
 .scroll_container .anchor_list li a{

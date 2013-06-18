@@ -70,21 +70,22 @@
 								<li><span class="term">Publisher: </span>
 									<span>{{ game.publisher }}</span></li>
 							</ul>
+							<div class="CL"></div>
+							<div class="rating FL"><span>{{ game.rating }}</span></div>
 						</div>
 						{% if user.is_authenticated %}
 							<div class="FR" data-gameid="{{ game.id }}"><input class="check_game" type="checkbox" /></div>
-							<div class="actions FR">
-								<!--div class="btn-toolbar">
+							<!-- <div class="actions FR">
+								<div class="btn-toolbar">
 									<div class="btn-group">
 										<a class="btn btn-small" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
 										<a class="btn btn-small" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
 										<a class="btn btn-small" href="#" title="Mark as Played"><i class="icon-play"></i></a>
 										<a class="btn btn-small" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
 									</div>
-								</div-->
-							</div>
+								</div>
+							</div> -->
 						{% endif %}
-						<div class="rating FR"><span>{{ game.rating }}</span></div>
 					</div>
 				{% empty %}
 					<div>Sorry, no Games in this list!</div>

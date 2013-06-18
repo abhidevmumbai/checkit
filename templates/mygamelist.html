@@ -51,20 +51,22 @@
 							<div class="rating FL"><span>{{ link.game.rating }}</span></div>
 						</div>
 						<div class="FR" data-gameid="{{ link.game.id }}"><input class="check_game" type="checkbox" checked="checked"/></div>
-						<div class="actions FR">
-							<div class="btn-toolbar">
-								<div class="btn-group" data-gameid="{{ link.game.id }}">
-									<a data-gametask="5" data-toggle="{% if link.current %}false{% else %}true{% endif %}" class="btn btn-info {% if link.current %}active{% endif %}" href="#" title="Currently Playing">Playing</a>
-									<a data-gametask="6" data-toggle="{% if link.onhold %}false{% else %}true{% endif %}" class="btn btn-info {% if link.onhold %}active{% endif %}" href="#" title="On Hold">On Hold</a>
-									<a data-gametask="4" data-toggle="{% if link.completed %}false{% else %}true{% endif %}" class="btn btn-info {% if link.completed %}active{% endif %}" href="#" title="Completed">Completed</a>
-								</div>
-								<div class="btn-group" data-gameid="{{ link.game.id }}">
-									<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned">Owned</a>
-									<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
-									<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
+						{% if user.is_authenticated %}
+							<div class="actions FR">
+								<div class="btn-toolbar">
+									<div class="btn-group" data-gameid="{{ link.game.id }}">
+										<a data-gametask="5" data-toggle="{% if link.current %}false{% else %}true{% endif %}" class="btn btn-info {% if link.current %}active{% endif %}" href="#" title="Currently Playing">Playing</a>
+										<a data-gametask="6" data-toggle="{% if link.onhold %}false{% else %}true{% endif %}" class="btn btn-info {% if link.onhold %}active{% endif %}" href="#" title="On Hold">On Hold</a>
+										<a data-gametask="4" data-toggle="{% if link.completed %}false{% else %}true{% endif %}" class="btn btn-info {% if link.completed %}active{% endif %}" href="#" title="Completed">Completed</a>
+									</div>
+									<div class="btn-group" data-gameid="{{ link.game.id }}">
+										<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned">Owned</a>
+										<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
+										<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
+									</div>
 								</div>
 							</div>
-						</div>
+						{% endif %}
 					</div>
 				{% empty %}
 					<div>Sorry, no Games in this list!</div>
