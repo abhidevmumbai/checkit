@@ -13,11 +13,13 @@
 			<div class="tabs_cont">
 				<ul class="nav nav-tabs">
 					<li class="all"><a href="{% url mygamelist %}">All</a></li>
-					<li class="owned"><a href="{% url mygamelist %}?tag=owned">Owned</a></li>
-					<li class="completed"><a href="{% url mygamelist %}?tag=completed">Completed</a></li>
+					<li class="notstarted"><a href="{% url mygamelist %}?tag=notstarted">Not Started</a></li>
 					<li class="current"><a href="{% url mygamelist %}?tag=current">Currently playing</a></li>
 					<li class="onhold"><a href="{% url mygamelist %}?tag=onhold">On hold</a></li>
-					<li class="favorite"><a href="{% url mygamelist %}?tag=favorite">Favorite</a></li>
+					<li class="dropped"><a href="{% url mygamelist %}?tag=dropped">Dropped playing</a></li>
+					<li class="completed"><a href="{% url mygamelist %}?tag=completed">Completed</a></li>
+					<li class="owned"><a href="{% url mygamelist %}?tag=owned">Owned</a></li>
+					<li class="favorite"><a href="{% url mygamelist %}?tag=favorite">Favorites</a></li>
 					<li class="wish"><a href="{% url mygamelist %}?tag=wish">Wishlist</a></li>
 				</ul>
 			</div>
@@ -51,18 +53,26 @@
 							<div class="rating FL"><span>{{ link.game.rating }}</span></div>
 						</div>
 						<div class="FR" data-gameid="{{ link.game.id }}"><a href="#" title="Remove" class="close check_game">x</a></div>
+						<div class="CL"></div>
+						<div class="game_status input-prepend input-append FR" data-gameid="{{ link.game.id }}">
+							<span class="add-on">Status</span>
+							<select>
+								<option data-gametask="10" {% if link.status == 'notstarted' %}selected{% endif %}>Not Started</option>
+								<option data-gametask="5" {% if link.status == 'current' %}selected{% endif %}>Currently playing</option>
+								<option data-gametask="6" {% if link.status == 'onhold' %}selected{% endif %}>On Hold</option>
+								<option data-gametask="9" {% if link.status == 'dropped' %}selected{% endif %}>Dropped playing</option>
+								<option data-gametask="4" {% if link.status == 'completed' %}selected{% endif %}>Completed</option>
+							</select>
+							<button class="update btn btn-warning">Update</button>
+						</div>
+						
 						{% if user.is_authenticated %}
 							<div class="actions FR">
 								<div class="btn-toolbar">
 									<div class="btn-group" data-gameid="{{ link.game.id }}">
-										<a data-gametask="5" data-toggle="{% if link.current %}false{% else %}true{% endif %}" class="btn btn-info {% if link.current %}active{% endif %}" href="#" title="Currently Playing">Playing</a>
-										<a data-gametask="6" data-toggle="{% if link.onhold %}false{% else %}true{% endif %}" class="btn btn-info {% if link.onhold %}active{% endif %}" href="#" title="On Hold">On Hold</a>
-										<a data-gametask="4" data-toggle="{% if link.completed %}false{% else %}true{% endif %}" class="btn btn-info {% if link.completed %}active{% endif %}" href="#" title="Completed">Completed</a>
-									</div>
-									<div class="btn-group" data-gameid="{{ link.game.id }}">
-										<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned">Owned</a>
-										<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
-										<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
+										<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-info {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned">Mark as Owned</a>
+										<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-info {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
+										<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-info {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
 									</div>
 								</div>
 							</div>
@@ -97,6 +107,8 @@
 					<ul>
 						{% for game in recommendedGames %}
 							<li><a href="{% url gamedetails game.id %}">{{ game }}</a></li>
+							{% empty %}
+						<div>Sorry, no Games in this list!</div>
 						{% endfor %}
 					</ul>
 				</div>
@@ -127,38 +139,52 @@
 				});
 			});
 
+			//Set the Game status
+			$('.game .game_status .update').on('click', function(e){
+				e.preventDefault();
+				var _this = $(this),
+					game_id = _this.parent().data('gameid'),
+					selected_option = _this.parent().find('select option:selected');
+					game_task = selected_option.data('gametask');
+					game_flag = true;
+					gameTask(game_id, game_task, game_flag, selected_option);
+			});
+
 			/*Action btns*/
 			$('.game .actions .btn-group').on('click', 'a', function(e){
 				e.preventDefault();
 				var _this = $(this),
-					game_id = _this.parent().data('gameid'),
-					game_task = _this.data('gametask'),
-					game_flag = _this.data('toggle');
-
-				//console.log({"game_id": game_id, "game_task": game_task, "game_flag": game_flag});
-				$.ajax({
-					url: "{% url managelist %}",
-					type: "POST",
-					data: {"game_id": game_id, "game_task": game_task, "game_flag": game_flag},
-					success: function(data){
-						if(data.success){
-							if(game_flag){
-								_this.data('toggle', false).addClass('active');
-							}else{
-								_this.data('toggle', true).removeClass('active');
-
-								//Don't remove the game item from dom when in 'All' tab
-								if(utils.getUrlVar('tag')){
-									_this.parentsUntil('.game').parent().remove();
-								}
-							}
-						}
-					}
-				});
+				game_id = _this.parent().data('gameid'),
+				game_task = _this.data('gametask'),
+				game_flag = _this.data('toggle');
+				gameTask(game_id, game_task, game_flag, _this);
 			});
 
 		});
 	
+		//Function to perform game tasks
+		function gameTask(game_id, game_task, game_flag, flag_obj){
+			console.log({"game_id": game_id, "game_task": game_task, "game_flag": game_flag, 'flag_obj': flag_obj});
+			$.ajax({
+				url: "{% url managelist %}",
+				type: "POST",
+				data: {"game_id": game_id, "game_task": game_task, "game_flag": game_flag},
+				success: function(data){
+					if(data.success){
+						if(game_flag){
+							flag_obj.data('toggle', false).addClass('active');
+						}else{
+							flag_obj.data('toggle', true).removeClass('active');
+
+							//Don't remove the game item from dom when in 'All' tab
+							if(utils.getUrlVar('tag')){
+								flag_obj.parentsUntil('.game').parent().remove();
+							}
+						}
+					}
+				}
+			});
+		}
 		/*Display the active tab based on the url parameters*/
 		function tab_active(){
 			var tag = utils.getUrlVar('tag')

@@ -342,7 +342,7 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             #Mark Completed
             game = Game.objects.get(id=game_id)
             gamemap = GameMap.objects.get(user=user, game=game)
-            gamemap.completed = game_flag
+            gamemap.status = 'completed'
             gamemap.save()
             message = "Game marked as completed."
             success = True
@@ -350,7 +350,7 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             #Mark as currently playing
             game = Game.objects.get(id=game_id)
             gamemap = GameMap.objects.get(user=user, game=game)
-            gamemap.current = game_flag
+            gamemap.status = 'current'
             gamemap.save()
             message = "Game added in current list."
             success = True
@@ -358,7 +358,7 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             #Mark as On hold
             game = Game.objects.get(id=game_id)
             gamemap = GameMap.objects.get(user=user, game=game)
-            gamemap.onhold = game_flag
+            gamemap.status = 'onhold'
             gamemap.save()
             message = "Game on hold."
             success = True
@@ -378,7 +378,23 @@ class ApiGame(CSRFExemptMixin, LoginRequiredMixin, TemplateView):
             gamemap.save()
             message = "Game added in wishlist."
             success = True            
-        
+        elif game_task == 9:
+            #Mark as Dropped playing
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.status = 'dropped'
+            gamemap.save()
+            message = "Game dropped."
+            success = True
+        elif game_task == 10:
+            #Mark as Not started
+            game = Game.objects.get(id=game_id)
+            gamemap = GameMap.objects.get(user=user, game=game)
+            gamemap.status = 'notstarted'
+            gamemap.save()
+            message = "Game not started yet."
+            success = True
+
         else:
             message = "Invalid task."
         content = json.dumps({"success": success, "message": message})
@@ -406,7 +422,10 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
         user = self.request.user
         tag = self.request.GET.get('tag')
         try:
-            gamelinks = user.gamemap_set.filter(**{tag:True})
+            if tag=='current' or tag=='completed' or tag=='onhold' or tag== 'dropped' or tag== 'notstarted':
+                gamelinks = user.gamemap_set.filter(status=tag)
+            else:
+                gamelinks = user.gamemap_set.filter(**{tag:True})
         except:
             gamelinks = user.gamemap_set.all()
         return gamelinks
