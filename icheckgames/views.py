@@ -194,7 +194,7 @@ class GameListView(MessageMixin, ListView):
             elif platformobj:
                 games = platformobj.game_set.all()
             else:
-                games = Game.objects.all()
+                games = Game.objects.all().order_by('title')
         else:
             games = []
             title_games = []
