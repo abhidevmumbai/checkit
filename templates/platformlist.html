@@ -20,11 +20,11 @@
 				<div class="content">
 					{% for platform in platforms %}
 						<div class="cont_panel" id="{{ platform.id }}">
-							<!-- <div class="FL">
-								<a href="#" name="{{ platform.id }}">
-									<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% if platform.boxarts %}{% parseImagejson platform.boxarts 'original' %}{% endif %}" alt="{{ platform.name }}">
-								</a>
-							</div> -->
+							{%if platform.banner %}
+								<div class="banner">
+									<img class="" data-src="holder.js/160x120" src="{{platform.banner}}" alt="{{ platform.name }}">
+								</div>
+							{% endif %}
 							<div class="details FL">
 								<div class="title"><span>{{ platform.name }}</span></div>
 								<ul class="extra_info">
