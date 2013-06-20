@@ -9,105 +9,119 @@
 {% endblock navbar %}
 {% block body %}
 	<div class="action_bar">
-		<form id="game_search_form">
-			<div class="span2 offset1">
-				<div class="input-prepend">
-					<span class="add-on">Genre</span>
-					<select name="genre">
-						<option value="0">All</option>
-						{% for genre in genres %}
-							<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div class="span3 offset1">
-				<div class="input-prepend">
-					<span class="add-on">Platform</span>
-					<select name="platform">
-						<option value="0">All</option>
-						{% for platform in platforms %}
-							<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
-						{% endfor %}
-					</select>
-				</div>
-			</div>
-			<div class="span3 offset1">
-				<div class="input-append">
-					<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
-					<button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div class="row-fluid plain_view">
-		<div class="title span11">Browse all your favorite Games</div>
-		<div class="left_cont">
-			<div class="gamelist">
-				{% for game in games %}
-
-					<div class="game row-fluid">
-						<div class="FL">
-							<a href="{% url gamedetails game.id %}">
-								<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" alt="{{ game.title }}">
-							</a>
-						</div>
-						<div class="details FL">
-							<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
-							<ul class="extra_info">
-								<li><span class="term">Platforms: </span>
-									<span>{{ game.platform }}</span>
-								</li>
-								<li><span class="term">Genre: </span>
-								<span>
-									{% for genre in game.genres.all %}
-										{{ genre }}{% if not forloop.last %}, {% endif %}
-									{% endfor %}
-								</span>
-							</li>
-								<li><span class="term">Developer: </span>
-									<span>{{ game.developer }}</span></li>
-								<li><span class="term">Publisher: </span>
-									<span>{{ game.publisher }}</span></li>
-							</ul>
-							<div class="CL"></div>
-							<div class="rating FL"><span>{{ game.rating }}</span></div>
-						</div>
-						{% if user.is_authenticated %}
-							<div class="FR" data-gameid="{{ game.id }}"><input class="check_game" type="checkbox" /></div>
-							<!-- <div class="actions FR">
-								<div class="btn-toolbar">
-									<div class="btn-group">
-										<a class="btn btn-small" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
-										<a class="btn btn-small" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
-										<a class="btn btn-small" href="#" title="Mark as Played"><i class="icon-play"></i></a>
-										<a class="btn btn-small" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
-									</div>
-								</div>
-							</div> -->
-						{% endif %}
+		<div class="row-fluid">
+			<form id="game_search_form">
+				<div class="span2 offset1">
+					<div class="input-append field">
+						<select name="genre">
+							<option value="0">All</option>
+							{% for genre in genres %}
+								<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
+							{% endfor %}
+						</select>
+						<span class="add-on">Genre</span>
 					</div>
-				{% empty %}
-					<div>Sorry, no Games in this list!</div>
-				{% endfor %}
+				</div>
+				<div class="span3 offset1">
+					<div class="input-append field">
+						<select name="platform">
+							<option value="0">All</option>
+							{% for platform in platforms %}
+								<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
+							{% endfor %}
+						</select>
+						<span class="add-on">Platform</span>
+					</div>
+				</div>
+				<div class="span3 offset1">
+					<div class="input-append field">
+						<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
+						<button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row-fluid plain_view">
+			<div class="left_cont span8">
+				<div class="title span11">Browse all your favorite Games</div>
+				<div class="gamelist">
+					{% for game in games %}
+
+						<div class="game row-fluid">
+							<div class="FL">
+								<a href="{% url gamedetails game.id %}">
+									<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" alt="{{ game.title }}">
+								</a>
+							</div>
+							<div class="details FL">
+								<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
+								<ul class="extra_info">
+									<li><span class="term">Platforms: </span>
+										<span>{{ game.platform }}</span>
+									</li>
+									<li><span class="term">Genre: </span>
+									<span>
+										{% for genre in game.genres.all %}
+											{{ genre }}{% if not forloop.last %}, {% endif %}
+										{% endfor %}
+									</span>
+								</li>
+									<li><span class="term">Developer: </span>
+										<span>{{ game.developer }}</span></li>
+									<li><span class="term">Publisher: </span>
+										<span>{{ game.publisher }}</span></li>
+								</ul>
+								<div class="CL"></div>
+								<div class="rating FL"><span>{{ game.rating }}</span></div>
+							</div>
+							{% if user.is_authenticated %}
+								<div class="FR" data-gameid="{{ game.id }}"><input class="check_game" type="checkbox" /></div>
+								<!-- <div class="actions FR">
+									<div class="btn-toolbar">
+										<div class="btn-group">
+											<a class="btn btn-small" href="#" title="Add to Favorites"><i class="icon-heart"></i></a>
+											<a class="btn btn-small" href="#" title="Mark as Owned"><i class="icon-th-large"></i></a>
+											<a class="btn btn-small" href="#" title="Mark as Played"><i class="icon-play"></i></a>
+											<a class="btn btn-small" href="#" title="Add to Wishlist"><i class="icon-flag"></i></a>
+										</div>
+									</div>
+								</div> -->
+							{% endif %}
+						</div>
+					{% empty %}
+						<div>Sorry, no Games in this list!</div>
+					{% endfor %}
+				</div>
+				{% if is_paginated %}
+			        <div class="pagination ML10">
+			            <ul>
+			                {% if page_obj.has_previous %}
+			                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+			                {% endif %}
+			                	<li>
+			                		<span class="page-current">
+					                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					                </span>
+					            </li>
+			                {% if page_obj.has_next %}
+			                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+			                {% endif %}
+			            </ul>
+			        </div>
+				{% endif %}
 			</div>
-			{% if is_paginated %}
-		        <div class="pagination ML10">
-		            <ul>
-		                {% if page_obj.has_previous %}
-		                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
-		                {% endif %}
-		                	<li>
-		                		<span class="page-current">
-				                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-				                </span>
-				            </li>
-		                {% if page_obj.has_next %}
-		                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
-		                {% endif %}
-		            </ul>
-		        </div>
-			{% endif %}
+			<div class="right_cont span4">
+				<div class="box">
+					<div class="title">Recommended Games</div>
+					<div class="cont">
+						<ul>
+							<li>Sorry, no Games in this list!</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 {% endblock body%}

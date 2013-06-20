@@ -5,7 +5,7 @@
         <title>{% block title %}Base Title{% endblock title %}</title>    
         {% block head %}
             <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
-            <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css" /> -->
+            <link rel="stylesheet" type="text/css" href="/static/css/bootstrap-responsive.min.css" />
             <link rel="stylesheet" type="text/css" href="/static/css/main.css" />
 
             <link href='http://fonts.googleapis.com/css?family=Marko+One' rel='stylesheet' type='text/css'>
@@ -39,14 +39,21 @@
             <div class="navbar navbar-inverse">
                 <div class="navbar-inner">
                     <div class="container">
-                        <ul class="nav">
-                            <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
-                            <li class=""><a href="{% url platformlist %}" class="{% navactive request 'platformlist' %}">Platforms</a></li>
-                            <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
-                            {% if user.is_authenticated %}
-                                <li class=""><a href="{% url mygamelist %}" class="{% navactive request 'mygamelist' %}">My Games</a></li>
-                            {% endif %}
-                        </ul>
+                        <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                          </button>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav">
+                                <li class=""><a href="{% url home %}" class="{% navactive request 'home' %}">Home</a></li>
+                                <li class=""><a href="{% url platformlist %}" class="{% navactive request 'platformlist' %}">Platforms</a></li>
+                                <li class=""><a href="{% url gamelist %}" class="{% navactive request 'gamelist' %}">Games</a></li>
+                                {% if user.is_authenticated %}
+                                    <li class=""><a href="{% url mygamelist %}" class="{% navactive request 'mygamelist' %}">My Games</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
                         {% block navbar %}
                         {% endblock navbar %}
                     </div>

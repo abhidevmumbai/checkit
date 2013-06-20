@@ -8,109 +8,111 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid plain_view">
-		<div class="left_cont">
-			<div class="tabs_cont">
-				<ul class="nav nav-tabs">
-					<li class="all"><a href="{% url mygamelist %}">All</a></li>
-					<li class="notstarted"><a href="{% url mygamelist %}?tag=notstarted">Not Started</a></li>
-					<li class="current"><a href="{% url mygamelist %}?tag=current">Currently playing</a></li>
-					<li class="onhold"><a href="{% url mygamelist %}?tag=onhold">On hold</a></li>
-					<li class="dropped"><a href="{% url mygamelist %}?tag=dropped">Dropped playing</a></li>
-					<li class="completed"><a href="{% url mygamelist %}?tag=completed">Completed</a></li>
-					<li class="owned"><a href="{% url mygamelist %}?tag=owned">Owned</a></li>
-					<li class="favorite"><a href="{% url mygamelist %}?tag=favorite">Favorites</a></li>
-					<li class="wish"><a href="{% url mygamelist %}?tag=wish">Wishlist</a></li>
-				</ul>
-			</div>
-			<div class="gamelist mygamelist">
-				{% for link in gamelinks %}
-					<div class="game row-fluid">
-						<div class="FL">
-							<a href="{% url gamedetails link.game.id %}">
-								<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}" alt="{{ link.game.title }}">
-							</a>
-						</div>
-						<div class="details FL">
-							<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
-							<ul class="extra_info">
-								<li><span class="term">Platforms: </span>
-									<span>{{ link.game.platform }}</span>
+	<div class="container">
+		<div class="row-fluid plain_view">
+			<div class="left_cont span8">
+				<div class="tabs_cont">
+					<ul class="nav nav-tabs">
+						<li class="all"><a href="{% url mygamelist %}">All</a></li>
+						<li class="notstarted"><a href="{% url mygamelist %}?tag=notstarted">Not Started</a></li>
+						<li class="current"><a href="{% url mygamelist %}?tag=current">Currently playing</a></li>
+						<li class="onhold"><a href="{% url mygamelist %}?tag=onhold">On hold</a></li>
+						<li class="dropped"><a href="{% url mygamelist %}?tag=dropped">Dropped playing</a></li>
+						<li class="completed"><a href="{% url mygamelist %}?tag=completed">Completed</a></li>
+						<li class="owned"><a href="{% url mygamelist %}?tag=owned">Owned</a></li>
+						<li class="favorite"><a href="{% url mygamelist %}?tag=favorite">Favorites</a></li>
+						<li class="wish"><a href="{% url mygamelist %}?tag=wish">Wishlist</a></li>
+					</ul>
+				</div>
+				<div class="gamelist mygamelist">
+					{% for link in gamelinks %}
+						<div class="game row-fluid">
+							<div class="FL">
+								<a href="{% url gamedetails link.game.id %}">
+									<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}" alt="{{ link.game.title }}">
+								</a>
+							</div>
+							<div class="details FL">
+								<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
+								<ul class="extra_info">
+									<li><span class="term">Platforms: </span>
+										<span>{{ link.game.platform }}</span>
+									</li>
+									<li><span class="term">Genre: </span>
+									<span>
+										{% for genre in link.game.genres.all %}
+											{{ genre }}{% if not forloop.last %}, {% endif %}
+										{% endfor %}
+									</span>
 								</li>
-								<li><span class="term">Genre: </span>
-								<span>
-									{% for genre in link.game.genres.all %}
-										{{ genre }}{% if not forloop.last %}, {% endif %}
-									{% endfor %}
-								</span>
-							</li>
-								<li><span class="term">Developer: </span>
-									<span>{{ link.game.developer }}</span></li>
-								<li><span class="term">Publisher: </span>
-									<span>{{ link.game.publisher }}</span></li>
-							</ul>
+									<li><span class="term">Developer: </span>
+										<span>{{ link.game.developer }}</span></li>
+									<li><span class="term">Publisher: </span>
+										<span>{{ link.game.publisher }}</span></li>
+								</ul>
+								<div class="CL"></div>
+								<div class="rating FL"><span>{{ link.game.rating }}</span></div>
+							</div>
+							<div class="FR" data-gameid="{{ link.game.id }}"><a href="#" title="Remove" class="close check_game">x</a></div>
 							<div class="CL"></div>
-							<div class="rating FL"><span>{{ link.game.rating }}</span></div>
-						</div>
-						<div class="FR" data-gameid="{{ link.game.id }}"><a href="#" title="Remove" class="close check_game">x</a></div>
-						<div class="CL"></div>
-						<div class="game_status input-prepend input-append FR" data-gameid="{{ link.game.id }}">
-							<span class="add-on">Status</span>
-							<select>
-								<option data-gametask="10" {% if link.status == 'notstarted' %}selected{% endif %}>Not Started</option>
-								<option data-gametask="5" {% if link.status == 'current' %}selected{% endif %}>Currently playing</option>
-								<option data-gametask="6" {% if link.status == 'onhold' %}selected{% endif %}>On Hold</option>
-								<option data-gametask="9" {% if link.status == 'dropped' %}selected{% endif %}>Dropped playing</option>
-								<option data-gametask="4" {% if link.status == 'completed' %}selected{% endif %}>Completed</option>
-							</select>
-							<button class="update btn btn-warning">Update</button>
-						</div>
-						
-						{% if user.is_authenticated %}
-							<div class="actions FR">
-								<div class="btn-toolbar">
-									<div class="btn-group" data-gameid="{{ link.game.id }}">
-										<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-info {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned">Mark as Owned</a>
-										<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-info {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
-										<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-info {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
+							<div class="game_status input-prepend input-append FR" data-gameid="{{ link.game.id }}">
+								<span class="add-on">Status</span>
+								<select>
+									<option data-gametask="10" {% if link.status == 'notstarted' %}selected{% endif %}>Not Started</option>
+									<option data-gametask="5" {% if link.status == 'current' %}selected{% endif %}>Currently playing</option>
+									<option data-gametask="6" {% if link.status == 'onhold' %}selected{% endif %}>On Hold</option>
+									<option data-gametask="9" {% if link.status == 'dropped' %}selected{% endif %}>Dropped playing</option>
+									<option data-gametask="4" {% if link.status == 'completed' %}selected{% endif %}>Completed</option>
+								</select>
+								<button class="update btn btn-warning">Update</button>
+							</div>
+							
+							{% if user.is_authenticated %}
+								<div class="actions FR">
+									<div class="btn-toolbar">
+										<div class="btn-group" data-gameid="{{ link.game.id }}">
+											<a data-gametask="3" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-info {% if link.owned %}active{% endif %}" href="#" title="Mark as Owned">Mark as Owned</a>
+											<a data-gametask="7" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-info {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
+											<a data-gametask="8" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-info {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
+										</div>
 									</div>
 								</div>
-							</div>
-						{% endif %}
-					</div>
-				{% empty %}
-					<div>Sorry, no Games in this list!</div>
-				{% endfor %}
-			</div>
-			{% if is_paginated %}
-		        <div class="pagination ML10">
-		            <ul>
-		                {% if page_obj.has_previous %}
-		                    <li><a href="{% url mygamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
-		                {% endif %}
-		                	<li>
-		                		<span class="page-current">
-				                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-				                </span>
-				            </li>
-		                {% if page_obj.has_next %}
-		                    <li><a href="{% url mygamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
-		                {% endif %}
-		            </ul>
-		        </div>
-			{% endif %}
-		</div>
-		<div class="right_cont">
-			<div class="box">
-				<div class="title">Recommended Games</div>
-				<div class="cont">
-					<ul>
-						{% for game in recommendedGames %}
-							<li><a href="{% url gamedetails game.id %}">{{ game }}</a></li>
-							{% empty %}
+							{% endif %}
+						</div>
+					{% empty %}
 						<div>Sorry, no Games in this list!</div>
-						{% endfor %}
-					</ul>
+					{% endfor %}
+				</div>
+				{% if is_paginated %}
+			        <div class="pagination ML10">
+			            <ul>
+			                {% if page_obj.has_previous %}
+			                    <li><a href="{% url mygamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+			                {% endif %}
+			                	<li>
+			                		<span class="page-current">
+					                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					                </span>
+					            </li>
+			                {% if page_obj.has_next %}
+			                    <li><a href="{% url mygamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+			                {% endif %}
+			            </ul>
+			        </div>
+				{% endif %}
+			</div>
+			<div class="right_cont span4">
+				<div class="box">
+					<div class="title">Recommended Games</div>
+					<div class="cont">
+						<ul>
+							{% for game in recommendedGames %}
+								<li><a href="{% url gamedetails game.id %}">{{ game }}</a></li>
+								{% empty %}
+							<div>Sorry, no Games in this list!</div>
+							{% endfor %}
+						</ul>
+					</div>
 				</div>
 			</div>
 		</div>
