@@ -123,6 +123,12 @@
 	{{ block.super }}
 	<script type="text/javascript">
 		$(document).ready(function(){
+			$('.gamelist .check_game').hover(function(){
+				$(this).parent().parent().find('.thumbnail').addClass('shakeit')
+			},
+			function(){
+				$(this).parent().parent().find('.thumbnail').removeClass('shakeit')
+			});
 			$('.gamelist').on('click', '.check_game', function(event){
 				event.preventDefault();
 				var game_id = $(this).parent().data('gameid');
