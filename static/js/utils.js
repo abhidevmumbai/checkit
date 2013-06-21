@@ -84,6 +84,34 @@ var utils = {
         
     },
 
+    notifyMe: function(msg_options) {
+        //console.log(msg_options);
+        if(msg_options){
+            var type = msg_options.type,
+                msg = msg_options.msg,
+                data = msg_options.data,
+                notify_container = $('#notify_container'),
+                notify_body = $('<div class="notify_body"></div>');            
+            
+            //Notify message
+            switch(type){
+                case 'text': 
+                    notify_body.html('<p>'+ msg +'</p>');
+                break;
+            }
+            notify_container.append(notify_body);
+            notify_body.show();
+            setTimeout(function(){
+                notify_body.slideUp(function(){
+                    this.remove()
+                });
+            }, 3000);
+        }else{
+            return;
+        }
+        
+    },
+
     /*
         Function to get all the query string params
     */
