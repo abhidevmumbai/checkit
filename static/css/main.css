@@ -7,19 +7,10 @@ yellow: #fff18b*/
 	font-family: BirthOfHero;
 	src: url('/static/fonts/BIRTH_OF_A_HERO.ttf');
 }
-@font-face{
-	font-family: VAL;
-	src: url('/static/fonts/VAL.otf');
-}
-@font-face{
-	font-family: RipeSemibold;
-	src: url('/static/fonts/ripesemibold.otf');
-}
+
 body{
 	background: #ececec url('/static/img/bg.jpg') repeat;
-	/*font-family: 'Marko One', serif;*/
-	/*font-family: 'Faster One', cursive;*/
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'Ubuntu', sans-serif, arial;
 	padding: 0;
 }
 ul{ list-style-type: none; margin: 0}
@@ -418,8 +409,8 @@ ul{ list-style-type: none; margin: 0}
 	left: 0;
 	top: 120px;*/
 	margin: 0;
-	min-width: 120px;
-	width: 18%;
+	min-width: 170px;
+	/*width: 18%;*/
 }
 .scroll_container .anchor_list.fixed{
 	position: fixed;
