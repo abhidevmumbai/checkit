@@ -188,11 +188,11 @@ class GameListView(MessageMixin, ListView):
         
         if not search_string:
             if genreobj and platformobj:
-                games = genreobj.game_set.filter(platform=platformobj)
+                games = genreobj.game_set.filter(platform=platformobj).order_by('title')
             elif genreobj:
-                games = genreobj.game_set.all()
+                games = genreobj.game_set.all().order_by('title')
             elif platformobj:
-                games = platformobj.game_set.all()
+                games = platformobj.game_set.all().order_by('title')
             else:
                 games = Game.objects.all().order_by('title')
         else:
