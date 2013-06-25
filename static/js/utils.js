@@ -99,7 +99,7 @@ var utils = {
                     notify_body.html('<p>'+ msg +'</p>');
                 break;
             }
-            notify_container.append(notify_body);
+            notify_container.prepend(notify_body);
             notify_body.show();
             setTimeout(function(){
                 notify_body.slideUp(function(){

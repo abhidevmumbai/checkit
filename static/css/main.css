@@ -555,14 +555,15 @@ ul{ list-style-type: none; margin: 0}
 /*Notifications*/
 #notify_container{
 	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
+	bottom: 0;
+	right: 0;
+	width: 30%;
 }
 #notify_container .notify_body{
 	background: #ffe691;
-	border-bottom: 2px solid #f6db7b;
+	border: 2px solid #f6db7b;
 	color: #7d5912;
-	padding: 5px;	
+	padding: 5px;
+	margin: 2px 0;
 	text-align: center;
 }
