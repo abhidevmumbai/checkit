@@ -15,14 +15,14 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
+	{% if game.banner %}
+		<div class="banner">
+			<img src="{{ game.banner }}" />
+		</div>
+	{% endif %}
 	<div class="container">
 		<div class="row-fluid plain_view">
 			<div class="span12">
-				{% if game.banner %}
-					<div class="banner">
-						<img src="{{ game.banner }}" />
-					</div>
-				{% endif %}
 				<div class="left_cont span8">
 					<div class="game_container">
 						<img class="MR15 thumb" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" />
