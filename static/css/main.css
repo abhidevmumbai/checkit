@@ -7,6 +7,10 @@ yellow: #fff18b*/
 	font-family: BirthOfHero;
 	src: url('/static/fonts/BIRTH_OF_A_HERO.ttf');
 }
+@font-face{
+	font-family: Homestead-Display;
+	src: url('/static/fonts/Homestead-Display.ttf');
+}
 
 body{
 	background: #ececec url('/static/img/bg.jpg') repeat;
@@ -91,8 +95,9 @@ ul{ list-style-type: none; margin: 0}
 	margin: 0;
 }
 .navbar .brand{
-	color: rgb(21, 92, 184);
+	color: rgb(42, 119, 255);
 	font-size: 35px;
+	font-family: 'Homestead-Display';
 	font-weight: bold;
 	padding-left: 30px;
 	text-shadow: 0 1px 0 #ccc,
@@ -107,6 +112,7 @@ ul{ list-style-type: none; margin: 0}
 	0 5px 10px rgba(0,0,0,.25),
 	0 10px 10px rgba(0,0,0,.2),
  	0 20px 20px rgba(0,0,0,.15);
+ 	letter-spacing: 2px;
 
 }
 #wrapper > .navbar-inverse .container{
@@ -298,6 +304,7 @@ ul{ list-style-type: none; margin: 0}
 	-moz-box-shadow: -2px 0px 10px;
 }
 .mygamelist .game{
+	border: none;
 	border-bottom: 2px solid #eee;
 	box-shadow: none;
 	-webkit-box-shadow: none;
@@ -410,13 +417,19 @@ ul{ list-style-type: none; margin: 0}
 	text-align: justify;
 }
 .game_container .screens .thumbs .thumb{
-	border: 4px solid #aaa;
+	border: 2px solid #aaa;
 	height: 168px;
 	margin: 5px;
+	padding: 2px;
 	width: 298px;
 	overflow: hidden;
+	transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
+	-webkit-transition: all .2s ease-in-out;
 }
-
+.game_container .screens .thumbs .thumb:hover{
+	border: 2px solid rgb(42, 119, 255);
+}
 
 /*Scroll container*/
 .scroll_container{
