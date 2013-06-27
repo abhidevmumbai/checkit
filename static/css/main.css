@@ -56,6 +56,7 @@ ul{ list-style-type: none; margin: 0}
 }
 #wrapper > .container{
 	/*width: 93%;*/
+	min-height: 500px;
 }
 
 /*Logo bar*/
@@ -544,12 +545,22 @@ ul{ list-style-type: none; margin: 0}
 	width: 93%;
 }
 .footer {
-	margin-top: 30px;
-	padding-top: 10px;
-	color: #999;
+	background: #484848;
 	border-top: solid 1px #DDD;
+	color: #999;
+	margin-top: 30px;
+	overflow: hidden;
+	padding: 2% 3%;
 }
-
+.footer .nav{
+	margin: 0;
+}
+.footer .nav a{
+	color: #ddd;
+}
+.footer .nav a:hover{
+	color: #444;
+}
 /*Animations*/
 @-webkit-keyframes shakeit {
 	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
