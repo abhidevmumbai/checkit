@@ -27,6 +27,7 @@ ul{ list-style-type: none; margin: 0}
 .MR15{ margin-right: 15px;}
 .TC{ text-align: center;}
 .FL{ float: left;} .FR{ float: right;} .CL{ clear: both;}
+.DN{ display: none;}
 
 .bg_white{
 	background: #fff;
@@ -296,7 +297,66 @@ ul{ list-style-type: none; margin: 0}
 	-o-transform: scale(2.5); /* Opera */
 	margin: 20px 15px;
 }
-
+/*Games thumbnail list*/
+.gamelist_thumb{
+	text-align: center;
+}
+.gamelist_thumb .game{
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	width: 200px;
+	height: 260px;
+}
+.gamelist_thumb .game .details{
+	background: rgba(0,0,0,0.93);
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding:2%;
+	width: 96%;
+	height: 100%;
+}
+.gamelist_thumb .game:hover .details{
+	display: block;
+}
+.gamelist_thumb .game .details .title{
+	font-size: 15px;
+	/*min-height: 60px;*/
+}
+.gamelist_thumb .thumbnail img{
+	width: 200px;
+	height: 250px;
+}
+.gamelist_thumb .extra_info{
+	float: none;
+}
+.gamelist_thumb .extra_info li{
+	color: rgb(101, 122, 17);
+	line-height: 15px;
+}
+.gamelist_thumb .extra_info li .term{
+	color: rgb(153, 153, 153);
+	display: block;
+}
+.gamelist_thumb .extra_info li span{
+	font-size: 13px;
+}
+.gamelist_thumb .check_me{
+	border-top: 1px solid #666;
+	color: #fff;
+	position: absolute;
+	bottom: 0;
+	width: 188px;
+}
+.gamelist_thumb .game input[type="checkbox"]{
+	-ms-transform: scale(2); /* IE */
+	-moz-transform: scale(2); /* FF */
+	-webkit-transform: scale(2); /* Safari and Chrome */
+	-o-transform: scale(2); /* Opera */
+	margin: 20px 15px;
+}
 .mygamelist{
 	background: #fff;
 	box-shadow: -2px 0px 10px;

@@ -151,7 +151,7 @@ class GameListView(MessageMixin, ListView):
     paginate_by = 20
     model = Game
     context_object_name = 'games'
-    template_name = "gamelist.html"
+    template_name = "gamelist_thumb.html"
 
     def get_context_data(self, **kwargs):
         genres = Genre.objects.all()
