@@ -583,6 +583,7 @@ ul{ list-style-type: none; margin: 0}
 	float: left;
 	padding: 5px;
 	width: 45%;
+	min-width: 250px;
 }
 
 /*CSS3 3D btns*/
@@ -639,6 +640,23 @@ ul{ list-style-type: none; margin: 0}
 .footer .nav a:hover{
 	color: #444;
 }
+
+/*Notifications*/
+#notify_container{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 30%;
+}
+#notify_container .notify_body{
+	background: #ffe691;
+	border: 2px solid #f6db7b;
+	color: #7d5912;
+	padding: 5px;
+	margin: 2px 0;
+	text-align: center;
+}
+
 /*Animations*/
 @-webkit-keyframes shakeit {
 	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
@@ -665,18 +683,29 @@ ul{ list-style-type: none; margin: 0}
 	display:inline-block
 }
 
-/*Notifications*/
-#notify_container{
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 30%;
+.fade_expand{
+	-webkit-animation: removed-item-animation .6s ease-out forwards;
+	-o-animation: removed-item-animation .6s ease-out forwards;
+	animation: removed-item-animation .6s ease-out forwards;
+	-webkit-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
+	-o-transform-origin: 50% 50%;
+	transform-origin: 50% 50%
 }
-#notify_container .notify_body{
-	background: #ffe691;
-	border: 2px solid #f6db7b;
-	color: #7d5912;
-	padding: 5px;
-	margin: 2px 0;
-	text-align: center;
+@-webkit-keyframes removed-item-animation {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+    transform: scale(1)
+  }
+
+  100% {
+    opacity: 0;
+    -webkit-transform: scale(4);
+    -ms-transform: scale(4);
+    -o-transform: scale(4);
+    transform: scale(4)''
+  }
 }

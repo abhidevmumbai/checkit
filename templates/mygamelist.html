@@ -142,9 +142,15 @@
 					data: {"game_id": game_id, "game_task": 2},
 					success: function(data){
 						if(data.success){
-							_this.parent().parent().slideUp(function(){
-								_this.remove();
-							});
+							game_row.addClass('fade_expand');
+							setTimeout(function(){
+								game_row.slideUp(function(){
+									this.remove();
+								});
+							}, 600);
+							// _this.parent().parent().slideUp(function(){
+							// 	_this.remove();
+							// });
 							utils.notifyMe(msg_obj);
 						}
 					}
