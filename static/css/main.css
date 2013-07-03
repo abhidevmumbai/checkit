@@ -23,7 +23,7 @@ ul{ list-style-type: none; margin: 0}
 .MT10{ margin-top: 10px;} .MT20{ margin-top: 20px !important;} .MT50{ margin-top: 50px !important;}
 .MR10{ margin-right: 10px; }
 .MB10{ margin-bottom: 10px;}
-.ML10{ margin-left: 10px;}
+.ML5{ margin-left: 5px;}.ML10{ margin-left: 10px;}
 .MR15{ margin-right: 15px;}
 .TC{ text-align: center;}
 .FL{ float: left;} .FR{ float: right;} .CL{ clear: both;}
@@ -496,7 +496,7 @@ ul{ list-style-type: none; margin: 0}
 	margin: 18px 0 0 0;
 	overflow: hidden;
 }
-.scroll_container .anchor_list{
+.scroll_container .anchor_list > ul{
 	background: rgba(0, 0, 0, 0.9);
 	border-bottom: 1px solid #aaa;
 	box-shadow: 0 2px 10px;
@@ -506,7 +506,7 @@ ul{ list-style-type: none; margin: 0}
 	/*position: absolute;
 	left: 0;
 	top: 120px;*/
-	margin: 0;
+	margin: 0 0 10px 0;
 	width: 170px;
 	/*width: 18%;*/
 }
@@ -515,11 +515,11 @@ ul{ list-style-type: none; margin: 0}
 	left: 0;
 	top: 10px;
 }
-.scroll_container .anchor_list li{
+.scroll_container .anchor_list > ul li{
 	border-bottom: 1px solid #444;
 	/*display: inline-block;*/
 }
-.scroll_container .anchor_list li a{
+.scroll_container .anchor_list > ul li a{
 	border-radius: 5px;
 	display: inline-block;
 	padding: 5px 10px;
@@ -530,11 +530,11 @@ ul{ list-style-type: none; margin: 0}
 	width: 74%;
 	float: right;
 }
-.scroll_container .anchor_list li:hover, .scroll_container .anchor_list li.active{
+.scroll_container .anchor_list > ul li:hover, .scroll_container .anchor_list > ul li.active{
 	background: rgb(18, 139, 206);
 	text-decoration: none;
 }
-.scroll_container .anchor_list li:hover a, .scroll_container .anchor_list li.active a{
+.scroll_container .anchor_list > ul li:hover a, .scroll_container .anchor_list > ul li.active a{
 	color: #fff;
 }
 .scroll_container .cont_panel{
