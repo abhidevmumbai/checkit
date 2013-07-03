@@ -21,15 +21,15 @@
 				        <div class="pagination ML5">
 				            <ul>
 				                {% if page_obj.has_previous %}
-				                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">prev</a></li>
+				                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">&larr; prev</a></li>
 				                {% endif %}
-				                	<li>
+				                	<!-- <li>
 				                		<span class="page-current">
 						                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
 						                </span>
-						            </li>
+						            </li> -->
 				                {% if page_obj.has_next %}
-				                    <li><a href="{% url platformlist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+				                    <li><a href="{% url platformlist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next &rarr;</a></li>
 				                {% endif %}
 				            </ul>
 				        </div>
