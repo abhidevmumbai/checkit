@@ -331,11 +331,17 @@ ul{ list-style-type: none; margin: 0}
 	height: 250px;
 }
 .gamelist_thumb .extra_info{
+	background: #181515;
+	border-bottom: #524C4C 1px solid;
 	float: none;
 }
 .gamelist_thumb .extra_info li{
+	background: #252020;
+	border-top: #524C4C 1px solid;
 	color: rgb(101, 122, 17);
 	line-height: 15px;
+	margin: 1px 0;
+	padding: 1px 0;
 }
 .gamelist_thumb .extra_info li .term{
 	color: rgb(153, 153, 153);
