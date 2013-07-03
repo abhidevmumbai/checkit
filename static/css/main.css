@@ -172,7 +172,8 @@ ul{ list-style-type: none; margin: 0}
 	margin-left: -70px;
 }
 .action_bar{
-	background: rgb(100, 100, 100);
+	background: #fff;
+	border-bottom: 1px solid #d4d4d4;
 	overflow: hidden;
 	width: 100%;
 	z-index: 99;
@@ -198,10 +199,10 @@ ul{ list-style-type: none; margin: 0}
 	width: 80%;
 }
 #game_search_form input[type='text']{
-	width: 78%;
+	width: 88%;
 }
 #game_search_form .add-on{
-	background: #000;
+	background: #49afcd;
 	color: #fff;
 	text-shadow:none;
 }

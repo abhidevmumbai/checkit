@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% load parseImagejson %}
+{% load isUserGame %}
+
+{% block title %}Game List{% endblock title %}
+
+{% block navbar %}
+	<!--h4 class="pull-left">Login</h4-->
+{% endblock navbar %}
+{% block body %}
+	<div class="action_bar">
+		<div class="row-fluid">
+			<form id="game_search_form">
+				<div class="span5 offset1">
+					<div class="input-append field">
+						<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
+						<button type="submit" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+					</div>
+				</div>
+				<div class="span2">
+					<div class="input-append field">
+						<select name="genre">
+							<option value="0">All</option>
+							{% for genre in genres %}
+								<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
+							{% endfor %}
+						</select>
+						<span class="add-on">Genre</span>
+					</div>
+				</div>
+				<div class="span3">
+					<div class="input-append field">
+						<select name="platform">
+							<option value="0">All</option>
+							{% for platform in platforms %}
+								<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
+							{% endfor %}
+						</select>
+						<span class="add-on">Platform</span>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row-fluid plain_view">
+			<div class="left_cont span12">
+				<div class="title span11">Browse all your favorite Games</div>				
+				<div class="gamelist_thumb">
+					<ul class="thumbnails">
+					{% for game in games %}
+						<li class="game" data-gameid="{{ game.id }}" data-gametitle="{{ game.title }}">
+								<!-- <a href="{% url gamedetails game.id %}" class="thumbnail"> -->
+								<div class="thumbnail">
+									<img data-src="holder.js/300x200" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" alt="{{ game.title }}">
+								</div>
+								<!-- </a> -->
+								<div class="details FL">
+									<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
+									<ul class="extra_info">
+										<li><span class="term">Platforms: </span>
+											<span>{{ game.platform }}</span>
+										</li>
+										<li><span class="term">Genre: </span>
+										<span>
+											{% for genre in game.genres.all %}
+												{{ genre }}{% if not forloop.last %}, {% endif %}
+											{% endfor %}
+										</span>
+									</li>
+										<li><span class="term">Developer: </span>
+											<span>{{ game.developer }}</span></li>
+										<li><span class="term">Publisher: </span>
+											<span>{{ game.publisher }}</span></li>
+									</ul>
+									<div class="CL"></div>
+									<!-- <div class="rating FL"><span>{{ game.rating }}</span></div> -->
+									{% if user.is_authenticated %}
+										<div class="check_me"><input class="check_game" name="check_me" type="checkbox" {% isUserGame user game %} />Add to your list</div>
+									{% endif %}
+								</div>
+						</li>
+					{% empty %}
+						<li>Sorry, no Games in this list!</li>
+					{% endfor %}
+				</ul>
+				{% if is_paginated %}
+			        <div class="pagination ML10">
+			            <ul>
+			                {% if page_obj.has_previous %}
+			                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
+			                {% endif %}
+			                	<li>
+			                		<span class="page-current">
+					                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+					                </span>
+					            </li>
+			                {% if page_obj.has_next %}
+			                    <li><a href="{% url gamelist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next</a></li>
+			                {% endif %}
+			            </ul>
+			        </div>
+				{% endif %}
+			</div>
+			<!-- <div class="right_cont span4">
+				<div class="box">
+					<div class="title">Recommended Games</div>
+					<div class="cont">
+						<ul>
+							<li>Sorry, no Games in this list!</li>
+						</ul>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+{% endblock body%}
+
+{% block bottom_javascript%}
+	{{ block.super }}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.gamelist_thumb').on('click', '.check_game', function(){				
+				var _this = $(this),
+					game_row = _this.parentsUntil('.game').parent(),
+					game_id = game_row.data('gameid'),
+					game_title = game_row.data('gametitle'),
+					is_checked = $(this).is(':checked');			
+				if(is_checked)
+				{
+					game_task = 1;
+				} else {
+					game_task = 2;
+				}
+				$.ajax({
+					url: "{% url managelist %}",
+					type: "POST",
+					data: {"game_id": game_id, "game_task": game_task},
+					success: function(data){
+						//console.log(data);
+						var msg_obj = {};
+						if(is_checked){
+							msg_obj = {"type": "text", "msg": "'<strong>"+ game_title +"</strong>' has been added to your list!!!"};
+						}else{
+							msg_obj = {"type": "text", "msg": "'<strong>"+ game_title +"</strong>' has been removed from your list!!!"}
+						}
+						utils.notifyMe(msg_obj);
+					}
+				});
+			});
+
+			$('#game_search_form').on('change', 'select', function(){
+				$('#game_search_form').submit();
+			});
+		});
+	</script>
+{% endblock bottom_javascript%}
