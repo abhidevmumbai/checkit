@@ -35,20 +35,28 @@
 							<div class="details FL">
 								<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
 								<ul class="extra_info">
-									<li><span class="term">Platforms: </span>
-										<span>{{ link.game.platform }}</span>
-									</li>
-									<li><span class="term">Genre: </span>
-									<span>
-										{% for genre in link.game.genres.all %}
-											{{ genre }}{% if not forloop.last %}, {% endif %}
-										{% endfor %}
-									</span>
-								</li>
-									<li><span class="term">Developer: </span>
-										<span>{{ link.game.developer }}</span></li>
-									<li><span class="term">Publisher: </span>
-										<span>{{ link.game.publisher }}</span></li>
+									{% if link.game.platform %}
+										<li><span class="term">Platforms: </span>
+											<span>{{ link.game.platform }}</span>
+										</li>
+									{% endif %}
+									{% if link.game.genre %}
+										<li><span class="term">Genre: </span>
+											<span>
+												{% for genre in link.game.genres.all %}
+													{{ genre }}{% if not forloop.last %}, {% endif %}
+												{% endfor %}
+											</span>
+										</li>
+									{% endif %}
+									{% if link.game.developer %}
+										<li><span class="term">Developer: </span>
+											<span>{{ link.game.developer }}</span></li>
+									{% endif %}
+									{% if link.game.publisher %}
+										<li><span class="term">Publisher: </span>
+											<span>{{ link.game.publisher }}</span></li>
+									{% endif %}
 								</ul>
 								<div class="CL"></div>
 								<div class="rating FL"><span>{{ link.game.rating }}</span></div>

@@ -59,20 +59,28 @@
 								<div class="details FL">
 									<div class="title"><a href="{% url gamedetails game.id %}">{{ game.title }}</a></div>
 									<ul class="extra_info">
-										<li><span class="term">Platforms: </span>
-											<span>{{ game.platform }}</span>
-										</li>
-										<li><span class="term">Genre: </span>
-										<span>
-											{% for genre in game.genres.all %}
-												{{ genre }}{% if not forloop.last %}, {% endif %}
-											{% endfor %}
-										</span>
-									</li>
-										<li><span class="term">Developer: </span>
-											<span>{{ game.developer }}</span></li>
-										<li><span class="term">Publisher: </span>
-											<span>{{ game.publisher }}</span></li>
+										{% if game.platform %}
+											<li><span class="term">Platforms: </span>
+												<span>{{ game.platform }}</span>
+											</li>
+										{% endif %}
+										{% if game.genre %}
+											<li><span class="term">Genre: </span>
+												<span>
+													{% for genre in game.genres.all %}
+														{{ genre }}{% if not forloop.last %}, {% endif %}
+													{% endfor %}
+												</span>
+											</li>
+										{% endif %}
+										{% if game.developer %}
+											<li><span class="term">Developer: </span>
+												<span>{{ game.developer }}</span></li>
+										{% endif %}
+										{% if game.publisher %}
+											<li><span class="term">Publisher: </span>
+												<span>{{ game.publisher }}</span></li>
+										{% endif %}
 									</ul>
 									<div class="CL"></div>
 									<!-- <div class="rating FL"><span>{{ game.rating }}</span></div> -->
