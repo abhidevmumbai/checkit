@@ -11,3 +11,4 @@ simplejson==2.2.1
 django-simple-captcha #http://www.borfast.com/blog/jpeg-zlib-and-freetype-not-available-pil-virtualenv-ubuntu
 django-celery
 python-memcached
+django-analytical

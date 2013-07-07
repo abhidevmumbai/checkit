@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'icheckgames',
     'gamesearch',
     'captcha',
+    'analytical',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -225,3 +226,5 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+
+GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42288126-1'
