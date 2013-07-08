@@ -100,7 +100,7 @@ ul{ list-style-type: none; margin: 0}
 	font-size: 35px;
 	font-family: 'Homestead-Display';
 	font-weight: bold;
-	padding-left: 30px;
+	/*padding-left: 30px;*/
 	text-shadow: 0 1px 0 #ccc,
  	0 2px 0 #c9c9c9,
  	0 3px 0 #bbb,
@@ -534,7 +534,7 @@ ul{ list-style-type: none; margin: 0}
 }
 .scroll_container .content{
 	/*margin: 70px 0 0 0;*/
-	width: 74%;
+	width: 73%;
 	float: right;
 }
 .scroll_container .anchor_list > ul li:hover, .scroll_container .anchor_list > ul li.active{
@@ -716,3 +716,5 @@ ul{ list-style-type: none; margin: 0}
     transform: scale(2);
   }
 }
+
+.preloader { background:url('/static/img/i/89.gif') center center no-repeat #ffffff; display: block;}

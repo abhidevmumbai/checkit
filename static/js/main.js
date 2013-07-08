@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function(){  
     //Add this class to display tooltips on any element
     $('.tool_tip').tooltip();
     
@@ -63,3 +63,7 @@ function switchWallpapers(){
         });
     }, 5000);
 }
+
+$(function(){
+    $('.row-fluid').preloader();
+});

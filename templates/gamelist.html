@@ -10,37 +10,39 @@
 {% endblock navbar %}
 {% block body %}
 	<div class="action_bar">
-		<div class="row-fluid">
-			<form id="game_search_form">
-				<div class="span2 offset1">
-					<div class="input-append field">
-						<select name="genre">
-							<option value="0">All</option>
-							{% for genre in genres %}
-								<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
-							{% endfor %}
-						</select>
-						<span class="add-on">Genre</span>
+		<div class="container">
+			<div class="row-fluid">
+				<form id="game_search_form">
+					<div class="span2 offset1">
+						<div class="input-append field">
+							<select name="genre">
+								<option value="0">All</option>
+								{% for genre in genres %}
+									<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
+								{% endfor %}
+							</select>
+							<span class="add-on">Genre</span>
+						</div>
 					</div>
-				</div>
-				<div class="span3 offset1">
-					<div class="input-append field">
-						<select name="platform">
-							<option value="0">All</option>
-							{% for platform in platforms %}
-								<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
-							{% endfor %}
-						</select>
-						<span class="add-on">Platform</span>
+					<div class="span3 offset1">
+						<div class="input-append field">
+							<select name="platform">
+								<option value="0">All</option>
+								{% for platform in platforms %}
+									<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
+								{% endfor %}
+							</select>
+							<span class="add-on">Platform</span>
+						</div>
 					</div>
-				</div>
-				<div class="span3 offset1">
-					<div class="input-append field">
-						<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
-						<button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+					<div class="span3 offset1">
+						<div class="input-append field">
+							<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
+							<button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 	<div class="container">
