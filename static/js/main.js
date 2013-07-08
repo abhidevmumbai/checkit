@@ -65,5 +65,5 @@ function switchWallpapers(){
 }
 
 $(function(){
-    $('.row-fluid').preloader();
+    $('body').preloader();
 });

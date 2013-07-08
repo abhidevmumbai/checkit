@@ -38,37 +38,41 @@
             <!-- <div class="logo_bar">
                 <div class="logo"><img src="/static/img/cooltext_logo.png" /><span class="logo_i">i</span><span class="logo_check">&#10004;Check</span><span class="logo_games">games</span></div>
             </div> -->
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container">
-                        <a class="brand" href="{% url gamelist %}">iCheckgames</a>
-                        <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                          </button>
-                        <div class="nav-collapse collapse">
-                            <ul class="nav nav-pills">
-                                <li class="{% navactive request 'home' %}"><a href="{% url home %}">Home</a></li>
-                                <li class="{% navactive request 'platformlist' %}"><a href="{% url platformlist %}">Platforms</a></li>
-                                <li class="{% navactive request 'gamelist' %}"><a href="{% url gamelist %}">Games</a></li>
-                                {% if user.is_authenticated %}
-                                    <li class="{% navactive request 'mygamelist' %}"><a href="{% url mygamelist %}">My Games</a></li>
-                                {% endif %}
-                            </ul>
+            <div class="header">
+                <div class="container">
+                    <div class="navbar">
+                        <div class="navbar-inner">
+                            <div class="container">
+                                <a class="brand" href="{% url gamelist %}">iCheckgames</a>
+                                <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                  </button>
+                                <div class="nav-collapse collapse">
+                                    <ul class="nav nav-pills">
+                                        <li class="{% navactive request 'home' %}"><a href="{% url home %}">Home</a></li>
+                                        <li class="{% navactive request 'platformlist' %}"><a href="{% url platformlist %}">Platforms</a></li>
+                                        <li class="{% navactive request 'gamelist' %}"><a href="{% url gamelist %}">Games</a></li>
+                                        {% if user.is_authenticated %}
+                                            <li class="{% navactive request 'mygamelist' %}"><a href="{% url mygamelist %}">My Games</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <ul class="nav pull-right">
+                                    {% if user.is_authenticated %}
+                                        <li class="username"><a href="{% url home %}">{{ user.username }}</a></li>
+                                        <li class="divider-vertical"></li>
+                                        <li><a href="{% url logout %}">Log out</a></li>
+                                    {% else %}
+                                        <li class="{% navactive request 'login' %}"><a class="pull-right" href="{% url login %}">Login</a></li>
+                                        <li class="{% navactive request 'usercreate' %}"><a class="pull-right" href="{% url usercreate %}">Register</a></li>
+                                    {% endif %}
+                                </ul>
+                                {% block navbar %}
+                                {% endblock navbar %}
+                            </div>
                         </div>
-                        <ul class="nav pull-right">
-                            {% if user.is_authenticated %}
-                                <li class="username"><a href="{% url home %}">{{ user.username }}</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="{% url logout %}">Log out</a></li>
-                            {% else %}
-                                <li class="{% navactive request 'login' %}"><a class="pull-right" href="{% url login %}">Login</a></li>
-                                <li class="{% navactive request 'usercreate' %}"><a class="pull-right" href="{% url usercreate %}">Register</a></li>
-                            {% endif %}
-                        </ul>
-                        {% block navbar %}
-                        {% endblock navbar %}
                     </div>
                 </div>
             </div>
@@ -104,13 +108,15 @@
             <div id="notify_container"></div>
         </div>
         <div class="footer">
-            <ul class="nav nav-pills pull-left">
-                <li><a href="#">About</a></li>
-                <li><a href="mailto:gamescheckers@gmail.com">Contact us</a></li>
-            </ul>
-            <ul class="nav nav-pills pull-right">
-                <li><a href="http://thegamesdb.net" target="blank">thegamesdb.net</a></li>
-            </ul>
+            <div class="container">
+                <ul class="nav nav-pills pull-left">
+                    <li><a href="#">About</a></li>
+                    <li><a href="mailto:gamescheckers@gmail.com">Contact us</a></li>
+                </ul>
+                <ul class="nav nav-pills pull-right">
+                    <li><a href="http://thegamesdb.net" target="blank">thegamesdb.net</a></li>
+                </ul>
+            </div>
         </div>
         {% block bottom_javascript%}
             <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>

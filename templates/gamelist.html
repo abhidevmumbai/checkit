@@ -13,7 +13,13 @@
 		<div class="container">
 			<div class="row-fluid">
 				<form id="game_search_form">
-					<div class="span2 offset1">
+					<div class="span6">
+						<div class="input-append field">
+							<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
+							<button type="submit" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+						</div>
+					</div>
+					<div class="span3">
 						<div class="input-append field">
 							<select name="genre">
 								<option value="0">All</option>
@@ -24,7 +30,7 @@
 							<span class="add-on">Genre</span>
 						</div>
 					</div>
-					<div class="span3 offset1">
+					<div class="span3">
 						<div class="input-append field">
 							<select name="platform">
 								<option value="0">All</option>
@@ -35,12 +41,6 @@
 							<span class="add-on">Platform</span>
 						</div>
 					</div>
-					<div class="span3 offset1">
-						<div class="input-append field">
-							<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
-							<button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
-						</div>
-					</div>
 				</form>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 	<div class="container">
 		<div class="row-fluid plain_view">
 			<div class="left_cont span8">
-				<div class="title span11">Browse all your favorite Games</div>				
+				<div class="title">Browse all your favorite Games</div>				
 				<div class="gamelist">
 					{% for game in games %}
 
