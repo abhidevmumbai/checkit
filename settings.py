@@ -142,6 +142,9 @@ INSTALLED_APPS = (
     'gamesearch',
     'captcha',
     'analytical',
+    'fluent_comments',
+    'crispy_forms',
+    'django.contrib.comments',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -228,3 +231,6 @@ CACHES = {
 }
 
 GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42288126-1'
+
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
+COMMENTS_APP = 'fluent_comments'

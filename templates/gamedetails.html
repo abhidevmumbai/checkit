@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load parseImagejson %}
+{% load comments %}
 
 {% load zip %}
 
@@ -9,6 +10,7 @@
 {% block head %}
 {{ block.super }}
 <link rel="stylesheet" href="/static/css/prettyPhoto.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/static/fluent_comments/css/ajaxcomments.css" />
 {% endblock head %}
 
 {% block navbar %}
@@ -96,14 +98,39 @@
 							</div>
 						{% endif %}
 					</div>
+					
+					<div id="comments_cont">
+						<h4>Share your thoughts</h4>
+						{% render_comment_list for game %}
+						{% if user.is_authenticated %}
+							{% render_comment_form for game %}
+						{% else %}
+							<div class="js-comments-form-orig-position">
+								<form class="js-comments-form comments-form form-horizontal">
+      								<div id="div_id_comment" class="control-group">
+      									<label for="id_comment" class="control-label requiredField">Comment<span class="asteriskField">*</span></label>
+      									<div class="controls">
+      										<textarea id="id_comment" rows="5" cols="40" name="comment" class="textarea"></textarea>
+      									</div>
+      								</div>
+									<div class="form-actions">
+										<a href="{% url login %}" class="btn btn-primary">Post</a>
+										<a href="{% url login %}" class="btn">Preview</a>
+									</div>
+    							</form>
+    						</div>
+						{% endif %}
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 {% endblock body%}
 
 {% block bottom_javascript%}
 	{{ block.super }}
+	<script type="text/javascript" src="/static/fluent_comments/js/ajaxcomments.js"></script>
 	<script type="text/javascript" src="/static/js/jquery.prettyPhoto.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){

@@ -12,3 +12,4 @@ django-simple-captcha #http://www.borfast.com/blog/jpeg-zlib-and-freetype-not-av
 django-celery
 python-memcached
 django-analytical
+django-fluent-comments

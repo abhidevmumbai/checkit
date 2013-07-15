@@ -1,0 +1,100 @@
+#comment-waiting {
+  line-height: 16px;
+}
+
+#comment-waiting img {
+  vertical-align: middle;
+  padding: 0 4px 0 10px;
+  position: absolute;
+  left: 4%;
+  top: 15%;
+}
+
+#comment-added-message,
+#comment-thanks {
+  color: rgb(66, 165, 0);
+  display:inline-block; 
+  padding-left: 10px;
+}
+
+.comment-moderated-flag {
+  font-variant: small-caps;
+  margin-left: 5px;
+}
+
+#div_id_honeypot {
+  /* Hide the honeypot from django.contrib.comments by default */
+  display: none;
+}
+
+
+/* ---- threaded comments ---- */
+
+ul.comment-list-wrapper {
+  /* to avoid touching our own "ul" tags, our tags are explicitly decorated with a class selector */
+  margin-left: 0;
+  padding-left: 0;
+}
+
+ul.comment-list-wrapper ul.comment-list-wrapper {
+  margin-left: 1em;
+  padding-left: 0;
+}
+
+li.comment-wrapper {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.js-comments-form-orig-position .comment-cancel-reply-link {
+  display: none;
+}
+
+/*Custom added css*/
+/*Comments*/
+#comments_cont{
+  background: #fff;
+  margin: 15px 0;
+  border: 1px solid #ddd;
+}
+#comments_cont > h4{
+  background: #ddd;
+  border-bottom: 1px #ddd solid;
+  margin: 0;
+  padding: 10px 15px;
+  text-align: center;
+}
+#comment-preview-area{
+  background: #eee;
+}
+#comment-preview-area h3{
+  font-size: 15px;
+  color: rgb(30, 117, 248);
+  margin: 0;
+}
+#div_id_comment textarea{
+  height: 70px;
+  width: 80%;
+}
+#comments_cont form{
+  margin: 15px 0 0 0;
+}
+#comments_cont .js-comments-form-orig-position .form-actions{
+  margin: 20px 0 0 0;
+  position: relative;
+}
+#comments .comment-item{
+  border-bottom: 1px solid #ddd;
+  overflow: hidden;
+  padding: 5px 3%;
+}
+#comments .comment-item h4{
+  font-size: 13px;
+  margin: 5px 0;
+}
+#comments .comment-item .comment-date{
+  font-size: 12px;
+  font-weight: normal;
+  color: #777;
+}
