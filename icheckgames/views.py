@@ -114,6 +114,11 @@ class FacebookView(View):
             fb_id = profile['id']
             email = profile['email']
             user, created = User.objects.get_or_create(username=username)
+            #Getting profile pic and cover pic urls
+            extra_fields = graph.get_connections("me", "", fields=["picture.type(large)", "cover"])
+            avatar = extra_fields['picture']['data']['url']
+            cover = extra_fields['cover']['source']
+            print extra_fields
             if created:
                 user.first_name = first_name
                 user.last_name = last_name
@@ -122,6 +127,8 @@ class FacebookView(View):
                 user.userprofile.facebookUser = True
                 user.userprofile.facebookId = fb_id
                 user.userprofile.facebookToken = access_token
+                user.userprofile.avatar = avatar
+                user.userprofile.cover = cover
             else:
                 user.userprofile.facebookToken = access_token
             user.userprofile.save()

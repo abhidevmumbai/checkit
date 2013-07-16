@@ -51,6 +51,71 @@ ul{ list-style-type: none; margin: 0}
 	-moz-box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 	box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
 }
+
+/*Profile view*/
+#wrapper .profile_view{
+	margin: 10px 0 10px 0;
+	padding: 0;
+}
+#wrapper .profile_view .left{
+	background: #ccc;
+	float: left;
+	min-height: 500px;
+	width: 21%;
+	min-width: 180px;
+}
+#wrapper .profile_view .right{
+	width: 79%;
+	float: right;
+}
+.profile_view .prof_details{
+
+}
+.prof_details li{
+	margin: 5px;
+}
+.prof_details .field{
+	float: left;
+	margin: 0 10px;
+	min-width: 100px;
+	text-align: right;
+}
+.prof_details .field_value{
+	text-align: left;
+}
+.profile_view .profile img, .profile_view .cover_pic img{
+	width: 100%;
+}
+.profile_view .cover_pic{
+	background: #000;
+	min-height: 254px;
+}
+.profile_view .cover_pic div{
+	color: #89d4fd;
+	font-size: 15px;
+	font-weight: bold;
+	padding: 15%;
+	text-align: center;
+}
+.profile_view .profile{
+	background: #000;
+	float: left;
+	height: 180px;
+	width: 180px;
+}
+.profile_view .profile img{
+	max-height: 180px;
+	max-width: 180px;
+}
+.profile_view .profile span{
+	background: rgba(41, 135, 139, 0.9);
+	color: #fff;
+	display: block;
+	font-size: 14px;
+	padding: 4px 0;
+	text-align: center;
+	width: 100%;
+}
 #wrapper .view > .title, #wrapper .plain_view > .title, #wrapper .left_cont > .title{
 	color: #fff;
 	font-size: 24px;
@@ -455,23 +520,25 @@ ul{ list-style-type: none; margin: 0}
 	/*padding: 0 1%;*/
 	/*width: 26%;*/
 }
-.right_cont .box{
+
+/*Customizable box container*/
+.box{
 	background: rgba(0,0,0,0.8);		
 	border-radius: 10px;
 	color: #bbb;
 	margin: 10px;
 	padding: 10px;
 }
-.right_cont .box .title{
+.box .title{
 	border-bottom: 2px solid #cc0000;
 	color: #fff;
 	font-size: 18px;
 	padding: 5px 10px;
 }
-.right_cont .box .cont{
+.box .cont{
 	padding: 10px 15px;
 }
-.right_cont .box li{
+.box li{
 	padding: 3px 0;
 }
 .game_container .title{
@@ -646,10 +713,10 @@ ul{ list-style-type: none; margin: 0}
     position: relative;
     top: 6px;
 }
-/*Messages*/
+/*Messages
 .messages{
 	width: 93%;
-}
+}*/
 .footer {
 	background: #484848;
 	border-top: solid 1px #DDD;

@@ -27,14 +27,17 @@ class UsersEditForm(forms.Form):
     first_name = forms.CharField(max_length=255,required=True)
     last_name = forms.CharField(max_length=255,required=True)
     #email = forms.EmailField(required=True)
-    old_password = forms.CharField()
-    changepassword = forms.BooleanField(required=False)
-    new_password1 = forms.CharField(required=False)
-    new_password2 = forms.CharField(required=False)
-    
+    cover = forms.URLField(required=False)
+    avatar = forms.URLField(required=False)        
+
     def __init__(self, user, *args, **kwargs):
         self.user = user
         super(UsersEditForm, self).__init__(*args, **kwargs)
+        if not user.userprofile.facebookUser:
+            self.fields['old_password'] = forms.CharField()
+            self.fields['new_password1'] = forms.CharField(required=False)
+            self.fields['new_password2'] = forms.CharField(required=False)
+            self.fields['changepassword'] = forms.BooleanField(required=False)
 
     def clean_new_password2(self):
         password1 = self.cleaned_data['new_password1']
@@ -60,6 +63,9 @@ class UsersEditForm(forms.Form):
         #user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+        user.userprofile.avatar = self.cleaned_data['avatar']
+        user.userprofile.cover = self.cleaned_data['cover']
         if commit:
             user.save()
+            user.userprofile.save()
         return user
