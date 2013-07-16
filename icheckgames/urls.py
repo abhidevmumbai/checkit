@@ -16,4 +16,5 @@ urlpatterns = patterns('',
     url(r'^manage/$', views.ApiGame.as_view(), name="managelist"),
     url(r'^mygames/$', views.MyGameListView.as_view(), name="mygamelist"),
     url(r'^getcaptcha/$', views.CaptchaGenerate.as_view(), name="captcha"),
+    url(r'^facebook/', views.FacebookView.as_view(), name='facebook'),
 )

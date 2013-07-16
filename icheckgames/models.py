@@ -1,7 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save)
+def userCreated(sender, instance, **kwargs):
+    if sender.__name__ == "User":
+        mapmeuser, created = UserProfile.objects.get_or_create(user=instance)
+
+
 # Create your models here.
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    avatar = models.URLField(blank=True)
+    cover = models.URLField(blank=True)
+    facebookUser = models.BooleanField()
+    facebookId = models.CharField(max_length=255, blank=True)
+    facebookToken = models.TextField(blank=True)
+    
+    def __unicode__(self):
+        return '%s'%self.user
+
 class Platform(models.Model):
 	name = models.CharField(max_length=255, unique=True, db_index=True)
 	platform_id = models.IntegerField()

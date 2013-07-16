@@ -14,6 +14,7 @@
 						<a href="{% url useredit %}" class="btn btn-info pull-right MR10">Edit Profile</a>
 					</div>
 					<div class="span12 profile_view">
+						<img src="{{ user.userprofile.avatar }}" />
 						<div class="row-fluid">
 							<div class="span2">
 								<span class="pull-right">First name:</span>
@@ -38,6 +39,7 @@
 								{{ user.email }}
 							</div>
 						</div>
+						{{ user.userprofile.cover }}
 					</div>
 				</div>
 			</div>

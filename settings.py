@@ -18,7 +18,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'checkit',                      # Or path to database file if using sqlite3.
+        'NAME': 'mapme',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': 'root',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -147,6 +147,9 @@ INSTALLED_APPS = (
     'django.contrib.comments',
 )
 
+AUTHENTICATION_BACKENDS = ('icheckgames.backends.FacebookBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.
@@ -234,3 +237,9 @@ GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42288126-1'
 
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
 COMMENTS_APP = 'fluent_comments'
+
+FACEBOOK_APP_ID = '577639318953092'
+FACEBOOK_APP_SECRET = '689c8345ed200e2f9f1d67bdf6e81c7c'
+FACEBOOK_REDIRECT_URI = 'http://localhost:8000/facebook/'
+
+FACEBOOK_AUTH_URL = 'https://www.facebook.com/dialog/oauth?client_id='+ FACEBOOK_APP_ID + '&redirect_uri=' + FACEBOOK_REDIRECT_URI + '&response_type=code'

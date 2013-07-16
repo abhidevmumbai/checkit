@@ -1,5 +1,8 @@
 from django.contrib import admin
-from models import Platform, Game, Genre, GameMap
+from models import UserProfile, Platform, Game, Genre, GameMap
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'avatar', 'cover', 'facebookUser', 'facebookId', 'facebookToken')
 
 class PlatformAdmin(admin.ModelAdmin):
 	list_display = ('platform_id', 'name', 'alias')
@@ -14,6 +17,7 @@ class GameMapAdmin(admin.ModelAdmin):
         list_display = ('user', 'game', 'owned', 'status', 'favorite', 'wish')
         search_fields = ('game',)
 
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Platform, PlatformAdmin)
 admin.site.register(Game, GameAdmin)
 admin.site.register(Genre)

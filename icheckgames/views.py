@@ -19,7 +19,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 
-from models import Game, Genre, Platform, GameMap
+from models import UserProfile, Game, Genre, Platform, GameMap
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.core.urlresolvers import reverse_lazy
@@ -35,6 +35,10 @@ from gamesearch.models import GameKeyword, Recommendation
 from gamesearch.stemmers import CustomStemmer
 
 from gamesearch.recommender import *
+
+from django.conf import settings
+from utils import getAccessToken
+import facebook
 
 class CSRFExemptMixin(object):
     @method_decorator(csrf_exempt)
@@ -89,6 +93,44 @@ class LogoutView(TemplateView):
     def get(self, request, *args, **kwargs):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+class FacebookView(View):
+    
+    def get(self, request, *args, **kwargs):
+        try:
+            code = request.GET.get("code")
+
+            if not code:
+                return HttpResponseRedirect(settings.FACEBOOK_AUTH_URL)
+            
+            access_token = getAccessToken(code)
+            if not access_token:
+                return HttpResponseRedirect(reverse_lazy('login'))
+            graph = facebook.GraphAPI(access_token)
+            profile = graph.get_object("me")
+            username = profile['username']
+            first_name = profile['first_name']
+            last_name = profile['last_name']
+            fb_id = profile['id']
+            email = profile['email']
+            user, created = User.objects.get_or_create(username=username)
+            if created:
+                user.first_name = first_name
+                user.last_name = last_name
+                user.email = email
+                user.save()
+                user.userprofile.facebookUser = True
+                user.userprofile.facebookId = fb_id
+                user.userprofile.facebookToken = access_token
+            else:
+                user.userprofile.facebookToken = access_token
+            user.userprofile.save()
+            
+            user = authenticate(username=username)
+            login(request, user)
+            return HttpResponseRedirect(reverse_lazy('home'))
+        except:
+            return HttpResponseRedirect(reverse_lazy('login'))
 
 '''
    User's home view
