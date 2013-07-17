@@ -90,7 +90,7 @@ ul{ list-style-type: none; margin: 0}
 	background: #000;
 	min-height: 254px;
 }
-.profile_view .cover_pic div{
+.profile_view .cover_pic .info{
 	color: #89d4fd;
 	font-size: 15px;
 	font-weight: bold;

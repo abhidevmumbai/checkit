@@ -18,7 +18,7 @@
 				</div>
 				<div class="right">
 					<div class="cover_pic">
-						{% if user.userprofile.cover %}<img src="{{ user.userprofile.cover }}" />{% else %}<div>Goto 'Edit Profile' and add your own cover photo!!!</div>{% endif %}
+						{% if user.userprofile.cover %}<img src="{{ user.userprofile.cover }}" />{% else %}<div class="info">Goto 'Edit Profile' and add your own cover photo!!!</div>{% endif %}
 					</div>
 					<div class="MT10 clearfix">
 						<a href="{% url useredit %}" class="btn btn-info pull-right MR10">Edit Profile</a>
