@@ -238,8 +238,8 @@ GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42288126-1'
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
 COMMENTS_APP = 'fluent_comments'
 
-FACEBOOK_APP_ID = '577639318953092'
-FACEBOOK_APP_SECRET = '689c8345ed200e2f9f1d67bdf6e81c7c'
+FACEBOOK_APP_ID = '414492542003134'
+FACEBOOK_APP_SECRET = 'aa6f48ffab87414538a1ea12105af99d'
 FACEBOOK_REDIRECT_URI = 'http://localhost:8000/facebook/'
-
-FACEBOOK_AUTH_URL = 'https://www.facebook.com/dialog/oauth?client_id='+ FACEBOOK_APP_ID + '&redirect_uri=' + FACEBOOK_REDIRECT_URI + '&response_type=code'
+FACEBOOK_APP_SCOPE = 'email'
+FACEBOOK_AUTH_URL = 'https://www.facebook.com/dialog/oauth?client_id='+ FACEBOOK_APP_ID + '&redirect_uri=' + FACEBOOK_REDIRECT_URI + '&response_type=code&scope=' + FACEBOOK_APP_SCOPE
