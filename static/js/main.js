@@ -1,7 +1,8 @@
 $(document).ready(function(){  
     //Add this class to display tooltips on any element
     $('.tool_tip').tooltip();
-    
+    init_splash_carousel();
+
     /*Game Delete button to show Delete confirmation*/
 	$('.appDelbtn').bind('click', function(e){
 		e.preventDefault;
@@ -32,7 +33,7 @@ $(document).ready(function(){
             }
         });
     });
-    switchWallpapers();
+    //switchWallpapers();
 
     /*Attach wmode=transparent to the urls loaded using iframe*/
     $("iframe").each(function(){
@@ -47,7 +48,16 @@ $(document).ready(function(){
         else $(this).attr('src',ifr_source+'?'+wmode);
     });
 });
-
+function init_splash_carousel(){
+    var wHeight = $(window).height();
+    $('.carousel .item img').css({
+        'height': wHeight,
+        'width': '100%'
+    });
+    $('.carousel').carousel({
+      interval: 4000
+    });
+}
 function switchWallpapers(){
     var splash = $('.splash_view .splash'),
         len = 4,
