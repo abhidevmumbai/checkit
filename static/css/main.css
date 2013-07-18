@@ -20,7 +20,7 @@ body{
 ul{ list-style-type: none; margin: 0}
 
 .MA15{ margin: 15px;}
-.MT10{ margin-top: 10px;} .MT20{ margin-top: 20px !important;} .MT50{ margin-top: 50px !important;}
+.MT5{ margin-top: 5px;} .MT10{ margin-top: 10px;} .MT20{ margin-top: 20px !important;} .MT50{ margin-top: 50px !important;}
 .MR10{ margin-right: 10px; }
 .MB10{ margin-bottom: 10px;}
 .ML5{ margin-left: 5px;}.ML10{ margin-left: 10px;}
@@ -28,6 +28,9 @@ ul{ list-style-type: none; margin: 0}
 .TC{ text-align: center;}
 .FL{ float: left;} .FR{ float: right;} .CL{ clear: both;}
 .DN{ display: none;}
+
+.bold{ font-weight: bold;}
+.f15{ font-size: 15px;}
 
 .bg_white{
 	background: #fff;
@@ -713,6 +716,54 @@ ul{ list-style-type: none; margin: 0}
     position: relative;
     top: 6px;
 }
+
+/*FB buttons*/
+#facebook_login {
+	font-size: 14px;
+	float: left;
+	text-align: center;
+	margin: 0 10px;
+}
+#facebook_login span{
+	font-weight:bold;
+}
+#facebook_login a {
+	text-shadow:0 0 2px rgba(0,0,0,0.3);
+	background: -webkit-linear-gradient(top,  rgba(131,155,195,1) 0%,rgba(87,111,163,1) 100%);
+	background: -moz-linear-gradient(top,  rgba(131,155,195,1) 0%,rgba(87,111,163,1) 100%);
+	background: linear-gradient(top,  rgba(131,155,195,1) 0%,rgba(87,111,163,1) 100%);
+	border: 1px solid #566383;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	-webkit-box-shadow: 0 1px 0 #CADBFE inset, 0 3px 0 0 #2D447F, 0 4px 2px #999999;
+	-moz-box-shadow: 0 1px 0 #CADBFE inset, 0 3px 0 0 #2D447F, 0 4px 2px #999999;
+	box-shadow: 0 1px 0 #CADBFE inset, 0 3px 0 0 #2D447F, 0 4px 2px #999999;
+	color: #FFFFFF;
+	display: inline-block;
+	line-height: 26px;
+	height:26px;
+	padding: 0 10px;
+	position: relative;
+	text-decoration: none;
+	top: -1px;
+	transition-property:top, box-shadow;   
+	transition-duration: 0.1s, 0.1s;   
+	transition-timing-function: linear, linear; 
+}
+#facebook_login a:hover {
+	-webkit-background-image:linear-gradient(top,  rgba(139,161,199,1) 0%,rgba(96,119,170,1) 100%);
+	-moz-background-image:linear-gradient(top,  rgba(139,161,199,1) 0%,rgba(96,119,170,1) 100%);
+	background-image:linear-gradient(top,  rgba(139,161,199,1) 0%,rgba(96,119,170,1) 100%);
+
+}
+#facebook_login a:active {
+	-webkit-box-shadow: 0 1px 0 #cadbfe inset, 0 1px 0 0 #2d447f, 0 2px 2px #999999;
+	-moz-box-shadow: 0 1px 0 #cadbfe inset, 0 1px 0 0 #2d447f, 0 2px 2px #999999;
+	box-shadow: 0 1px 0 #cadbfe inset, 0 1px 0 0 #2d447f, 0 2px 2px #999999;
+	top:2px;
+}
+
 /*Messages
 .messages{
 	width: 93%;

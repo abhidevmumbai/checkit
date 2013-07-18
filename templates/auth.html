@@ -33,8 +33,11 @@
 					<div class="control-group">
 						<div class="controls">
 						<label></label>
-						<button type="submit" class="btn btn-primary">Login</button>
-						<a href="{% url facebook %}" class="btn btn-primary">Facebook Login</a>
+						<button type="submit" class="btn btn-primary pull-left">Login</button>
+						<span class="pull-left ML10 MT5 f15 bold">OR</span>
+						<div id="facebook_login">
+							<a href="{% url facebook %}">login with <span>facebook</span></a>
+						</div>
 						</div>
 					</div>
 					{% if form.non_field_errors %}
