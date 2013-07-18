@@ -243,3 +243,11 @@ FACEBOOK_APP_SECRET = 'aa6f48ffab87414538a1ea12105af99d'
 FACEBOOK_REDIRECT_URI = 'http://localhost:8000/facebook/'
 FACEBOOK_APP_SCOPE = 'email'
 FACEBOOK_AUTH_URL = 'https://www.facebook.com/dialog/oauth?client_id='+ FACEBOOK_APP_ID + '&redirect_uri=' + FACEBOOK_REDIRECT_URI + '&response_type=code&scope=' + FACEBOOK_APP_SCOPE
+
+#Email settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'gamescheckers@gmail.com'
+EMAIL_HOST_PASSWORD = 'gamesCheckers2013'
+DEFAULT_FROM_EMAIL = 'help@icheckgames.net'

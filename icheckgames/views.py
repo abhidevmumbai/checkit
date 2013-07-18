@@ -40,6 +40,9 @@ from django.conf import settings
 from utils import getAccessToken
 import facebook
 
+from django.contrib.auth.views import password_reset
+from django.shortcuts import render
+
 class CSRFExemptMixin(object):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -65,6 +68,16 @@ def getRecommendedGames(user):
         recommendedGames = Recommendation.objects.get(user=user).gameslist.all()
         return recommendedGames
     return None
+
+'''
+    Method for handling the Forgot password flow
+'''
+def forgot_password(request):
+    if request.method == 'POST':
+        return password_reset(request, 
+            from_email=request.POST.get('email'))
+    else:
+        return render(request, 'forgot_password.html')
 
 class CaptchaGenerate(TemplateView):
     def get(self, request, *args, **kwargs):
@@ -94,6 +107,9 @@ class LogoutView(TemplateView):
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
 
+'''
+    Facebook login
+'''
 class FacebookView(View):
     
     def get(self, request, *args, **kwargs):
