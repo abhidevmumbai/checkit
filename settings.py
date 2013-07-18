@@ -4,7 +4,13 @@ import djcelery
 
 djcelery.setup_loader()
 
-DEBUG = True
+# a setting to determine whether we are running on OpenShift
+ON_OPENSHIFT = False
+if ON_OPENSHIFT:
+    DEBUG = False
+else:
+    DEBUG = True
+
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -15,16 +21,30 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'mapme',                      # Or path to database file if using sqlite3.
-        'USER': 'root',                      # Not used with sqlite3.
-        'PASSWORD': 'root',                  # Not used with sqlite3.
-        'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+if ON_OPENSHIFT:
+    # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
+    # with rhc cartridge add (see /README in this git repo)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'checkit',                      # Or path to database file if using sqlite3.
+            'USER': 'adminWCXQBQr',                      # Not used with sqlite3.
+            'PASSWORD': 'tuQuevXIpyV3',                  # Not used with sqlite3.
+            'HOST': '51cc2b3e4382ec1c3d0000cf-icheckgames.rhcloud.com',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '44771',                      # Set to empty string for default. Not used with sqlite3.
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+            'NAME': 'mapme',                      # Or path to database file if using sqlite3.
+            'USER': 'root',                      # Not used with sqlite3.
+            'PASSWORD': 'root',                  # Not used with sqlite3.
+            'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
+            'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        }
+    }
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
