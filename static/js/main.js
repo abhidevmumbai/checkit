@@ -50,10 +50,10 @@ $(document).ready(function(){
 });
 function init_splash_carousel(){
     var wHeight = $(window).height();
-    $('.carousel .item img').css({
-        'height': wHeight,
-        'width': '100%'
-    });
+    // $('.carousel .item img').css({
+    //     'height': wHeight,
+    //     'width': '100%'
+    // });
     $('.carousel').carousel({
       interval: 4000
     });

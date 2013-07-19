@@ -249,6 +249,11 @@ ul{ list-style-type: none; margin: 0}
 	height: 100%;
 }
 .splash_view h1{ margin-top: 100px; position: relative;}
+
+.carousel .item img{
+	max-height: 100%;
+	width: 100%;
+}
 .enter_btn{
 	position: absolute;
 	bottom: 100px;
@@ -855,6 +860,120 @@ ul{ list-style-type: none; margin: 0}
     -o-transform: scale(2);
     transform: scale(2);
   }
+}
+
+@-webkit-keyframes bounceInUp {
+	0% {
+		opacity: 0;
+		-webkit-transform: translateY(2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-webkit-transform: translateY(-30px);
+	}
+	
+	80% {
+		-webkit-transform: translateY(10px);
+	}
+	
+	100% {
+		-webkit-transform: translateY(0);
+	}
+}
+@-moz-keyframes bounceInUp {
+	0% {
+		opacity: 0;
+		-moz-transform: translateY(2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-moz-transform: translateY(-30px);
+	}
+	
+	80% {
+		-moz-transform: translateY(10px);
+	}
+	
+	100% {
+		-moz-transform: translateY(0);
+	}
+}
+
+@-o-keyframes bounceInUp {
+	0% {
+		opacity: 0;
+		-o-transform: translateY(2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		-o-transform: translateY(-30px);
+	}
+	
+	80% {
+		-o-transform: translateY(10px);
+	}
+	
+	100% {
+		-o-transform: translateY(0);
+	}
+}
+
+@keyframes bounceInUp {
+	0% {
+		opacity: 0;
+		transform: translateY(2000px);
+	}
+	
+	60% {
+		opacity: 1;
+		transform: translateY(-30px);
+	}
+	
+	80% {
+		transform: translateY(10px);
+	}
+	
+	100% {
+		transform: translateY(0);
+	}
+}
+
+.bounceInUp {
+	-webkit-animation: bounceInUp .6s ease-out;
+	-moz-animation: bounceInUp .6s ease-out;
+	-o-animation: bounceInUp .6s ease-out;
+	animation: bounceInUp .6s ease-out;
+}
+
+@-webkit-keyframes pulse {
+    0% { -webkit-transform: scale(1); }	
+	50% { -webkit-transform: scale(1.1); }
+    100% { -webkit-transform: scale(1); }
+}
+@-moz-keyframes pulse {
+    0% { -moz-transform: scale(1); }	
+	50% { -moz-transform: scale(1.1); }
+    100% { -moz-transform: scale(1); }
+}
+@-o-keyframes pulse {
+    0% { -o-transform: scale(1); }	
+	50% { -o-transform: scale(1.1); }
+    100% { -o-transform: scale(1); }
+}
+@keyframes pulse {
+    0% { transform: scale(1); }	
+	50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+	-webkit-animation: pulse 2s ease-out infinite;
+	-moz-animation: pulse 2s ease-out infinite;
+	-o-animation: pulse 2s ease-out infinite;
+	animation: pulse 2s ease-out infinite;
 }
 
 .preloader { background:url('/static/img/i/89.gif') center center no-repeat #ffffff; display: block;}
