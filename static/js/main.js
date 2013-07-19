@@ -55,7 +55,7 @@ function init_splash_carousel(){
     //     'width': '100%'
     // });
     $('.carousel').carousel({
-      interval: 4000
+      interval: 5000
     });
 }
 function switchWallpapers(){

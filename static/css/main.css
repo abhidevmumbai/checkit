@@ -254,6 +254,12 @@ ul{ list-style-type: none; margin: 0}
 	max-height: 100%;
 	width: 100%;
 }
+.carousel-caption{
+	text-align: center;
+}
+.carousel-caption h4{
+	color: #FF6600;
+}
 .enter_btn{
 	position: absolute;
 	bottom: 100px;
