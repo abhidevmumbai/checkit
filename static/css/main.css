@@ -11,7 +11,9 @@ yellow: #fff18b*/
 	font-family: Homestead-Display;
 	src: url('/static/fonts/Homestead-Display.ttf');
 }
-
+html, body{
+	height: 100%;
+}
 body{
 	background: #ececec url('/static/img/bg.jpg') repeat;
 	font-family: 'Ubuntu', sans-serif, arial;
@@ -43,6 +45,7 @@ ul{ list-style-type: none; margin: 0}
 
 #wrapper{
 	/*overflow: hidden;*/
+	min-height: 100%;
 }
 #wrapper .view, #wrapper .plain_view{
 	/*min-width: 1024px;*/
@@ -128,8 +131,9 @@ ul{ list-style-type: none; margin: 0}
 	text-shadow:0px 2px 5px #000;
 }
 #wrapper > .container{
-	/*width: 93%;*/
-	min-height: 500px;
+	/*width: 93%;
+	min-height: 500px;*/
+	padding-bottom: 75px;/*same as footer height*/
 }
 
 /*Logo bar
@@ -250,6 +254,9 @@ ul{ list-style-type: none; margin: 0}
 }
 .splash_view h1{ margin-top: 100px; position: relative;}
 
+.carousel{
+	margin: 0;
+}
 .carousel-control{
 	z-index: 2;
 }
@@ -292,6 +299,7 @@ ul{ list-style-type: none; margin: 0}
 }*/
 /*Game list*/
 #game_search_form .field{
+	display: block;
 	margin: 5px 2%;
 }
 #game_search_form select{
@@ -788,9 +796,9 @@ ul{ list-style-type: none; margin: 0}
 	background: #484848;
 	border-top: solid 1px #DDD;
 	color: #999;
-	margin-top: 30px;
+	margin-top: -75px;/*same as footer height*/
 	overflow: hidden;
-	padding: 2% 0;
+	padding: 20px 0;
 }
 .footer .nav{
 	margin: 0;
