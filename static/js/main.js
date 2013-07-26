@@ -75,5 +75,5 @@ function switchWallpapers(){
 }
 
 $(function(){
-    $('body').preloader();
+    $('#wrapper > .container').preloader();
 });
