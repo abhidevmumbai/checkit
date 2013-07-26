@@ -22,4 +22,6 @@ urlpatterns = patterns('',
     url(r'^user/password/reset/done/$', 'django.contrib.auth.views.password_reset_done'),
     url(r'^user/password/reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$', 'django.contrib.auth.views.password_reset_confirm', {'post_reset_redirect' : '/user/password/done/'}),
     url(r'^user/password/done/$', 'django.contrib.auth.views.password_reset_complete'),
+    url(r'^privacypolicy/$', TemplateView.as_view(template_name="privacypolicy.html"), name="privacypolicy"),
+    url(r'^terms/$', TemplateView.as_view(template_name="terms.html"), name="terms"),
 )
