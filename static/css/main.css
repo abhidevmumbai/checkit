@@ -27,7 +27,7 @@ ul{ list-style-type: none; margin: 0}
 .MB10{ margin-bottom: 10px;}
 .ML5{ margin-left: 5px;}.ML10{ margin-left: 10px;}
 .MR15{ margin-right: 15px;}
-.TC{ text-align: center;}
+.TL{ text-align: left;} .TC{ text-align: center;} .TR{ text-align: right;}
 .FL{ float: left;} .FR{ float: right;} .CL{ clear: both;}
 .DN{ display: none;}
 
@@ -792,6 +792,9 @@ ul{ list-style-type: none; margin: 0}
 .messages{
 	width: 93%;
 }*/
+.social{
+	overflow: hidden;
+}
 .footer {
 	background: #484848;
 	border-top: solid 1px #DDD;
@@ -799,6 +802,9 @@ ul{ list-style-type: none; margin: 0}
 	margin-top: -75px;/*same as footer height*/
 	overflow: hidden;
 	padding: 20px 0;
+}
+.footer .container{
+	overflow: hidden;
 }
 .footer .nav{
 	margin: 0;
