@@ -163,20 +163,18 @@ ul{ list-style-type: none; margin: 0}
 	box-shadow: none;
 }*/
 #wrapper .header{
-	background: #fafafa;
-	background-image: -moz-linear-gradient(top,#fff,#f2f2f2);
-	background-image: -webkit-gradient(linear,0 0,0 100%,from(#fff),to(#f2f2f2));
-	background-image: -webkit-linear-gradient(top,#fff,#f2f2f2);
-	background-image: -o-linear-gradient(top,#fff,#f2f2f2);
-	background-image: linear-gradient(to bottom,#fff,#f2f2f2);
+	background: #eee;
 	border: 1px solid #d4d4d4;
-	-webkit-box-shadow: 0 1px 4px rgba(0,0,0,0.065);
-	-moz-box-shadow: 0 1px 4px rgba(0,0,0,0.065);
-	box-shadow: 0 1px 4px rgba(0,0,0,0.065);
 }
 /*Nav bar*/
 #wrapper .navbar{
 	margin: 0;
+}
+.navbar-brand{
+	max-width: 250px;
+}
+.navbar-brand img{
+	max-width: 100%;
 }
 .navbar .brand{
 	color: rgb(42, 119, 255);
