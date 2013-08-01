@@ -11,34 +11,36 @@
 {% block body %}
 	<div class="action_bar">
 		<div class="container">
-			<div class="row-fluid">
+			<div class="row">
 				<form id="game_search_form">
-					<div class="span6">
-						<div class="input-append field">
-							<input type="text" placeholder="Search" name="search" class="input-medium" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
-							<button type="submit" class="btn btn-info"><i class="icon-search icon-white"></i></button>
+					<div class="col-lg-6 col-sm-6 MT5">
+						<div class="input-group">
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search"></span></button>
+							</span>
+							<input type="text" placeholder="Search" name="search" class="form-control" value="{% if search_string %}{{ search_string }}{% endif %}"/> 
 						</div>
 					</div>
-					<div class="span3">
-						<div class="input-append field">
-							<select name="genre">
+					<div class="col-lg-3 col-sm-3 MT5">
+						<div class="input-group">
+							<span class="input-group-addon">Genre</span>
+							<select name="genre" class="form-control">
 								<option value="0">All</option>
 								{% for genre in genres %}
 									<option value="{{ genre.id }}" {% if genre.id == selected_genre %}selected{% endif %}>{{genre}}</option>
 								{% endfor %}
 							</select>
-							<span class="add-on">Genre</span>
 						</div>
 					</div>
-					<div class="span3">
-						<div class="input-append field">
-							<select name="platform">
+					<div class="col-lg-3 col-sm-3 MT5">
+						<div class="input-group">
+							<span class="input-group-addon">Platforms</span>
+							<select name="platform" class="form-control">
 								<option value="0">All</option>
 								{% for platform in platforms %}
 									<option value="{{ platform.id }}" {% if platform.id == selected_platform %}selected{% endif %}>{{ platform }}</option>
 								{% endfor %}
 							</select>
-							<span class="add-on">Platform</span>
 						</div>
 					</div>
 				</form>
@@ -46,8 +48,8 @@
 		</div>
 	</div>
 	<div class="container">
-		<div class="row-fluid plain_view">
-			<div class="left_cont span12">
+		<div class="row plain_view">
+			<div class="left_cont col-lg-12">
 				<div class="title">Browse all your favorite Games</div>				
 				<div class="gamelist_thumb">
 					<ul class="thumbnails">
@@ -96,8 +98,8 @@
 					{% endfor %}
 				</ul>
 				{% if is_paginated %}
-			        <div class="pagination ML10">
-			            <ul>
+			        <div class="ML10">
+			            <ul class="pagination">
 			                {% if page_obj.has_previous %}
 			                    <li><a href="{% url gamelist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">previous</a></li>
 			                {% endif %}
