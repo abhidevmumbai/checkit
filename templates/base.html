@@ -4,6 +4,7 @@
 <html>
     <head>  
         <title>{% block title %}Base Title{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="iCheckgames is one place for you to explore and track all your favorite games you have played or want to play on all the available gaming platforms like Xbox 360, PS3, Wii, PC, 3DS, PS Vita and more.">   
         {% block head %}
             <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css" />
@@ -50,40 +51,37 @@
                 <div class="logo"><img src="/static/img/cooltext_logo.png" /><span class="logo_i">i</span><span class="logo_check">&#10004;Check</span><span class="logo_games">games</span></div>
             </div> -->
             <div class="header">
-                <div class="container">
-                    <div class="navbar">
-                            <div class="container">
-                                <a class="navbar-brand" href="{% url gamelist %}"><!-- iCheckgames --><img src="/static/img/logo.png" /></a>
-                                <!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                                <div class="nav-collapse collapse navbar-responsive-collapse pull-left MT10">
-                                    <ul class="nav nav-pills">
-                                        <li class="{% navactive request 'home' %}"><a href="{% url home %}">Home</a></li>
-                                        <li class="{% navactive request 'platformlist' %}"><a href="{% url platformlist %}">Platforms</a></li>
-                                        <li class="{% navactive request 'gamelist' %}"><a href="{% url gamelist %}">Games</a></li>
-                                        {% if user.is_authenticated %}
-                                            <li class="{% navactive request 'mygamelist' %}"><a href="{% url mygamelist %}">My Games</a></li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
-                                <ul class="nav nav-pills pull-right MT10">
-                                    {% if user.is_authenticated %}
-                                        <li class="username"><a href="{% url home %}">{{ user.username }}</a></li>
-                                        <li class="divider-vertical"></li>
-                                        <li><a href="{% url logout %}">Log out</a></li>
-                                    {% else %}
-                                        <li class="{% navactive request 'login' %}"><a class="pull-right" href="{% url login %}">Login</a></li>
-                                        <li class="{% navactive request 'usercreate' %}"><a class="pull-right" href="{% url usercreate %}">Register</a></li>
-                                    {% endif %}
-                                </ul>
-                                {% block navbar %}
-                                {% endblock navbar %}
-                            </div>
-                        
+                <div class="navbar">
+                    <div class="container">
+                        <a class="navbar-brand" href="{% url gamelist %}"><!-- iCheckgames --><img src="/static/img/logo.png" /></a>
+                        <!-- .navbar-toggle is used as the toggle for collapsed navbar content -->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <div class="nav-collapse collapse navbar-responsive-collapse pull-left MT10">
+                            <ul class="nav nav-pills">
+                                <li class="{% navactive request 'home' %}"><a href="{% url home %}">Home</a></li>
+                                <li class="{% navactive request 'platformlist' %}"><a href="{% url platformlist %}">Platforms</a></li>
+                                <li class="{% navactive request 'gamelist' %}"><a href="{% url gamelist %}">Games</a></li>
+                                {% if user.is_authenticated %}
+                                    <li class="{% navactive request 'mygamelist' %}"><a href="{% url mygamelist %}">My Games</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <ul class="nav nav-pills pull-right MT10">
+                            {% if user.is_authenticated %}
+                                <li class="username"><a href="{% url home %}">{{ user.username }}</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="{% url logout %}">Log out</a></li>
+                            {% else %}
+                                <li class="{% navactive request 'login' %}"><a class="pull-right" href="{% url login %}">Login</a></li>
+                                <li class="{% navactive request 'usercreate' %}"><a class="pull-right" href="{% url usercreate %}">Register</a></li>
+                            {% endif %}
+                        </ul>
+                        {% block navbar %}
+                        {% endblock navbar %}
                     </div>
                 </div>
             </div>
