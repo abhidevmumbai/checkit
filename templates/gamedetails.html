@@ -23,9 +23,9 @@
 		</div>
 	{% endif %}
 	<div class="container">
-		<div class="row-fluid plain_view">
-			<div class="span12">
-				<div class="left_cont span8">
+		<div class="row plain_view">
+			<div class="col-lg-12 col-12">
+				<div class="left_cont col-lg-8 col-12">
 					<div class="game_container">
 						<img class="MR15 thumb" src="{% parseImagejson game.boxarts 'thumbnailFront' %}" />
 						<h4 class="title">{{ game.title }}</h4>
@@ -115,7 +115,7 @@
       								</div>
 									<div class="form-actions">
 										<a href="{% url login %}" class="btn btn-primary">Post</a>
-										<a href="{% url login %}" class="btn">Preview</a>
+										<a href="{% url login %}" class="btn btn-default">Preview</a>
 									</div>
     							</form>
     						</div>

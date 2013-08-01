@@ -46,7 +46,14 @@ li.comment-wrapper {
   margin-left: 0;
   padding-left: 0;
 }
-
+.js-comments-form-orig-position{
+  padding: 15px;
+}
+.js-comments-form-orig-position .btn-default{
+  color: #fff;
+  background-color: #474949;
+  border-color: #474949;
+}
 .js-comments-form-orig-position .comment-cancel-reply-link {
   display: none;
 }
@@ -75,7 +82,7 @@ li.comment-wrapper {
 }
 #div_id_comment textarea{
   height: 70px;
-  width: 80%;
+  width: 90%;
 }
 #comments_cont form{
   margin: 15px 0 0 0;
