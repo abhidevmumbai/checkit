@@ -377,14 +377,14 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 }
 .gamelist .game .details{
 	padding: 5px 0;
-	width: 45%;
+	/*width: 45%;*/
 }
 .gamelist .game .thumbnail{
 	-webkit-box-shadow: -2px 5px 10px #555;
 	-moz-box-shadow: -2px 5px 10px #555;
 	box-shadow: -2px 5px 10px #555;
 	height: 160px;
-	margin-right: 10px;
+	/*margin-right: 10px;*/
 	width: 120px;
 }
 .gamelist .game .title a{
@@ -501,8 +501,11 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	margin: 0;
 	padding: 20px 0 0 0;
 }
-.game_status select{
-	width: 145px;
+.game_status{
+	width: 320px;
+}
+.game_status select, .game_status .form-control{
+	width: 160px;
 }
 /*Game Details*/
 /*.plain_view{
@@ -527,9 +530,10 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	width: 62%;*/
 }
 .left_cont .tabs_cont{
-	border-bottom: 1px solid #eee;
-	margin: 10px 0 0;
-	padding-left:10px;
+	background: #fff;
+	border: 1px solid #ddd;
+	margin: 10px 0;
+	padding: 10px;
 }
 .left_cont .tabs_cont .nav-tabs{
 	margin: 0;
@@ -544,7 +548,7 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	box-shadow: -1px -2px 4px;
 }
 .left_cont .tabs_cont .all a{
-	color: #444;
+	/*color: #444;*/
 }
 /*.left_cont .tabs_cont .notstarted a,.left_cont .tabs_cont .current a, .left_cont .tabs_cont .onhold a,.left_cont .tabs_cont .dropped a,.left_cont .tabs_cont .completed a{
 	color: #c67605;

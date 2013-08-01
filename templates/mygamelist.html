@@ -9,10 +9,10 @@
 {% endblock navbar %}
 {% block body %}
 	<div class="container">
-		<div class="row-fluid plain_view">
-			<div class="left_cont span8">
+		<div class="row plain_view">
+			<div class="left_cont col-lg-8 col-12">
 				<div class="tabs_cont">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-pills">
 						<li class="all"><a href="{% url mygamelist %}">All</a></li>
 						<li class="notstarted"><a href="{% url mygamelist %}?tag=notstarted">Not Started</a></li>
 						<li class="current"><a href="{% url mygamelist %}?tag=current">Currently playing</a></li>
@@ -26,13 +26,14 @@
 				</div>
 				<div class="gamelist mygamelist">
 					{% for link in gamelinks %}
-						<div class="game row-fluid" data-gameid="{{ link.game.id }}" data-gametitle="{{ link.game.title }}">
-							<div class="FL">
+						<div class="game row" data-gameid="{{ link.game.id }}" data-gametitle="{{ link.game.title }}">
+							<div class="col-lg-12 col-12"><a href="#" title="Remove" class="close check_game FR">&times;</a></div>
+							<div class="col-lg-3 col-6">
 								<a href="{% url gamedetails link.game.id %}" title="{{ link.game.title }}">
 									<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}">
 								</a>
 							</div>
-							<div class="details FL">
+							<div class="details col-lg-8 col-6">
 								<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
 								<ul class="extra_info">
 									{% if link.game.platform %}
@@ -59,30 +60,29 @@
 									{% endif %}
 								</ul>
 								<div class="CL"></div>
-								<div class="rating FL"><span>{{ link.game.rating }}</span></div>
+								<!-- <div class="rating FL"><span>{{ link.game.rating }}</span></div> -->
 							</div>
-							<div class="FR"><a href="#" title="Remove" class="close check_game">&times;</a></div>
 							<div class="CL"></div>
-							<div class="game_status input-prepend input-append FR">
-								<span class="add-on">Status</span>
-								<select>
-									<option data-gametask="10" data-taskname="Not started" {% if link.status == 'notstarted' %}selected{% endif %}>Not Started</option>
-									<option data-gametask="5" data-taskname="Currently playing" {% if link.status == 'current' %}selected{% endif %}>Currently playing</option>
-									<option data-gametask="6" data-taskname="On hold" {% if link.status == 'onhold' %}selected{% endif %}>On Hold</option>
-									<option data-gametask="9" data-taskname="Dropped playing" {% if link.status == 'dropped' %}selected{% endif %}>Dropped playing</option>
-									<option data-gametask="4" data-taskname="Completed" {% if link.status == 'completed' %}selected{% endif %}>Completed</option>
-								</select>
-								<button class="update btn btn-warning">Update</button>
+							<div class="MT20 FR">
+								<div class="game_status FR input-group">
+									<span class="input-group-addon">Status</span>
+									<select class="form-control">
+										<option data-gametask="10" data-taskname="Not started" {% if link.status == 'notstarted' %}selected{% endif %}>Not Started</option>
+										<option data-gametask="5" data-taskname="Currently playing" {% if link.status == 'current' %}selected{% endif %}>Currently playing</option>
+										<option data-gametask="6" data-taskname="On hold" {% if link.status == 'onhold' %}selected{% endif %}>On Hold</option>
+										<option data-gametask="9" data-taskname="Dropped playing" {% if link.status == 'dropped' %}selected{% endif %}>Dropped playing</option>
+										<option data-gametask="4" data-taskname="Completed" {% if link.status == 'completed' %}selected{% endif %}>Completed</option>
+									</select>
+									<button class="update btn btn-warning ML5">Update</button>
+								</div>
 							</div>
 							
 							{% if user.is_authenticated %}
 								<div class="actions FR">
-									<div class="btn-toolbar">
-										<div class="btn-group">
-											<a data-gametask="3" data-taskname="Owned" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-info {% if link.owned %}active{% endif %}" href="#" title="Owned">Mark as Owned</a>
-											<a data-gametask="7" data-taskname="Favorites" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-info {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
-											<a data-gametask="8" data-taskname="Wish" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-info {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
-										</div>
+									<div class="btn-group MT10">
+										<a data-gametask="3" data-taskname="Owned" data-toggle="{% if link.owned %}false{% else %}true{% endif %}" class="btn btn-info btn-small {% if link.owned %}active{% endif %}" href="#" title="Owned">Mark as Owned</a>
+										<a data-gametask="7" data-taskname="Favorites" data-toggle="{% if link.favorite %}false{% else %}true{% endif %}" class="btn btn-info btn-small {% if link.favorite %}active{% endif %}" href="#" title="Add to Favorites">Add to Favorites</a>
+										<a data-gametask="8" data-taskname="Wish" data-toggle="{% if link.wish %}false{% else %}true{% endif %}" class="btn btn-info btn-small {% if link.wish %}active{% endif %}" href="#" title="Add to Wishlist">Add to Wishlist</a>
 									</div>
 								</div>
 							{% endif %}
@@ -109,7 +109,7 @@
 			        </div>
 				{% endif %}
 			</div>
-			<div class="right_cont span4">
+			<div class="right_cont col-lg-4 col-12">
 				<div class="box">
 					<div class="title">Recommended Games</div>
 					<div class="cont">
