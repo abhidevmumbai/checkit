@@ -18,8 +18,8 @@
 						{% endfor %}
 					</ul>
 					{% if is_paginated %}
-				        <div class="pagination ML5">
-				            <ul>
+				        <div class="ML5">
+				            <ul class="pagination">
 				                {% if page_obj.has_previous %}
 				                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">&larr; prev</a></li>
 				                {% endif %}
