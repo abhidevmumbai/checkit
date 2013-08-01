@@ -8,22 +8,22 @@
 {% block body %}
 	<div class="container">
 		<div class="row">
-			<div class="left_cont span9 view profile_view bg_white">
-				<div class="left">
+			<div class="left_cont col-lg-9 col-12 view profile_view">
+				<div class="left col-lg-3 col-12">
 					<div class="profile TC">
 						{% if user.userprofile.avatar %}<img src="{{ user.userprofile.avatar }}" />{% else %}
 						<img src="/static/img/default_profile_pic.jpg" />{% endif %}
 						<span>{{ user.username }}</span>
 					</div>
 				</div>
-				<div class="right">
+				<div class="right col-lg-9 col-12">
 					<div class="cover_pic">
 						{% if user.userprofile.cover %}<img src="{{ user.userprofile.cover }}" />{% else %}<div class="info">Goto 'Edit Profile' and add your own cover photo!!!</div>{% endif %}
 					</div>
 					<div class="MT10 clearfix">
 						<a href="{% url useredit %}" class="btn btn-info pull-right MR10">Edit Profile</a>
 					</div>
-					<ul class="prof_details">
+					<ul class="prof_details MB10">
 						<li>
 							<span class="field">First name:</span>
 							<span class="field_value">{{ user.first_name }}</span>

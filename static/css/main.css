@@ -60,19 +60,23 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 
 /*Profile view*/
 #wrapper .profile_view{
+	background: #ccc;
 	margin: 10px 0 10px 0;
 	padding: 0;
 }
 #wrapper .profile_view .left{
-	background: #ccc;
+	/*background: #ccc;
 	float: left;
 	min-height: 500px;
 	width: 21%;
-	min-width: 180px;
+	min-width: 180px;*/
+	padding:0;
 }
 #wrapper .profile_view .right{
-	width: 79%;
-	float: right;
+	background: #fff;
+	padding:0;
+	/*width: 79%;
+	float: right;*/
 }
 .profile_view .prof_details{
 
@@ -89,6 +93,10 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 .prof_details .field_value{
 	text-align: left;
 }
+.profile_view .profile{
+	margin-bottom: -300px;
+	padding-bottom: 300px;
+}
 .profile_view .profile img, .profile_view .cover_pic img{
 	width: 100%;
 }
@@ -104,10 +112,10 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	text-align: center;
 }
 .profile_view .profile{
-	background: #000;
+	/*background: #000;
 	float: left;
 	height: 180px;
-	width: 180px;
+	width: 180px;*/
 }
 .profile_view .profile img{
 	max-height: 180px;
