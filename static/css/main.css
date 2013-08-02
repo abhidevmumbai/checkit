@@ -645,9 +645,12 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	width: 170px;
 	/*width: 18%;*/
 }
-.scroll_container .anchor_list.fixed{
+.scroll_container .anchor_list{
 	position: fixed;
 	left: 0;
+	top: 80px;
+}
+.scroll_container .anchor_list.fixed{
 	top: 10px;
 }
 .scroll_container .anchor_list > ul li{
@@ -662,7 +665,7 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 }
 .scroll_container .content{
 	/*margin: 70px 0 0 0;*/
-	width: 73%;
+	width: 75%;
 	float: right;
 }
 .scroll_container .anchor_list > ul li:hover, .scroll_container .anchor_list > ul li.active{
@@ -1015,3 +1018,17 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 }
 
 .preloader { background:url('/static/img/i/89.gif') center center no-repeat #ffffff; display: block;}
+
+
+/*MEDIA QUERIES*/
+@media(max-width:768px){
+	.scroll_container .anchor_list {
+		position: static;
+	}
+	.scroll_container .anchor_list > ul, .scroll_container .content{
+		width: 99%;
+	}
+	.scroll_container .anchor_list > ul li{
+		display: inline-block;
+	}
+}

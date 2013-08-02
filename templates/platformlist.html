@@ -8,91 +8,93 @@
 	<!--h4 class="pull-left">Login</h4-->
 {% endblock navbar %}
 {% block body %}
-	<div class="row-fluid plain_view">
-		<div class="left_cont span8">
-			<div class="scroll_container">
-				<div class="anchor_list FL">
-					<ul>
+	<div class="container">
+		<div class="row plain_view">
+			<div class="left_cont col-lg-8 col-12">
+				<div class="scroll_container">
+					<div class="anchor_list FL">
+						<ul>
+							{% for platform in platforms %}
+								<li data-id={{ platform.id }}><a href="#{{ platform.id }}">{{ platform.name }}</a></li>
+							{% endfor %}
+						</ul>
+						{% if is_paginated %}
+					        <div class="ML5">
+					            <ul class="pagination">
+					                {% if page_obj.has_previous %}
+					                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">&larr; prev</a></li>
+					                {% endif %}
+					                	<!-- <li>
+					                		<span class="page-current">
+							                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+							                </span>
+							            </li> -->
+					                {% if page_obj.has_next %}
+					                    <li><a href="{% url platformlist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next &rarr;</a></li>
+					                {% endif %}
+					            </ul>
+					        </div>
+						{% endif %}
+					</div>
+					<div class="content">
 						{% for platform in platforms %}
-							<li data-id={{ platform.id }}><a href="#{{ platform.id }}">{{ platform.name }}</a></li>
-						{% endfor %}
-					</ul>
-					{% if is_paginated %}
-				        <div class="ML5">
-				            <ul class="pagination">
-				                {% if page_obj.has_previous %}
-				                    <li><a href="{% url platformlist %}?page={{ page_obj.previous_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{% if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">&larr; prev</a></li>
-				                {% endif %}
-				                	<!-- <li>
-				                		<span class="page-current">
-						                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-						                </span>
-						            </li> -->
-				                {% if page_obj.has_next %}
-				                    <li><a href="{% url platformlist %}?page={{ page_obj.next_page_number }}{% if search_string %}&search={{ search_string }}{% endif %}{%if selected_genre %}&genre={{selected_genre}}{% endif %}{%if selected_platform %}&platform={{selected_platform}}{% endif %}">next &rarr;</a></li>
-				                {% endif %}
-				            </ul>
-				        </div>
-					{% endif %}
-				</div>
-				<div class="content">
-					{% for platform in platforms %}
-						<div class="cont_panel" id="{{ platform.id }}">
-							{%if platform.banner %}
-								<div class="banner">
-									<img class="" data-src="holder.js/160x120" src="{{platform.banner}}" alt="{{ platform.name }}">
+							<div class="cont_panel" id="{{ platform.id }}">
+								{%if platform.banner %}
+									<div class="banner">
+										<img class="" data-src="holder.js/160x120" src="{{platform.banner}}" alt="{{ platform.name }}">
+									</div>
+								{% endif %}
+								<div class="details FL MA15">
+									<div class="title MT10"><span>{{ platform.name }}</span></div>
+									<ul class="extra_info FL">
+										{% if platform.developer %}
+											<li><span class="term">Developer: </span>
+												<span>{{ platform.developer }}</span></li>
+										{% endif %}
+										{% if platform.manufacturer %}
+											<li><span class="term">Manufacturer: </span>
+												<span>{{ platform.manufacturer }}</span></li>
+										{% endif %}
+										{% if platform.cpu %}
+											<li><span class="term">CPU: </span>
+												<span>{{ platform.cpu }}</span></li>
+										{% endif %}		
+										{% if platform.memory %}
+											<li><span class="term">Memory: </span>
+												<span>{{ platform.memory }}</span></li>
+										{% endif %}
+										{% if platform.graphics %}
+											<li><span class="term">Graphics: </span>
+												<span>{{ platform.graphics }}</span></li>
+										{% endif %}		
+										{% if platform.sound %}
+											<li><span class="term">Sound: </span>
+												<span>{{ platform.sound }}</span></li>
+										{% endif %}
+										{% if platform.display %}
+											<li><span class="term">Display: </span>
+												<span>{{ platform.display }}</span></li>
+										{% endif %}		
+										{% if platform.media %}
+											<li><span class="term">Media: </span>
+												<span>{{ platform.media }}</span></li>
+										{% endif %}		
+										{% if platform.maxcontrollers %}
+											<li><span class="term">Max-controllers: </span>
+												<span>{{ platform.maxcontrollers }}</span></li>
+										{% endif %}
+									</ul>
 								</div>
-							{% endif %}
-							<div class="details FL MA15">
-								<div class="title MT10"><span>{{ platform.name }}</span></div>
-								<ul class="extra_info FL">
-									{% if platform.developer %}
-										<li><span class="term">Developer: </span>
-											<span>{{ platform.developer }}</span></li>
-									{% endif %}
-									{% if platform.manufacturer %}
-										<li><span class="term">Manufacturer: </span>
-											<span>{{ platform.manufacturer }}</span></li>
-									{% endif %}
-									{% if platform.cpu %}
-										<li><span class="term">CPU: </span>
-											<span>{{ platform.cpu }}</span></li>
-									{% endif %}		
-									{% if platform.memory %}
-										<li><span class="term">Memory: </span>
-											<span>{{ platform.memory }}</span></li>
-									{% endif %}
-									{% if platform.graphics %}
-										<li><span class="term">Graphics: </span>
-											<span>{{ platform.graphics }}</span></li>
-									{% endif %}		
-									{% if platform.sound %}
-										<li><span class="term">Sound: </span>
-											<span>{{ platform.sound }}</span></li>
-									{% endif %}
-									{% if platform.display %}
-										<li><span class="term">Display: </span>
-											<span>{{ platform.display }}</span></li>
-									{% endif %}		
-									{% if platform.media %}
-										<li><span class="term">Media: </span>
-											<span>{{ platform.media }}</span></li>
-									{% endif %}		
-									{% if platform.maxcontrollers %}
-										<li><span class="term">Max-controllers: </span>
-											<span>{{ platform.maxcontrollers }}</span></li>
-									{% endif %}
-								</ul>
+								<div class="overview FL clearfix MA15"><strong>Overview:</strong> {{ platform.overview }}</div>
+								<div class="rating FR"><span>{{ platform.rating }}</span></div>
 							</div>
-							<div class="overview FL clearfix MA15"><strong>Overview:</strong> {{ platform.overview }}</div>
-							<div class="rating FR"><span>{{ platform.rating }}</span></div>
-						</div>
-					{% empty %}
-						<div>Sorry, no Platforms in this list!</div>
-					{% endfor %}
+						{% empty %}
+							<div>Sorry, no Platforms in this list!</div>
+						{% endfor %}
+					</div>
 				</div>
+				
 			</div>
-			
 		</div>
 	</div>
 {% endblock body%}
@@ -121,7 +123,7 @@
 					position = cont.position();
 				console.log($('#'+id));
 				$('html, body').animate({
-					scrollTop: position.top - 10
+					scrollTop: position.top + 50
 				}, 700);
 			});
 		});
