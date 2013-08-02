@@ -235,10 +235,10 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 .splash_view {
 	font-family: "Andika";
 	font-size: 36px;
-	color: white;
-	background-size: cover;
+	color: #fff;
+	/*background-size: cover;
 	background-repeat: no-repeat;
-	/*margin-top: -19px;
+	margin-top: -19px;
 	padding: 180px;*/
 	text-align: center;
 	text-shadow: 1px 1px 1px black;
@@ -250,8 +250,8 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	z-index: 1;
 }
 .splash_view .splash{
-	background: #000 url('/static/img/splash/collage1.jpg') no-repeat center center;
-	background-size: 100%;
+	/*background: #000 url('/static/img/splash/collage1.jpg') no-repeat center center;
+	background-size: 100%;*/
 	position: absolute;
 	width: 100%;
 	left: 0;
@@ -262,6 +262,7 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 
 .carousel{
 	margin: 0;
+
 }
 .carousel-control{
 	z-index: 2;
@@ -271,10 +272,23 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	width: 100%;
 }
 .carousel-caption{
+	background: rgba(0,0,0,0.8);
+	bottom: 5px;
+	left: 0;
+	padding: 10px;
+	right: 0;
 	text-align: center;
+	width: 100%;
 }
 .carousel-caption h4{
 	color: #FF6600;
+}
+.carousel-indicators{
+	bottom: 30px;
+	left: auto;
+	right: 2%;
+	top: 2%;
+	height: 20px;
 }
 .enter_btn{
 	position: absolute;
@@ -1022,6 +1036,18 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 
 /*MEDIA QUERIES*/
 @media(max-width:768px){
+	/*Splash*/
+	.splash_view{
+		position: static;
+	}
+	.splash_view h1{
+		margin-top: 30px;
+	}
+	.enter_btn{
+		margin: 20px 0 0;
+		position: static;
+	}
+	/*Platforms view*/
 	.scroll_container .anchor_list {
 		position: static;
 	}
