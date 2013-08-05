@@ -173,10 +173,14 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 #wrapper .header{
 	background: #eee;
 	border: 1px solid #d4d4d4;
+	padding: 0 0 10px 0;
 }
 /*Nav bar*/
 #wrapper .navbar{
 	margin: 0;
+}
+#wrapper .navbar .nav-collapse{
+	float: left;
 }
 .navbar-brand{
 	max-width: 250px;
@@ -358,7 +362,7 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 }
 
 .gamelist{
-	padding: 15px;
+	/*padding: 15px;*/
 	margin-bottom: 15px;
 }
 .gamelist .game{
@@ -1036,6 +1040,10 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 
 /*MEDIA QUERIES*/
 @media(max-width:768px){
+	/*Navbar*/
+	#wrapper .navbar .nav-collapse{
+		float: none;
+	}
 	/*Splash*/
 	.splash_view{
 		position: static;

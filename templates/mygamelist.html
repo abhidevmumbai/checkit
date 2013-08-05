@@ -28,12 +28,12 @@
 					{% for link in gamelinks %}
 						<div class="game row" data-gameid="{{ link.game.id }}" data-gametitle="{{ link.game.title }}">
 							<div class="col-lg-12 col-12"><a href="#" title="Remove" class="close check_game FR">&times;</a></div>
-							<div class="col-lg-3 col-3">
+							<div class="col-lg-3 col-6">
 								<a href="{% url gamedetails link.game.id %}" title="{{ link.game.title }}">
 									<img class="thumbnail ML10" data-src="holder.js/160x120" src="{% parseImagejson link.game.boxarts 'thumbnailFront' %}">
 								</a>
 							</div>
-							<div class="details col-lg-9 col-9">
+							<div class="details col-lg-9 col-6">
 								<div class="title"><a href="{% url gamedetails link.game.id %}">{{ link.game.title }}</a></div>
 								<ul class="extra_info">
 									{% if link.game.platform %}
