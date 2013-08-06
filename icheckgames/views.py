@@ -548,7 +548,7 @@ def MyPublicGameListView(request, id):
         userinfo['first_name'] = user.first_name
         return render_to_response('mypublicgamelist.html', {'games':games, 'user':userinfo}, context_instance=RequestContext(request))
     except:
-        return render_to_response('mypublicgamelist.html', {'error':'No such user exist'}, context_instance=RequestContext(request))
+        return render_to_response('mypublicgamelist.html', {'error':'No such user exist', 'user':None}, context_instance=RequestContext(request))
     
 
 '''
