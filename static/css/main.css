@@ -1067,4 +1067,9 @@ ul{ list-style-type: none; margin: 0; padding:0;}
 	.scroll_container .anchor_list > ul li{
 		display: inline-block;
 	}
+
+	/*Game details view*/
+	.videos iframe{
+		width: 100%;
+	}
 }
