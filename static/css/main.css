@@ -21,6 +21,8 @@ body{
 }
 ul{ list-style-type: none; margin: 0; padding:0;}
 
+.PA10{ padding: 10px;}
+
 .MA15{ margin: 15px;}
 .MT5{ margin-top: 5px;} .MT10{ margin-top: 10px;} .MT20{ margin-top: 20px !important;} .MT50{ margin-top: 50px !important;}
 .MR10{ margin-right: 10px; }

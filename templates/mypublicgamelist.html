@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% load parseImagejson %}
+
+{% block title %}Game List{% endblock title %}
+
+{% block navbar %}
+{% endblock navbar %}
+
+{% block body %}
+	<div class="container">
+		<div class="row plain_view">
+			<div class="left_cont col-lg-8 col-12 MT10">
+				<div class="gamelist mygamelist PA10">
+					{% if not error %}
+						<h4>{{ user.first_name }}'s Game List ({{ user.username }})</h4>
+						
+						<div class="accordion" id="accordion">
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#current">
+									Currently playing
+									</a>
+								</div>
+								<div id="current" class="accordion-body collapse in">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.current %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#completed">
+									Completed playing
+									</a>
+								</div>
+								<div id="completed" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.completed %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#onhold">
+									On hold
+									</a>
+								</div>
+								<div id="onhold" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.onhold %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#dropped">
+									Dropped playing
+									</a>
+								</div>
+								<div id="dropped" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.dropped %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#notstarted">
+									Not started playing
+									</a>
+								</div>
+								<div id="notstarted" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.notstarted %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#owned">
+									My owned games
+									</a>
+								</div>
+								<div id="owned" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.owned %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#favorite">
+									My favorites
+									</a>
+								</div>
+								<div id="favorite" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.favorite %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#wish">
+									Wishlist
+									</a>
+								</div>
+								<div id="wish" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.wish %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#misc">
+									Misc
+									</a>
+								</div>
+								<div id="misc" class="accordion-body collapse">
+									<div class="accordion-inner">
+										<ul class="list-group">
+											{% for link in games.misc %}
+												<li class="list-group-item"><a href="{% url gamedetails link.game.id %}">{{ link }}</a></li>
+											{% empty %}
+												<li class="list-group-item">Sorry, no Games in this list!</li>
+											{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% else %}
+						<div class="alert">
+							<strong>Oh snap!</strong> Best check yo self, you're looking for a user that does not exist.
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock body%}

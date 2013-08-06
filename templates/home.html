@@ -36,6 +36,10 @@
 							<span class="field">Email:</span>
 							<span class="field_value">{{ user.email }}</span>
 						</li>
+						<li>
+							<span class="field">Public Profile url:</span>
+							<span class="field_value"><a href="{% url mypublicgamelist user.id %}" target="blank">http://www.icheckgames.net{% url mypublicgamelist user.id %}</a></span>
+						</li>
 					</ul>
 				</div>
 			</div>

@@ -495,6 +495,62 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
             gamelinks = user.gamemap_set.all()
         return gamelinks
 
+def MyPublicGameListView(request, id):
+    try:
+        user = User.objects.all().get(id=id)
+        gamelinks = GameMap.objects.all().filter(user=user)
+        games = {}
+        current = []
+        completed = []
+        onhold = []
+        dropped = []
+        notstarted = []
+        owned = []
+        favorite = []
+        wish = []
+        misc = []
+        userinfo = {}
+
+        for link in gamelinks:
+            if link.status == 'current':
+                current.append(link)
+            elif link.status == 'completed':
+                completed.append(link)
+            elif link.status == 'onhold':
+                onhold.append(link)
+            elif link.status == 'dropped':
+                dropped.append(link)
+            elif link.status == 'notstarted':
+                notstarted.append(link)
+            else:
+                misc.append(link)
+            
+            if link.owned:
+                owned.append(link)
+            
+            if link.favorite:
+                favorite.append(link)
+            
+            if link.wish:
+                wish.append(link)
+
+        games['current'] = current
+        games['completed'] = completed
+        games['onhold'] = onhold
+        games['dropped'] = dropped
+        games['notstarted'] = notstarted
+        games['owned'] = owned
+        games['favorite'] = favorite
+        games['wish'] = wish
+        games['misc'] = misc
+
+        userinfo['username'] = user.username
+        userinfo['first_name'] = user.first_name
+        return render_to_response('mypublicgamelist.html', {'games':games, 'user':userinfo}, context_instance=RequestContext(request))
+    except:
+        return render_to_response('mypublicgamelist.html', {'error':'No such user exist'}, context_instance=RequestContext(request))
+    
+
 '''
     Platform list
 '''
@@ -511,3 +567,15 @@ class PlatformListView(MessageMixin, ListView):
     def get_queryset(self):
         platformlist = Platform.objects.all()
         return platformlist
+
+
+
+
+
+
+
+
+
+
+
+
