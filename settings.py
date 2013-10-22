@@ -38,7 +38,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'mapme',                      # Or path to database file if using sqlite3.
+            'NAME': 'chat',                      # Or path to database file if using sqlite3.
             'USER': 'root',                      # Not used with sqlite3.
             'PASSWORD': 'root',                  # Not used with sqlite3.
             'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -165,6 +165,7 @@ INSTALLED_APPS = (
     'fluent_comments',
     'crispy_forms',
     'django.contrib.comments',
+    'chat',
 )
 
 AUTHENTICATION_BACKENDS = ('icheckgames.backends.FacebookBackend',

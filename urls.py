@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^', include('icheckgames.urls')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^game/comments/', include('fluent_comments.urls')),
+    url(r'^', include('chat.urls')),
 )
 
 urlpatterns += staticfiles_urlpatterns()
