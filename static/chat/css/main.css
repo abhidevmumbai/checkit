@@ -1,0 +1,298 @@
+/*RESET CSS*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*Button css*/
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.4;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+.btn-default {
+	color: #333;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+
+.btn-primary {
+	color: #ffffff;
+	background-color: #428bca;
+	border-color: #357ebd;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active{
+	color: #ffffff;
+	background-color: #3276b1;
+	border-color: #285e8e;
+}
+
+/*Colored boxes css*/
+.box {
+	color: #444;
+	margin-bottom: 5px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	overflow: hidden;
+}
+.box b{
+	border-radius: 4px 4px 0 0;
+	float: left;
+	margin: 0px 10px 0 0;
+	position: relative;
+	padding: 6px;
+}
+.box > div{
+	padding: 5px;
+	float: left;
+	border: 1px solid #ccc;
+	margin: -1px 0 0 0;
+	width: 98%;
+}
+.box-green b{
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #468847;
+}
+
+.box-yellow b{
+	background-color: #fcf8e3;
+	border-color: #fbeed5;
+	color: #c09853;
+}
+
+.box-blue b{
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+	color: #3a87ad;
+}
+
+/*Modal box*/
+.modal-dialog{ 
+	display: none;
+	height: 400px;
+	left: 10%;
+	position: absolute;
+	top: 10%;
+	width: 80%;
+	z-index: 1;
+}
+.modal-header {
+	min-height: 16.428571429px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.modal-header .close {
+	margin-top: -2px;
+}
+button.close {
+	padding: 0;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+	-webkit-appearance: none;
+}
+.close {
+	float: right;
+	font-size: 21px;
+	font-weight: bold;
+	line-height: 1;
+	color: #000000;
+	text-shadow: 0 1px 0 #ffffff;
+	opacity: 0.2;
+	filter: alpha(opacity=20);
+}
+.modal-content {
+	background-color: #ffffff;
+	border: 1px solid #999999;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 6px;
+	-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+	position: relative;
+	outline: none;
+}
+.modal-body {
+	height: 220px;
+	overflow-y: scroll;
+	position: relative;
+	padding: 10px 20px;
+}
+.modal-footer {
+	padding: 19px 20px 20px;
+	margin-top: 15px;
+	text-align: right;
+	border-top: 1px solid #e5e5e5;
+}
+
+/********************CHAT css********************/
+html, body{
+	height: 100%;
+	font-size: 13px;
+	font-family: arial, verdana;
+}
+#wrapper{
+	height: 100%;
+    margin:0 auto;
+    overflow:hidden;
+    padding: 5px;
+}
+
+.left{
+ 	float:left;
+ 	height: 100%;
+ 	width: 78%;
+}
+.controls{
+ 	height: 15%;
+}
+.controls input#msgInput{
+ 	float: left;
+	margin: 0;
+	padding: 8px 1%;
+	width: 86%;
+}
+
+.controls #chatsend{
+	float: right;
+	margin: 0 0 0 1%;
+	width: 10%;
+}
+
+.right{
+ 	float: right;
+ 	height: 100%;
+ 	width: 21%;
+ }
+#conversation, #users{
+	border: solid 1px #999;
+	height: 78%;
+	margin: 0 0 1% 0; 
+	overflow-y: auto;
+	padding: 1% 10px;
+}
+#users{
+	margin: 0 0 4% 0;
+	padding: 4% 0;
+}
+#users div{
+	border-top: 1px solid #999;
+	width: 94%;
+	padding: 5px 3%;
+}
+#users div:first-child{
+	border: none;
+}
+
+.btnbar li{ 
+	display: inline-block;
+	margin: 2px;
+}
+.btnbar li a{
+	border: 1px solid #ccc;
+	float: left;
+	padding: 1px;
+}
+.btnbar li a:hover{
+	border: 1px solid #428bca;
+}
+.smileys{display: none;}
+.smileys li{
+	border: 1px solid #ccc;
+	float: left;
+	height: 100px;
+	list-style-type: none;
+	margin: 5px;
+	text-align: center;
+	width: 100px;
+}
+.smileys li img{
+	max-height: 75%;
+	width: auto;
+}
+.smileys span:first-child{
+	height: 70%;
+}
+.smileys span{
+	display: block;
+}
+
+/*Mediq queries*/
+@media screen and (max-width: 768px){
+	.controls input#msgInput{
+		padding: 2% 4%;
+		width: 90%;
+	}
+
+	.controls #chatsend{
+		margin: 1% 0 0 0;
+		padding: 10px 0;
+		width: 100%;
+	}
+
+
+}

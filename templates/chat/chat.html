@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Node Chat</title>
+    <meta content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width, target-densitydpi = device-dpi" name="viewport">
+    <link href="/static/chat/css/main.css" rel="stylesheet" type="text/css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- script src="/socket.io/socket.io.js"></script -->
+    <script src="http://localhost:4000/socket.io/socket.io.js"></script>
+    <script src="/static/chat/js/msgParser.js"></script>
+    <script src="/static/chat/js/chatclient.js"></script>
+</head>
+
+<body style="">
+    <div id="wrapper">
+        <div class="left">
+            <div id="conversation"></div>
+
+            <div class="controls">
+                <input id="msgInput" type="text"><button class=
+                "btn btn-primary" id="chatsend" type="button">send</button>
+            </div>
+        </div>
+
+        <div class="right">
+            <div id="users"></div>
+
+            <ul class="btnbar">
+                <li>
+                    <a data-action="showSmileys" href="#" id=
+                    "showSmileys"><img height="20" src="/static/chat/images/smiley.gif"
+                    width="20"></a>
+                </li>
+                <!--<li><a id="link" href="#" data-action="showLink" data-tag="|URL=|"><img src="/static/chat/static/chat/images/link.gif" width="20" height="20"></a></li>-->
+            </ul>
+        </div>
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" type="button">×</button>
+
+                    <h4 class="modal-title"></h4>
+                </div>
+
+                <div class="modal-body"></div>
+                <!--<div class="modal-footer"></div>-->
+            </div>
+        </div>
+
+        <div class="smileys">
+            <ul>
+                <li data-smiley=":x"><span><img alt="angry no" src=
+                "/static/chat/images/smileys/set1/angry%20no.gif"></span><span>Angry
+                no</span></li>
+
+                <li data-smiley=":clap:"><span><img alt="applause" src=
+                "/static/chat/images/smileys/set1/applause.gif"></span><span>Applause</span></li>
+
+                <li data-smiley=":hug:"><span><img alt="big hug" src=
+                "/static/chat/images/smileys/set1/big%20hug.gif"></span><span>Big
+                hug</span></li>
+
+                <li data-smiley=":lol:"><span><img alt="big laugh" src=
+                "/static/chat/images/smileys/set1/big%20laugh.gif"></span><span>Big
+                laugh</span></li>
+
+                <li data-smiley=":blabla:"><span><img alt="bla bla" src=
+                "/static/chat/images/smileys/set1/bla%20bla.gif"></span><span>Bla
+                bla</span></li>
+
+                <li data-smiley=":bored:"><span><img alt="bored" src=
+                "/static/chat/images/smileys/set1/bored.gif"></span><span>Bored</span></li>
+
+                <li data-smiley=":D"><span><img alt="bounce ball" src=
+                "/static/chat/images/smileys/set1/bounce%20ball.gif"></span><span>Bounce
+                ball</span></li>
+
+                <li data-smiley=":bye:"><span><img alt="bye bye" src=
+                "/static/chat/images/smileys/set1/bye%20bye.gif"></span><span>Bye
+                bye</span></li>
+
+                <li data-smiley=":callme:"><span><img alt="call me" src=
+                "/static/chat/images/smileys/set1/call%20me.gif"></span><span>Call
+                me</span></li>
+
+                <li data-smiley=":cheerup:"><span><img alt="cheer up" src=
+                "/static/chat/images/smileys/set1/cheer%20up.gif"></span><span>Cheer
+                up</span></li>
+
+                <li data-smiley=":cheers:"><span><img alt="cheers" src=
+                "/static/chat/images/smileys/set1/cheers.gif"></span><span>Cheers</span></li>
+
+                <li data-smiley=":congrats:"><span><img alt="congrats" src=
+                "/static/chat/images/smileys/set1/congrats.gif"></span><span>Congrats</span></li>
+
+                <li data-smiley=":cool:"><span><img alt="cool" src=
+                "/static/chat/images/smileys/set1/cool.gif"></span><span>Cool</span></li>
+
+                <li data-smiley=":disappointed:"><span><img alt="Disappointed"
+                src=
+                "/static/chat/images/smileys/set1/disappointed.gif"></span><span>Disappointed</span></li>
+
+                <li data-smiley=":luck:"><span><img alt="good luck" src=
+                "/static/chat/images/smileys/set1/good%20luck.gif"></span><span>Good
+                luck</span></li>
+
+                <li data-smiley=":gm:"><span><img alt="good morning" src=
+                "/static/chat/images/smileys/set1/good%20morning.gif"></span><span>Good
+                morning</span></li>
+
+                <li data-smiley=":gn:"><span><img alt="good night" src=
+                "/static/chat/images/smileys/set1/good%20night.gif"></span><span>Good
+                night</span></li>
+
+                <li data-smiley=":hear:"><span><img alt="hear ya" src=
+                "/static/chat/images/smileys/set1/hear%20ya.gif"></span><span>Hear
+                ya</span></li>
+
+                <li data-smiley=":hs:"><span><img alt="hello, soldier" src=
+                "/static/chat/images/smileys/set1/hello,%20soldier.gif"></span><span>Hello,
+                soldier</span></li>
+
+                <li data-smiley=":idk:"><span><img alt="i don't know" src=
+                "/static/chat/images/smileys/set1/i%20don't%20know.gif"></span><span>I
+                don't know</span></li>
+
+                <li data-smiley=":ihu:"><span><img alt="i hate you" src=
+                "/static/chat/images/smileys/set1/i%20hate%20you.gif"></span><span>I hate
+                you</span></li>
+
+                <li data-smiley=":ik:"><span><img alt="i know" src=
+                "/static/chat/images/smileys/set1/i%20know.gif"></span><span>I
+                know</span></li>
+
+                <li data-smiley=":ilk:"><span><img alt="i like you" src=
+                "/static/chat/images/smileys/set1/i%20like%20you.gif"></span><span>I like
+                you</span></li>
+
+                <li data-smiley=":loveu2:"><span><img alt="i love you too" src=
+                "/static/chat/images/smileys/set1/i%20love%20you%20too.gif"></span><span>I
+                love you too</span></li>
+
+                <li data-smiley=":lu:"><span><img alt="i love you" src=
+                "/static/chat/images/smileys/set1/i%20love%20you.gif"></span><span>I love
+                you</span></li>
+
+                <li data-smiley=":imu:"><span><img alt="i miss you" src=
+                "/static/chat/images/smileys/set1/i%20miss%20you.gif"></span><span>I miss
+                you</span></li>
+
+                <li data-smiley=":back:"><span><img alt="i'm back" src=
+                "/static/chat/images/smileys/set1/i'm%20back.gif"></span><span>I'm
+                back</span></li>
+
+                <li data-smiley=":mad:"><span><img alt="i'm mad as hell" src=
+                "/static/chat/images/smileys/set1/i'm%20mad%20as%20hell.gif"></span><span>I'm
+                mad as hell</span></li>
+
+                <li data-smiley=":bored:"><span><img alt="i'm so bored" src=
+                "/static/chat/images/smileys/set1/i'm%20so%20bored.gif"></span><span>I'm so
+                bored</span></li>
+
+                <li data-smiley=":sorry:"><span><img alt="i'm sorry" src=
+                "/static/chat/images/smileys/set1/i'm%20sorry.gif"></span><span>I'm
+                sorry</span></li>
+
+                <li data-smiley=":beautiful:"><span><img alt=
+                "it's a beautiful thing" src=
+                "/static/chat/images/smileys/set1/it's%20a%20beautiful%20thing.gif"></span><span>It's
+                a beautiful thing</span></li>
+
+                <li data-smiley=":abouttime:"><span><img alt="it's about time"
+                src=
+                "/static/chat/images/smileys/set1/it's%20about%20time.gif"></span><span>It's
+                about time</span></li>
+
+                <li data-smiley=":allgood:"><span><img alt="it's all good" src=
+                "/static/chat/images/smileys/set1/it's%20all%20good.gif"></span><span>It's
+                all good</span></li>
+
+                <li data-smiley=":notfair:"><span><img alt="it's not fair" src=
+                "/static/chat/images/smileys/set1/it's%20not%20fair.gif"></span><span>It's
+                not fair</span></li>
+
+                <li data-smiley=":looser:"><span><img alt="looser" src=
+                "/static/chat/images/smileys/set1/looser.gif"></span><span>Looser</span></li>
+
+                <li data-smiley=":wub:"><span><img alt="my love" src=
+                "/static/chat/images/smileys/set1/my%20love.gif"></span><span>My
+                love</span></li>
+
+                <li data-smiley=":no:"><span><img alt="no" src=
+                "/static/chat/images/smileys/set1/no.gif"></span><span>No</span></li>
+
+                <li data-smiley=":please:"><span><img alt="please" src=
+                "/static/chat/images/smileys/set1/please.gif"></span><span>Please</span></li>
+
+                <li data-smiley=":rofl:"><span><img alt=
+                "rolling on the floor laughing" src=
+                "/static/chat/images/smileys/set1/rolling%20on%20the%20floor%20laughing.gif"></span><span>Rolling
+                on the floor laughing</span></li>
+
+                <li data-smiley=":shock:"><span><img alt="shock" src=
+                "/static/chat/images/smileys/set1/shock.gif"></span><span>Shock</span></li>
+
+                <li data-smiley=":nanananana:"><span><img alt="tease" src=
+                "/static/chat/images/smileys/set1/tease.gif"></span><span>Tease</span></li>
+
+                <li data-smiley=":chinscratch:"><span><img alt="thinking" src=
+                "/static/chat/images/smileys/set1/thinking.gif"></span><span>Thinking</span></li>
+
+                <li data-smiley=":welcomehome:"><span><img alt="welcome home"
+                src=
+                "/static/chat/images/smileys/set1/welcome%20home.gif"></span><span>Welcome
+                home</span></li>
+
+                <li data-smiley=":whatever:"><span><img alt="whatever" src=
+                "/static/chat/images/smileys/set1/whatever.gif"></span><span>Whatever</span></li>
+
+                <li data-smiley=":welcome:"><span><img alt="you are welcome"
+                src=
+                "/static/chat/images/smileys/set1/you%20are%20welcome.gif"></span><span>You
+                are welcome</span></li>
+
+                <li data-smiley=":rock:"><span><img alt="you rock" src=
+                "/static/chat/images/smileys/set1/you%20rock.gif"></span><span>You
+                rock</span></li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var username = '{{ user.username }}';
+    </script
+</body>
+</html>

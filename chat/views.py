@@ -11,7 +11,7 @@ import redis
 @login_required
 def home(request):
     comments = Comments.objects.select_related().all()[0:100]
-    return render(request, 'chat/index.html', locals())
+    return render(request, 'chat/chat.html', locals())
 
 @csrf_exempt
 def node_api(request):
@@ -26,7 +26,9 @@ def node_api(request):
         
         #Once comment has been created post it to the chat channel
         r = redis.StrictRedis(host='localhost', port=6379, db=0)
-        r.publish('chat', user.username + ': ' + request.POST.get('comment'))
+        message = json.dumps({"user": user.username, "message": request.POST.get('comment')})
+        # r.publish('chat', {user.username + ': ' + request.POST.get('comment'))
+        r.publish('chat', message)
         
         return HttpResponse("Everything worked :)")
     except Exception, e:
