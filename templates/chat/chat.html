@@ -15,7 +15,14 @@
 <body style="">
     <div id="wrapper">
         <div class="left">
-            <div id="conversation"></div>
+            <div id="conversation">
+                {% for chat in messages %}
+                    <div class="client_msg box box-blue">
+                        <b>{{chat.user}} :</b>
+                        <div>{{ chat.message }}</div>
+                    </div>
+                {% endfor %}
+            </div>
 
             <div class="controls">
                 <input id="msgInput" type="text"><button class=
