@@ -44,43 +44,43 @@ io.sockets.on('connection', function (socket) {
         });
 
         //Make an ajax call to save the messages in the Chat model
-        $ajax({
-            url: 'http://localhost:8000/chat_api',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': values.length
-            },
-            method: 'POST'
-        }).done(function(data){
-            if(data != 'Everything worked :)'){
-                console.log('Message: ' + data);
-            }
-        });
-        // var options = {
-        //     host: 'localhost',
-        //     port: 8000,
-        //     path: '/chat_api',
-        //     method: 'POST',
+        // $ajax({
+        //     url: 'http://localhost:8000/chat_api',
         //     headers: {
         //         'Content-Type': 'application/x-www-form-urlencoded',
         //         'Content-Length': values.length
+        //     },
+        //     method: 'POST'
+        // }).done(function(data){
+        //     if(data != 'Everything worked :)'){
+        //         console.log('Message: ' + data);
         //     }
-        // };
-        
-        // //Send message to Django server
-        // var req = http.request(options, function(res){
-        //     res.setEncoding('utf8');
-            
-        //     //Print out error message
-        //     res.on('data', function(message){
-        //         if(data != 'Everything worked :)'){
-        //             console.log('Message: ' + data);
-        //         }
-        //     });
         // });
+        var options = {
+            host: 'localhost',
+            port: 8000,
+            path: '/chat_api',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': values.length
+            }
+        };
         
-        // req.write(values);
-        // req.end();
+        //Send message to Django server
+        var req = http.request(options, function(res){
+            res.setEncoding('utf8');
+            
+            //Print out error message
+            res.on('data', function(message){
+                if(data != 'Everything worked :)'){
+                    console.log('Message: ' + data);
+                }
+            });
+        });
+        
+        req.write(values);
+        req.end();
     });
 
     //When the client emits 'adduser', this listens and executes

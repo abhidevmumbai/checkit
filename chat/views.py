@@ -10,7 +10,7 @@ import redis
 
 @login_required
 def chat(request):
-    messages = Chat.objects.select_related().all()[0:100]
+    chats = Chat.objects.select_related().all()[0:100]
     return render(request, 'chat/chat.html', locals())
 
 @csrf_exempt

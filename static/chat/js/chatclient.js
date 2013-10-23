@@ -14,9 +14,9 @@ $('document').ready(function(){
 	socket.on('updatechat', function (data) {
 		if(data){
 			if(data.type == 'server'){
-				conversation.append('<div class="server_msg box box-green"><b>'+data.message + '</b></div>');	
+				conversation.append('<div class="server_msg msg_box box-green"><b>'+data.message + '</b></div>');	
 			}else if(data.type == 'client'){
-				conversation.append('<div class="client_msg box box-blue"><b>'+data.username + ':</b><div>' + msgParser.init(data.message) + '</div></div>');	
+				conversation.append('<div class="client_msg msg_box box-blue"><b>'+data.username + ':</b><div>' + msgParser.init(data.message) + '</div></div>');	
 			}
 			conversation.scrollTop(conversation[0].scrollHeight);
 		}
