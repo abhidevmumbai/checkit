@@ -69,6 +69,8 @@
                                 {% if user.is_authenticated %}
                                     <li class="{% navactive request 'mygamelist' %}"><a href="{% url mygamelist %}">My Games</a></li>
                                 {% endif %}
+                                <li class="{% navactive request 'chat' %}"><a href="{% url chat %}">Chat</a></li>
+                               
                             </ul>
                         </div>
                         <ul class="nav nav-pills pull-right MT10">
