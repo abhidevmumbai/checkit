@@ -6,11 +6,11 @@ var cookie_reader = require('cookie');
 var querystring = require('querystring');
 var usernames = {};
 
-var redis = require('socket.io/node_modules/redis');
-var sub = redis.createClient();
+//var redis = require('socket.io/node_modules/redis');
+//var sub = redis.createClient();
 
 //Subscribe to the Redis chat channel
-sub.subscribe('chat');
+//sub.subscribe('chat');
 
 //Configure socket.io to store cookie set by Django
 io.configure(function(){
@@ -27,9 +27,9 @@ io.configure(function(){
 io.sockets.on('connection', function (socket) {
     
     //Grab message from Redis and send to client
-    sub.on('message', function(channel, message){
-        socket.send(message);
-    });
+    // sub.on('message', function(channel, message){
+    //     socket.send(message);
+    // });
     
     socket.emit('updatechat', {'type':'server', 'message': 'Welcome to Node chat!!!'});
     
