@@ -154,3 +154,33 @@
 
 
 }
+
+/*Scroll-bar css*/
+div::-webkit-scrollbar { width: 5px; height: 5px;}
+div::-webkit-scrollbar-button {  background-color: #333; }
+/*::-webkit-scrollbar-track {  background-color: #ccc;}*/
+div::-webkit-scrollbar-track-piece { background-color: #ddd;}
+div::-webkit-scrollbar-thumb { height: 50px; background-color: rgb(66, 139, 202); border-radius: 5px;}
+/*::-webkit-scrollbar-corner { background-color: #999;}*/
+/*::-webkit-resizer { background-color: #666;}*/
+
+@-moz-document url-prefix(http://),url-prefix(https://) {
+	scrollbar {
+	   -moz-appearance: none !important;
+	   background: rgb(0,255,0) !important;
+	}
+	thumb,scrollbarbutton {
+	   -moz-appearance: none !important;
+	   background-color: rgb(66, 139, 202) !important;
+	}
+	thumb:hover,scrollbarbutton:hover {
+	   -moz-appearance: none !important;
+	   background-color: rgb(255,0,0) !important;
+	}
+	scrollbarbutton {
+	   display: none !important;
+	}
+	scrollbar[orient="vertical"] {
+	  min-width: 5px !important;
+	}
+}
