@@ -219,6 +219,9 @@ LOGGING = {
     }
 }
 
+# Default Login URL
+LOGIN_URL = '/login'
+
 # Celery
 BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 CELERY_DEFAULT_RATE_LIMIT = '60/m'
@@ -256,9 +259,11 @@ CACHES = {
 
 GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42288126-1'
 
+# Comments
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
 COMMENTS_APP = 'fluent_comments'
 
+# Facebook settings
 FACEBOOK_APP_ID = '414492542003134'
 FACEBOOK_APP_SECRET = 'aa6f48ffab87414538a1ea12105af99d'
 FACEBOOK_REDIRECT_URI = 'http://localhost:8000/facebook/'
