@@ -1,5 +1,6 @@
 # Django settings for checkit project.
 import os
+import urlparse
 import djcelery
 
 djcelery.setup_loader()
@@ -24,21 +25,32 @@ MANAGERS = ADMINS
 if ON_OPENSHIFT:
     # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
     # with rhc cartridge add (see /README in this git repo)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'checkit',                      # Or path to database file if using sqlite3.
-            'USER': 'adminWCXQBQr',                      # Not used with sqlite3.
-            'PASSWORD': 'tuQuevXIpyV3',                  # Not used with sqlite3.
-            'HOST': '51cc2b3e4382ec1c3d0000cf-icheckgames.rhcloud.com',                      # Set to empty string for localhost. Not used with sqlite3.
-            'PORT': '44771',                      # Set to empty string for default. Not used with sqlite3.
-        }
-    }
+    # if 'OPENSHIFT_MYSQL_DB_URL' in os.environ:
+    #     url = urlparse.urlparse(os.environ.get('OPENSHIFT_MYSQL_DB_URL'))
+
+    #     DATABASES['default'] = {
+    #         'ENGINE' : 'django.db.backends.mysql',
+    #         'NAME': os.environ['OPENSHIFT_APP_NAME'],
+    #         'USER': url.username,
+    #         'PASSWORD': url.password,
+    #         'HOST': url.hostname,
+    #         'PORT': url.port,
+    #     }
+   DATABASES = {
+       'default': {
+           'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+           'NAME': 'beta',                      # Or path to database file if using sqlite3.
+           'USER': 'adminHLDykMs',                      # Not used with sqlite3.
+           'PASSWORD': 'KLCcgc_dZW6m',                  # Not used with sqlite3.
+           'HOST': '5270d60b5973cafcc7000144-icheckgames.rhcloud.com',                   # Set to empty string for localhost. Not used with sqlite3.
+           'PORT': '48031',                      # Set to empty string for default. Not used with sqlite3.
+       }
+   }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'chat',                      # Or path to database file if using sqlite3.
+            'NAME': 'checkchat',                      # Or path to database file if using sqlite3.
             'USER': 'root',                      # Not used with sqlite3.
             'PASSWORD': 'root',                  # Not used with sqlite3.
             'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -86,6 +98,11 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 STATIC_ROOT = ''
+# if 'OPENSHIFT_REPO_DIR' in os.environ:
+#     STATIC_ROOT = os.path.join(os.environ.get('OPENSHIFT_REPO_DIR'), 'wsgi', 'static')
+# else:
+#     STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip(""))
+
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"

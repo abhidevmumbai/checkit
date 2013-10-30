@@ -1,7 +1,7 @@
 $('document').ready(function(){
 	var msgInput = $('#msgInput');
 
-	var socket = io.connect('localhost', {port: 4000}),
+	var socket = io.connect('127.10.209.129', {port: 8080}),
 		conversation = $('#conversation');
 
 	// on connection to server, ask for user's name with an anonymous callback
