@@ -7,11 +7,16 @@ djcelery.setup_loader()
 
 # a setting to determine whether we are running on OpenShift
 ON_OPENSHIFT = False
+if os.environ.has_key('OPENSHIFT_REPO_DIR'):
+    ON_OPENSHIFT = True
+
 if ON_OPENSHIFT:
-    DEBUG = False
+    DEBUG = bool(os.environ.get('DEBUG', False))
+    if DEBUG:
+        print("WARNING: The DEBUG environment is set to True.")
 else:
     DEBUG = True
-
+DEBUG=True
 TEMPLATE_DEBUG = DEBUG
 
 PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
@@ -23,34 +28,21 @@ ADMINS = (
 MANAGERS = ADMINS
 
 if ON_OPENSHIFT:
-    # os.environ['OPENSHIFT_MYSQL_DB_*'] variables can be used with databases created
-    # with rhc cartridge add (see /README in this git repo)
-    # if 'OPENSHIFT_MYSQL_DB_URL' in os.environ:
-    #     url = urlparse.urlparse(os.environ.get('OPENSHIFT_MYSQL_DB_URL'))
-
-    #     DATABASES['default'] = {
-    #         'ENGINE' : 'django.db.backends.mysql',
-    #         'NAME': os.environ['OPENSHIFT_APP_NAME'],
-    #         'USER': url.username,
-    #         'PASSWORD': url.password,
-    #         'HOST': url.hostname,
-    #         'PORT': url.port,
-    #     }
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-           'NAME': 'beta',                      # Or path to database file if using sqlite3.
-           'USER': 'adminHLDykMs',                      # Not used with sqlite3.
-           'PASSWORD': 'KLCcgc_dZW6m',                  # Not used with sqlite3.
-           'HOST': '5270d60b5973cafcc7000144-icheckgames.rhcloud.com',                   # Set to empty string for localhost. Not used with sqlite3.
-           'PORT': '48031',                      # Set to empty string for default. Not used with sqlite3.
+           'NAME': 'alpha',                      # Or path to database file if using sqlite3.
+           'USER': 'adminzV14B16',                      # Not used with sqlite3.
+           'PASSWORD': 'mTjDptLKt8VV',                  # Not used with sqlite3.
+           'HOST': '52cfb41fe0b8cd028a0002e1-icheckgames.rhcloud.com',                   # Set to empty string for localhost. Not used with sqlite3.
+           'PORT': '60461',                      # Set to empty string for default. Not used with sqlite3.
        }
    }
 else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'checkchat',                      # Or path to database file if using sqlite3.
+            'NAME': 'checkit',                      # Or path to database file if using sqlite3.
             'USER': 'root',                      # Not used with sqlite3.
             'PASSWORD': 'root',                  # Not used with sqlite3.
             'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.

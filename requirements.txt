@@ -13,5 +13,5 @@ django-celery
 python-memcached
 django-analytical
 django-fluent-comments
-#git+https://github.com/vertgo/facebook-python-sdk.git#egg=facebook-python-sdk
+facebook-sdk
 redis
