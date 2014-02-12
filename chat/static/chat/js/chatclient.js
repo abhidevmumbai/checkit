@@ -23,7 +23,9 @@ $('document').ready(function(){
 	}; 
 	ws.onmessage = function(event) {
 		// New message arrived
-		var data = event.data
+		foo = event.data;
+		console.log(foo)
+		var data = JSON.parse(event.data);
 		if(data){
 			switch(data.type) {
 				// listener, whenever the server emits 'updatechat', this updates the chat body
@@ -38,8 +40,8 @@ $('document').ready(function(){
 				// listener, whenever the server emits 'updateusers', this updates the username list
 				case "updateusers":
 					$('#users').empty();
-					$.each(data, function(key, value) {
-						$('#users').append('<div>' + key + '</div>');
+					$.each(data.message, function(key, value) {
+						$('#users').append('<div>' + value + '</div>');
 					});
 					break;
 			}
