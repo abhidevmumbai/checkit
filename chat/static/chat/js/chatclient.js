@@ -11,10 +11,10 @@ $('document').ready(function(){
 	  // The connection was opened
 	  // call the server-side function 'adduser' and send one parameter (value of prompt)
 	  var msg = {
-				  	from: "client",
-				  	type: "adduser",
-				  	message: username
-				};
+		  	from: "client",
+		  	type: "adduser",
+		  	message: username
+		};
 	  ws.send(JSON.stringify(msg));
 	}; 
 	ws.onclose = function(event) { 
@@ -60,10 +60,12 @@ $('document').ready(function(){
 		var message = msgInput.val();
 		if(message != ''){
 			// tell server to execute 'sendchat' and send along one parameter
-			ws.send({
+			var msg = {
+				from: "client",
 				type: "sendchat",
 				message: message
-			});
+			}
+			ws.send(JSON.stringify(msg));
 			msgInput.val('');
 		}
 	});

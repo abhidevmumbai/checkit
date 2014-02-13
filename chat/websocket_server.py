@@ -35,7 +35,7 @@ class Server_Client(Thread):
 
     def onservermessage(self, message, msg_type):
         self.log("Message from server ...")
-        self.log(message)
+        # self.log(message)
         self.send(message, msg_type)
     
     def onmessage(self, message, msg_type):
@@ -391,10 +391,11 @@ class Server(Thread):
     
     def sendall(self, message, msg_type, sender=None, protocol=None):
         messageObj = json.loads(message)
-        msg = {}
+        self.log(messageObj.get('type'))
         if sender:
             # Add the connected user to the usermap
             if messageObj.get('type') == 'adduser':
+                self.log('Inside adduser')
                 self.usermap[str(sender.address[0]) + '_' + str(sender.address[1])] = messageObj.get('message')
                 for client in self.client_list:
                     if (client == sender) and (client.protocol == sender.protocol):
@@ -420,26 +421,43 @@ class Server(Thread):
                         "message": self.usermap
                     }
                     client.onservermessage(json.dumps(msg), msg_type)
-            elif messageObj.get('type') == 'disconnect':
-                # Broadcast which user has disconnected
-                msg = {
-                    "from": "server",
-                    "type": "updatechat",
-                    "message": messageObj.get('message') + " has disconnected"
-                }
-                client.onservermessage(json.dumps(msg), msg_type)
-                # Broadcast updateusers message to refresh the user list
-                del self.usermap[messageObj.get('message')]
-                msg = {
-                    "from": "server",
-                    "type": "updateusers",
-                    "message": self.usermap
-                }
-                client.onservermessage(json.dumps(msg), msg_type)
+            elif messageObj.get('type') == 'sendchat':
+                self.log('Inside sendchat')
+                user = ""
+                for client in self.client_list:
+                    user = self.usermap[str(sender.address[0]) + '_' + str(sender.address[1])]
+                    self.log(user)
+
+                    msg = {
+                            "from": "client",
+                            "type": "updatechat",
+                            "username": str(user),
+                            "message": messageObj.get('message')
+                        }
+                    client.onservermessage(json.dumps(msg), msg_type)
         else:
-            for client in self.client_list:
-                if client.protocol == protocol:
-                    client.onservermessage(message, msg_type)
+            # for client in self.client_list:
+            #     if client.protocol == protocol:
+            #         client.onservermessage(message, msg_type)
+            if messageObj.get('type') == 'disconnect':
+                self.log('Inside disconnect')
+                for client in self.client_list:
+                    # Broadcast which user has disconnected
+                    update_msg = {
+                        "from": "server",
+                        "type": "updatechat",
+                        "message": self.usermap[str(messageObj.get('message'))] + " has disconnected"
+                    }
+                    client.onservermessage(json.dumps(update_msg), msg_type)
+                    # Broadcast updateusers message to refresh the user list
+                    self.log(self.usermap[messageObj.get('message')])
+                    del self.usermap[messageObj.get('message')]
+                    msg = {
+                        "from": "server",
+                        "type": "updateusers",
+                        "message": self.usermap
+                    }
+                client.onservermessage(json.dumps(msg), msg_type)
 
     def start_server(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -467,3 +485,4 @@ PORT = 8080
 sys.stderr.write('Starting up server ...\n')
 tcpserver = Server(HOST, PORT,[])
 tcpserver.start_server()
+
