@@ -380,15 +380,20 @@ class Server(Thread):
                 break
 
     def client_thread_closed(self, client_thread):
-        disconnectedClient = str(client_thread.address[0]) + '_' + str(client_thread.address[1])
+        disconnectedClient_id = str(client_thread.address[0]) + '_' + str(client_thread.address[1])
+        disconnectedClient_name = str(self.usermap[str(client_thread.address[0]) + '_' + str(client_thread.address[1])])
+        
         message = {
             "from": "server",
             "type": "disconnect",
-            "message": disconnectedClient
+            "message": disconnectedClient_name
         }
+        # Deleting user from the usermap
+        del self.usermap[disconnectedClient_id]
         self.client_list.remove(client_thread)
         self.sendall(json.dumps(message), 'text')
-    
+        
+
     def sendall(self, message, msg_type, sender=None, protocol=None):
         messageObj = json.loads(message)
         self.log(messageObj.get('type'))
@@ -441,6 +446,7 @@ class Server(Thread):
             #         client.onservermessage(message, msg_type)
             if messageObj.get('type') == 'disconnect':
                 self.log('Inside disconnect')
+                self.log(messageObj.get('message'))
                 for client in self.client_list:
                     # Broadcast which user has disconnected
                     update_msg = {
@@ -450,14 +456,14 @@ class Server(Thread):
                     }
                     client.onservermessage(json.dumps(update_msg), msg_type)
                     # Broadcast updateusers message to refresh the user list
-                    self.log(self.usermap[messageObj.get('message')])
-                    del self.usermap[messageObj.get('message')]
+                    self.log(messageObj.get('message'))
+                    # del self.usermap[messageObj.get('message')]
                     msg = {
                         "from": "server",
                         "type": "updateusers",
                         "message": self.usermap
                     }
-                client.onservermessage(json.dumps(msg), msg_type)
+                    client.onservermessage(json.dumps(msg), msg_type)
 
     def start_server(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
