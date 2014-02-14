@@ -24,7 +24,6 @@ $('document').ready(function(){
 	ws.onmessage = function(event) {
 		// New message arrived
 		foo = event.data;
-		console.log(foo)
 		var data = JSON.parse(event.data);
 		if(data){
 			switch(data.type) {
