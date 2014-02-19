@@ -452,7 +452,7 @@ class Server(Thread):
                     update_msg = {
                         "from": "server",
                         "type": "updatechat",
-                        "message": self.usermap[str(messageObj.get('message'))] + " has disconnected"
+                        "message": messageObj.get('message') + " has disconnected"
                     }
                     client.onservermessage(json.dumps(update_msg), msg_type)
                     # Broadcast updateusers message to refresh the user list
