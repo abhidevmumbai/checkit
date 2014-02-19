@@ -82,6 +82,10 @@ $('document').ready(function(){
 		switch(action){
 			case 'showSmileys':
 				utils.showModal({'title':'Smileys', 'body': $('.smileys').show()});
+				$('.smileys li').bind('click', function(){
+					var smiley = $(this).data('smiley');
+					utils.appendToMsg(smiley);
+				});
 				break;
 			case 'showLink':
 				var tag =  $(this).data('tag');
@@ -92,10 +96,6 @@ $('document').ready(function(){
 
 	$('.modal-dialog .close').bind('click', function(){
 		utils.hideModal();
-	});
-	$('.smileys li').bind('click', function(){
-		var smiley = $(this).data('smiley');
-		utils.appendToMsg(smiley);
 	});
 });
 
