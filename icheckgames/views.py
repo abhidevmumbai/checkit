@@ -132,23 +132,27 @@ class FacebookView(View):
             user, created = User.objects.get_or_create(username=username)
             #Getting profile pic and cover pic urls
             extra_fields = graph.get_connections("me", "", fields=["picture.type(large)", "cover"])
-            avatar = extra_fields['picture']['data']['url']
-            cover = extra_fields['cover']['source']
-            print extra_fields
+            try:
+                avatar = extra_fields['picture']['data']['url']
+            except:
+                pass
+            try:
+                cover = extra_fields['cover']['source']
+            except:
+                pass
+            
             if created:
                 user.first_name = first_name
                 user.last_name = last_name
                 user.email = email
                 user.save()
-                user.userprofile.facebookUser = True
-                user.userprofile.facebookId = fb_id
-                user.userprofile.facebookToken = access_token
                 user.userprofile.avatar = avatar
                 user.userprofile.cover = cover
-            else:
-                user.userprofile.facebookToken = access_token
+
+            user.userprofile.facebookUser = True
+            user.userprofile.facebookId = fb_id
+            user.userprofile.facebookToken = access_token
             user.userprofile.save()
-            
             user = authenticate(username=username)
             login(request, user)
             return HttpResponseRedirect(reverse_lazy('home'))

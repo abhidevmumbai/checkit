@@ -7,7 +7,7 @@ from django.dispatch import receiver
 @receiver(post_save)
 def userCreated(sender, instance, **kwargs):
     if sender.__name__ == "User":
-        mapmeuser, created = UserProfile.objects.get_or_create(user=instance)
+        userprofile, created = UserProfile.objects.get_or_create(user=instance)
 
 
 # Create your models here.
