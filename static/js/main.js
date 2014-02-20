@@ -1,4 +1,10 @@
-$(document).ready(function(){  
+$(document).ready(function(){
+    //A http request to the websocket chatserver
+    $.ajax({
+        url: 'http://chatserver-icheckgames.rhcloud.com/',
+    }).done(function() {
+        // console.log('A http request to the websocket server');
+    });
     //Add this class to display tooltips on any element
     $('.tool_tip').tooltip();
     init_splash_carousel();
