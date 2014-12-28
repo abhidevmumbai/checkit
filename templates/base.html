@@ -41,7 +41,7 @@
                                     <li><a href="{% url logout %}">Log out</a></li>
                                 {% else %}
                                     <li><a class="pull-right {% navactive request 'login' %}" href="{% url login %}">Login</a></li>
-                                    <li><a class="pull-right {% navactive request 'usercreate' %}" href="{% url usercreate %}">Register</a></li>
+                                    <li><a class="pull-right {% navactive request 'register' %}" href="{% url register %}">Register</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -80,7 +80,7 @@
                                 <li><a href="{% url logout %}">Log out</a></li>
                             {% else %}
                                 <li class="{% navactive request 'login' %}"><a class="pull-right" href="{% url login %}">Login</a></li>
-                                <li class="{% navactive request 'usercreate' %}"><a class="pull-right" href="{% url usercreate %}">Register</a></li>
+                                <li class="{% navactive request 'register' %}"><a class="pull-right" href="{% url register %}">Register</a></li>
                             {% endif %}
                         </ul>
                         {% block navbar %}

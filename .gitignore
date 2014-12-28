@@ -10,3 +10,5 @@
 
 # Django settings File #
 settings.py
+CHECKIT/
+node_modules

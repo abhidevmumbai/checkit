@@ -174,7 +174,7 @@ class HomeView(MessageMixin, LoginRequiredMixin, TemplateView):
     User registration view
 '''
 class UserCreate(MessageMixin, FormView):
-    template_name = "usercreate.html"
+    template_name = "register.html"
     form_class = UsersForm
     success_url = reverse_lazy('login')
     
@@ -189,7 +189,7 @@ class UserCreate(MessageMixin, FormView):
 class UserEdit(LoginRequiredMixin, MessageMixin, FormView):
     form_class = UsersEditForm
     success_url = reverse_lazy('home')
-    template_name = "useredit.html"
+    template_name = "editProfile.html"
     
     def get_context_data(self, **kwargs):
         context = super(UserEdit, self).get_context_data(**kwargs)

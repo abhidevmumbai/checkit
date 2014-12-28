@@ -7,7 +7,8 @@ from captcha.fields import CaptchaField
 class UsersForm(UserCreationForm):
     first_name = forms.CharField(max_length=255,required=True)
     last_name = forms.CharField(max_length=255,required=True)
-    username = forms.EmailField(required=True)
+    username = forms.CharField(max_length=30,required=True)
+    email = forms.EmailField(required=True)
     captcha = CaptchaField()
     
     class Meta:
@@ -16,19 +17,21 @@ class UsersForm(UserCreationForm):
     
     def save(self, commit=True):
         user = super(UsersForm, self).save(commit=False)
-        user.email = self.cleaned_data["username"]
+        user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+        user.username = self.cleaned_data["username"]
         if commit:
             user.save()
         return user
 
 class UsersEditForm(forms.Form):
+    cover = forms.URLField(required=False)
+    avatar = forms.URLField(required=False)
     first_name = forms.CharField(max_length=255,required=True)
     last_name = forms.CharField(max_length=255,required=True)
+    username = forms.CharField(max_length=255,required=True)
     #email = forms.EmailField(required=True)
-    cover = forms.URLField(required=False)
-    avatar = forms.URLField(required=False)        
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -38,6 +41,12 @@ class UsersEditForm(forms.Form):
             self.fields['new_password1'] = forms.CharField(required=False)
             self.fields['new_password2'] = forms.CharField(required=False)
             self.fields['changepassword'] = forms.BooleanField(required=False)
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.filter(username=username).exists():
+            raise forms.ValidationError('Username "%s" is already in use.' % username)
+        return username
 
     def clean_new_password2(self):
         password1 = self.cleaned_data['new_password1']
@@ -61,10 +70,12 @@ class UsersEditForm(forms.Form):
         if self.cleaned_data.get('changepassword'):
             user.set_password(self.cleaned_data['new_password1'])
         #user.email = self.cleaned_data["email"]
+        user.userprofile.cover = self.cleaned_data['cover']
+        user.userprofile.avatar = self.cleaned_data['avatar']
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
-        user.userprofile.avatar = self.cleaned_data['avatar']
-        user.userprofile.cover = self.cleaned_data['cover']
+        user.username = self.cleaned_data["username"]
+        
         if commit:
             user.save()
             user.userprofile.save()
