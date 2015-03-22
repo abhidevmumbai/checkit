@@ -495,9 +495,10 @@ class MyGameListView(LoginRequiredMixin, MessageMixin, ListView):
             gamelinks = user.gamemap_set.all()
         return gamelinks
 
-def MyPublicGameListView(request, id):
+def MyPublicGameListView(request, username):
+    print(username);
     try:
-        user = User.objects.all().get(id=id)
+        user = User.objects.all().get(username=username)
         gamelinks = GameMap.objects.all().filter(user=user)
         games = {}
         current = []
